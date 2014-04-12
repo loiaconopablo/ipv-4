@@ -33,7 +33,7 @@ public class Pelota extends GameComponent<PongScene> {
 	private void initRules() {
 		this.rules.add(new ChoqueADerechaRule());
 		this.rules.add(new ChoqueAIzquierdaRule());
-		this.rules.add(new ChoqueAArriba());
+		this.rules.add(new PerdidaDeVidaRule());
 		this.rules.add(new ChoqueAAbajo());
 		this.rules.add(new DesplazamientoLibreRule());
 	}
@@ -70,6 +70,13 @@ public class Pelota extends GameComponent<PongScene> {
 
 	public double getVelocidadStep() {
 		return velocidadStep;
+	}
+
+	public void centrar() {
+		this.setX(this.xInicial);
+		this.setY(this.yInicial);
+		this.direccion = this.direccionInicial;
+		this.velocidad = this.velocidadInicial;
 	}
 
 	public void setVelocidadStep(double velocidadStep) {
