@@ -18,7 +18,6 @@ public abstract class ChoqueLateralRule implements PelotaRule {
 	protected void invertirX(Pelota pelota) {
 		pelota.setDireccion(new Vector2D(-pelota.getDireccion().getX(), pelota.getDireccion().getY()));
 	}
- 
-	
+
 
 }

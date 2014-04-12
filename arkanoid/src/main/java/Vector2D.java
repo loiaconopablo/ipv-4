@@ -1,10 +1,5 @@
 
 
-/**
- * inmutable
- * @author leo
- *
- */
 public class Vector2D {
 
 	private double x;

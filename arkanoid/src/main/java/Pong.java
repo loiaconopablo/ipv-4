@@ -26,6 +26,16 @@ public class Pong extends Game {
 
 	public GameScene buildPongScene() {
 		PongScene pongScene = new PongScene();
+		
+		int raquetaAncho = (int) dimension.getWidth() / 8;
+		int raquetaAlto = 3;
+		double raquetaX = dimension.getWidth() / 2 - raquetaAncho / 2;
+		
+		pongScene.setRaqueta(new Raqueta(raquetaX, 9 * dimension
+				.getHeight() / 10, raquetaAncho, raquetaAlto, Color.BLACK,
+				Double.parseDouble("500"), 0, dimension.getWidth(),
+				Tuning.newInstance("player.strategy", RaquetaPlayerStrategy.class)));
+
 		pongScene.setPelota(new Pelota((int) dimension.getWidth()
 				/ Tuning.getInteger("pelota.radio"), dimension.getWidth()
 				/ Tuning.getDouble("pelota.x", 2.0), dimension.getHeight()
@@ -34,9 +44,6 @@ public class Pong extends Game {
 				"pelota.direccion.y", 1.0)), Tuning.getDouble("pelota.speed", 0.7)));
 		pongScene.getPelota().setVelocidadStep(Tuning.getDouble("pelota.delta"));
 
-//		int raquetaAncho = (int) dimension.getWidth() / 8;
-//		int raquetaAlto = 3;
-//		double raquetaX = dimension.getWidth() / 2 - raquetaAncho / 2;
 
 		return pongScene;
 	}
