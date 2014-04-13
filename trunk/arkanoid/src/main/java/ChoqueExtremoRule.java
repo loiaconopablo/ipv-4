@@ -1,5 +1,7 @@
 
 
+
+
 public abstract class ChoqueExtremoRule implements PelotaRule{
 	
 	@Override

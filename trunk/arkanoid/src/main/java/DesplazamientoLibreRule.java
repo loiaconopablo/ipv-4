@@ -1,6 +1,7 @@
 
 
 
+
 public class DesplazamientoLibreRule implements PelotaRule {
 
 	@Override
