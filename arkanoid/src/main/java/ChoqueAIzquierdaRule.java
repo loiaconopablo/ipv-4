@@ -1,5 +1,7 @@
 
 
+
+
 public class ChoqueAIzquierdaRule extends ChoqueLateralRule {
 
 	@Override

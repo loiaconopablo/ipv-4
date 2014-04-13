@@ -1,5 +1,6 @@
 
 
+
 public interface PelotaRule {
 
 	boolean mustApply(Pelota pelota, Vector2D nuevaPosicion, PongScene scene);

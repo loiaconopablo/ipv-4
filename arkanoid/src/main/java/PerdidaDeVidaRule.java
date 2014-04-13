@@ -1,5 +1,7 @@
 
 
+
+
 public class PerdidaDeVidaRule implements PelotaRule {
 
 	//private Marcador marcador;

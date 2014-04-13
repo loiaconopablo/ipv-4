@@ -45,6 +45,17 @@ public class Pong extends Game {
 		pongScene.getPelota().setVelocidadStep(Tuning.getDouble("pelota.delta"));
 
 
+		pongScene.setBloque(new Bloque(raquetaX/2,2 * dimension.getHeight() / 10, raquetaAncho, 10,
+				Color.GRAY));
+
+		pongScene.setBloque(new Bloque(raquetaX,3 * dimension.getHeight() / 10, raquetaAncho*2 , 10,
+				Color.GRAY));
+		pongScene.setBloque(new Bloque(raquetaX*2,1 * dimension.getHeight() / 10, raquetaAncho/2, 10,
+				Color.GRAY));
+		pongScene.setBloque(new Bloque(30,1 * dimension.getHeight() / 10, raquetaAncho+10, 10,
+				Color.GRAY));
+		
+		
 		return pongScene;
 	}
 
