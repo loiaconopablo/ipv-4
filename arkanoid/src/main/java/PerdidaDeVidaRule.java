@@ -13,7 +13,7 @@ public class PerdidaDeVidaRule implements PelotaRule {
 
 	@Override
 	public boolean mustApply(Pelota pelota, Vector2D nuevaPosicion,
-			PongScene scene) {
+			ArkanoidScene scene) {
 		return this.perdio(pelota, nuevaPosicion);
 	}
 
@@ -21,7 +21,7 @@ public class PerdidaDeVidaRule implements PelotaRule {
 		return nuevaPosicion.getY() > pelota.getGame().getDisplayHeight();}
 	
 	@Override
-	public void apply(Pelota pelota, Vector2D nuevaPosicion, PongScene scene) {
+	public void apply(Pelota pelota, Vector2D nuevaPosicion, ArkanoidScene scene) {
 		pelota.centrar();
 	
 		scene.getRaqueta().centrar();

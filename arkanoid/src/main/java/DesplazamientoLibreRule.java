@@ -6,12 +6,12 @@ public class DesplazamientoLibreRule implements PelotaRule {
 
 	@Override
 	public boolean mustApply(Pelota pelota, Vector2D nuevaPosicion,
-			PongScene scene) {
+			ArkanoidScene scene) {
 		return true;
 	}
 
 	@Override
-	public void apply(Pelota pelota, Vector2D nuevaPosicion, PongScene scene) {
+	public void apply(Pelota pelota, Vector2D nuevaPosicion, ArkanoidScene scene) {
 		pelota.setX(nuevaPosicion.getX());
 		pelota.setY(nuevaPosicion.getY());
 	}
