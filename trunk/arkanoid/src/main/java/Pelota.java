@@ -8,7 +8,7 @@ import com.uqbar.vainilla.DeltaState;
 import com.uqbar.vainilla.GameComponent;
 import com.uqbar.vainilla.appearances.Circle;
 
-public class Pelota extends GameComponent<PongScene> {
+public class Pelota extends GameComponent<ArkanoidScene> {
 
 	private Vector2D direccion;
 	private double velocidad;
@@ -30,6 +30,7 @@ public class Pelota extends GameComponent<PongScene> {
 	}
 	
 	private void initRules() {
+		this.rules.add(new ColisionRule(this.getScene().getRaqueta()));
 		this.rules.add(new ChoqueADerechaRule());
 		this.rules.add(new ChoqueAIzquierdaRule());
 		this.rules.add(new PerdidaDeVidaRule());

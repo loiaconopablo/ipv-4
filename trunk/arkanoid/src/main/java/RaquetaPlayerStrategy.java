@@ -9,7 +9,7 @@ public class RaquetaPlayerStrategy implements RaquetaStrategy {
 	private Key rigthKey = Key.RIGHT;
 	
 	@Override
-	public void update(Raqueta raqueta, PongScene scene, DeltaState deltaState) {
+	public void update(Raqueta raqueta, ArkanoidScene scene, DeltaState deltaState) {
 		if(deltaState.isKeyBeingHold(rigthKey)) {
 			raqueta.derecha(deltaState.getDelta());
 		}
