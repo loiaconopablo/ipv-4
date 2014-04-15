@@ -44,13 +44,14 @@ public class Arkanoid extends Game {
 				"pelota.direccion.y", 1.0)), Tuning.getDouble("pelota.speed", 0.7)));
 		arkanoidScene.getPelota().setVelocidadStep(Tuning.getDouble("pelota.delta"));
 		
-		int currentX= 25;
+		int alto = 25;
+		int currentX= alto;
 		for (int i = 0; i < 4; i++) {
-			arkanoidScene.addBloque(new BloqueSimple(Color.CYAN, (int) (dimension.getWidth() / 5), 25, currentX, 25));
-			arkanoidScene.addBloque(new BloqueSimple(Color.CYAN, (int) (dimension.getWidth() / 5), 25, currentX, 25));
-			arkanoidScene.addBloque(new BloqueSimple(Color.CYAN, (int) (dimension.getWidth() / 5), 25, currentX, 75));
-			arkanoidScene.addBloque(new BloqueSimple(Color.CYAN, (int) (dimension.getWidth() / 5), 25, currentX, 125));
-			currentX = currentX + (int) (dimension.getWidth() / 5) + 25;
+			double anchoBloque = dimension.getWidth() / 5;
+			arkanoidScene.addBloque(new BloqueSimple(Color.CYAN, (int) anchoBloque, alto, currentX, alto));
+			arkanoidScene.addBloque(new BloqueSimple(Color.CYAN, (int) anchoBloque, alto, currentX, 75));
+			arkanoidScene.addBloque(new BloqueSimple(Color.CYAN, (int) anchoBloque, alto, currentX, 125));
+			currentX = currentX + (int) anchoBloque + alto;
 		}
 
 		

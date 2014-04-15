@@ -11,6 +11,4 @@ public abstract class Bloque extends GameComponent<ArkanoidScene>{
 
 	public abstract void update(Bloque bloque, ArkanoidScene scene, DeltaState deltaState);
 
-
-
 }

@@ -35,6 +35,9 @@ public class Pelota extends GameComponent<ArkanoidScene> {
 		this.rules.add(new ChoqueAIzquierdaRule());
 		this.rules.add(new PerdidaDeVidaRule());
 		this.rules.add(new ChoqueAAbajo());
+		for (Bloque bloque : this.getScene().getBloques() ) {
+			this.rules.add(new ColisionRule(bloque));
+		}
 		this.rules.add(new DesplazamientoLibreRule());
 	}
 

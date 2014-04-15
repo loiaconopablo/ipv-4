@@ -34,4 +34,8 @@ public class ArkanoidScene extends GameScene {
 		this.bloques.add(bloque);
 		this.addComponent(bloque);
 	}
+
+	public List<Bloque> getBloques() {
+		return bloques;
+	}
 }
