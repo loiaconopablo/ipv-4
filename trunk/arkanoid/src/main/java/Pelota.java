@@ -36,7 +36,7 @@ public class Pelota extends GameComponent<ArkanoidScene> {
 		this.rules.add(new PerdidaDeVidaRule());
 		this.rules.add(new ChoqueAAbajo());
 		for (Bloque bloque : this.getScene().getBloques() ) {
-			this.rules.add(new ColisionRule(bloque));
+			this.rules.add(new ColisionBloqueRule(bloque));
 		}
 		this.rules.add(new DesplazamientoLibreRule());
 	}
@@ -55,7 +55,7 @@ public class Pelota extends GameComponent<ArkanoidScene> {
 	}
 
 
-	private List<PelotaRule> getRules() {
+	public List<PelotaRule> getRules() {
 		if(this.rules.isEmpty()) {
 			this.initRules();
 		}
@@ -84,6 +84,11 @@ public class Pelota extends GameComponent<ArkanoidScene> {
 
 	public void setVelocidadStep(double velocidadStep) {
 		this.velocidadStep = velocidadStep;
+	}
+
+	public void removeRule(ColisionBloqueRule colisionBloqueRule) {
+		this.getRules().remove(colisionBloqueRule);
+		
 	}
 	
 }

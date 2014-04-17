@@ -44,6 +44,9 @@ public class Arkanoid extends Game {
 				"pelota.direccion.y", 1.0)), Tuning.getDouble("pelota.speed", 0.7)));
 		arkanoidScene.getPelota().setVelocidadStep(Tuning.getDouble("pelota.delta"));
 		
+		arkanoidScene.setMarcador(new Marcador(dimension.getWidth() / 2,
+				dimension.getHeight() / 2));
+		
 		int alto = 25;
 		int currentX= alto;
 		for (int i = 0; i < 4; i++) {

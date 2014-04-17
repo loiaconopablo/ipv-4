@@ -10,6 +10,7 @@ public class ArkanoidScene extends GameScene {
 	private Pelota pelota;
 	private Raqueta raqueta;
 	private List<Bloque> bloques = new ArrayList<Bloque>();
+	private Marcador marcador;
 
 
 	public Pelota getPelota() {
@@ -38,4 +39,15 @@ public class ArkanoidScene extends GameScene {
 	public List<Bloque> getBloques() {
 		return bloques;
 	}
+
+	public Marcador getMarcador() {
+		return marcador;
+	}
+
+	public void setMarcador(Marcador marcador) {
+		this.marcador = marcador;
+		this.addComponent(marcador);
+	}
+
+	
 }
