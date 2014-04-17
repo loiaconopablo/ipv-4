@@ -19,12 +19,12 @@ public class Arkanoid extends Game {
 
 	@Override
 	protected void setUpScenes() {
-		GameScene pongScene = buildPongScene();
+		GameScene arkanoidScene = buildArkanoidScene();
 
-		this.setCurrentScene(pongScene);
+		this.setCurrentScene(arkanoidScene);
 	}
 
-	public GameScene buildPongScene() {
+	public GameScene buildArkanoidScene() {
 		ArkanoidScene arkanoidScene = new ArkanoidScene();
 		
 		int raquetaAncho = (int) dimension.getWidth() / 8;
@@ -61,6 +61,7 @@ public class Arkanoid extends Game {
 		return arkanoidScene;
 	}
 
+
 	@Override
 	public Dimension getDisplaySize() {
 		return dimension;
@@ -73,5 +74,10 @@ public class Arkanoid extends Game {
 
 	public static void main(String[] args) {
 		new DesktopGameLauncher(new Arkanoid()).launch();
+	}
+
+	public GameScene buildEndScene() {
+		return new EndScene( dimension.getWidth() / 6,
+				dimension.getHeight() / 10);
 	}
 }
