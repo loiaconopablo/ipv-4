@@ -1,14 +1,8 @@
 
-
-
-
 public class PerdidaDeVidaRule implements PelotaRule {
-
-	//private Marcador marcador;
 	
 	public PerdidaDeVidaRule() {
 		super();
-		//this.marcador = marcador;
 	}
 
 	@Override
@@ -23,21 +17,16 @@ public class PerdidaDeVidaRule implements PelotaRule {
 	@Override
 	public void apply(Pelota pelota, Vector2D nuevaPosicion, ArkanoidScene scene) {
 		pelota.centrar();
-	
 		scene.getRaqueta().centrar();
-	//	this.changeMarcador();
-	//	this.revisarFinJuego(scene);
+		scene.getMarcadorVidas().bajarMarcador();
+		this.revisarFinJuego(scene);
 	}
 
-//	protected void revisarFinJuego(PongScene scene) {
-//		if(marcador.finJuego(scene)) {
-//			scene.fin();
-//		}
-//	}
-//
-//	protected void changeMarcador() {
-//		this.marcador.gol();
-//	}
+	protected void revisarFinJuego(ArkanoidScene scene) {
+		if(scene.getMarcadorVidas().fin()) {
+			scene.fin();
+		}
+	}
 
 
 }

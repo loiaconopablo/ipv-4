@@ -16,7 +16,7 @@ public class ColisionBloqueRule extends ColisionRule{
 		pelota.removeRule(this);
 		this.objetoArebotar.destroy();
 		scene.getBloques().remove(objetoArebotar);
-		scene.getMarcador().gol();		
+		scene.getMarcadorPuntos().subirMarcador();		
 		scene.revisarFinDelJuego();
 		
 	}
