@@ -10,9 +10,9 @@ public class Marcador extends GameComponent<ArkanoidScene> {
 
 	private int value;
 	
-	public Marcador(double x, double y) {		
-		super(new Label(new Font("verdana",  Font.BOLD, 36), Color.RED, "0"), x, y);
-		this.value = 0;
+	public Marcador(double x, double y, Color color, int valorInicial) {		
+		super(new Label(new Font("verdana",  Font.BOLD, 36), color, "0"), x, y);
+		this.value = valorInicial;
 	}
 
 	public int getValue() {
@@ -23,14 +23,22 @@ public class Marcador extends GameComponent<ArkanoidScene> {
 		this.value = value;
 	}
 	
-	public void gol() {
+	public void subirMarcador() {
 		this.setValue(this.getValue() + 1);
+	}
+	
+	public void bajarMarcador() {
+		this.setValue(this.getValue() - 1);
 	}
 	
 	@Override
 	public void update(DeltaState deltaState) {
 		((Label)this.getAppearance()).setText(Integer.toString(this.getValue())); 
 		super.update(deltaState);
+	}
+	
+	public boolean fin() {
+		return this.getValue()==0;
 	}
 	
 	

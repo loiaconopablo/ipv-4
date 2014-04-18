@@ -1,13 +1,20 @@
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.util.ArrayList;
 import java.util.List;
+
 import com.uqbar.vainilla.GameScene;
+import com.uqbar.vainilla.appearances.Label;
 
 public class ArkanoidScene extends GameScene {
 
 	private Pelota pelota;
 	private Raqueta raqueta;
 	private List<Bloque> bloques = new ArrayList<Bloque>();
-	private Marcador marcador;
+	private Marcador marcadorVidas;
+	private Marcador marcadorPuntos;
+
 
 	public Pelota getPelota() {
 		return pelota;
@@ -36,26 +43,46 @@ public class ArkanoidScene extends GameScene {
 		return bloques;
 	}
 
-	public Marcador getMarcador() {
-		return marcador;
+	public Marcador getMarcadorVidas() {
+		return marcadorVidas;
 	}
 
-	public void setMarcador(Marcador marcador) {
-		this.marcador = marcador;
-		this.addComponent(marcador);
+	public void setMarcadorVidas(Marcador marcadorVidas) {
+		this.marcadorVidas = marcadorVidas;
+		this.addComponent(marcadorVidas);
+	}
+
+	public Marcador getMarcadorPuntos() {
+		return marcadorPuntos;
+	}
+
+	public void setMarcadorPuntos(Marcador marcadorPuntos) {
+		this.marcadorPuntos = marcadorPuntos;
+		this.addComponent(marcadorPuntos);
+	}
+
+	public ArkanoidScene agregarBloques(ArkanoidScene arkanoidScene, Dimension dimension) {
+		int alto = 25;
+		int currentX = alto;
+		for (int i = 0; i < 4; i++) {
+			double anchoBloque = dimension.getWidth() / 5;
+			arkanoidScene.addBloque(new BloqueSimple(Color.CYAN, (int) anchoBloque, alto, currentX, alto));
+			arkanoidScene.addBloque(new BloqueSimple(Color.CYAN, (int)anchoBloque, alto, currentX, 75));
+			arkanoidScene.addBloque(new BloqueSimple(Color.CYAN, (int) anchoBloque, alto, currentX, 125));
+			currentX = currentX + (int) anchoBloque + alto;
+		}
+		return arkanoidScene;
 	}
 
 	public void revisarFinDelJuego() {
 		if (this.getBloques().isEmpty()) {
 			this.fin();
 		}
-
 	}
 
-	
-	private void fin() {
+	void fin() {
 		this.getGame().setCurrentScene(
-				((Arkanoid) this.getGame()).buildEndScene());
+				((Arkanoid) this.getGame()).buildEndScene(this.getMarcadorVidas(),this));
 
 	}
 
