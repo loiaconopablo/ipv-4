@@ -7,6 +7,7 @@ import java.util.List;
 import com.uqbar.vainilla.DeltaState;
 import com.uqbar.vainilla.GameComponent;
 import com.uqbar.vainilla.appearances.Circle;
+import com.uqbar.vainilla.appearances.Sprite;
 
 public class Pelota extends GameComponent<ArkanoidScene> {
 
@@ -18,9 +19,11 @@ public class Pelota extends GameComponent<ArkanoidScene> {
 	private double velocidadInicial;
 	private double velocidadStep = 0.1;
 	private List<PelotaRule> rules = new ArrayList<PelotaRule>();
+	//private static Sprite image = Sprite.fromImage("redball.png");
 	
 	public Pelota(int radio, double xInicial, double yInicial, Vector2D direccionInicial, double velocidadInicial) {
 		super(new Circle(Color.RED, radio), xInicial, xInicial);
+		//super(image, xInicial, xInicial);
 		this.xInicial = xInicial;
 		this.yInicial = yInicial;
 		this.direccion = direccionInicial.asVersor();
@@ -28,7 +31,7 @@ public class Pelota extends GameComponent<ArkanoidScene> {
 		this.velocidad = velocidadInicial;
 		this.velocidadInicial = velocidadInicial;
 	}
-	
+
 	private void initRules() {
 		this.rules.add(new ColisionRule(this.getScene().getRaqueta()));
 		this.rules.add(new ChoqueADerechaRule());
