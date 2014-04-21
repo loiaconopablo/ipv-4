@@ -19,11 +19,11 @@ public class Pelota extends GameComponent<ArkanoidScene> {
 	private double velocidadInicial;
 	private double velocidadStep = 0.1;
 	private List<PelotaRule> rules = new ArrayList<PelotaRule>();
-	//private static Sprite image = Sprite.fromImage("redball.png");
+	private static Sprite image = Sprite.fromImage("redball.png");
 	
 	public Pelota(int radio, double xInicial, double yInicial, Vector2D direccionInicial, double velocidadInicial) {
-		super(new Circle(Color.RED, radio), xInicial, xInicial);
-		//super(image, xInicial, xInicial);
+		//super(new Circle(Color.RED, radio), xInicial, xInicial);
+		super(image, xInicial, xInicial);
 		this.xInicial = xInicial;
 		this.yInicial = yInicial;
 		this.direccion = direccionInicial.asVersor();
