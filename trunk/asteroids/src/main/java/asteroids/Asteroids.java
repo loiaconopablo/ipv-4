@@ -22,6 +22,13 @@ public class Asteroids extends Game {
 	@Override
 	protected void setUpScenes() {
 		GameScene asteroidsScene = buildAsteroidsScene();
+		
+		int naveAncho = (int) dimension.getWidth() / 8;
+		int naveAlto = 5;
+		double x = dimension.getWidth() / 2;
+		double y = dimension.getHeight() / 2; 
+		
+		Nave nave = new Nave(Color.BLACK, naveAncho, naveAlto, x, y, Double.parseDouble("500"), 0, dimension.getWidth(),0, dimension.getHeight());
 
 		this.setCurrentScene(asteroidsScene);
 		this.setPrincipalScene(asteroidsScene);
