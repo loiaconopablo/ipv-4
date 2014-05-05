@@ -4,6 +4,8 @@ package asteroids;
 import java.awt.Color;
 import java.awt.Dimension;
 
+import scenes.AsteroidsScene;
+
 import com.uqbar.vainilla.DesktopGameLauncher;
 import com.uqbar.vainilla.Game;
 import com.uqbar.vainilla.GameScene;
