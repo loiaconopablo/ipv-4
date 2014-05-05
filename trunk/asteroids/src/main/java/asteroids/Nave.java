@@ -2,6 +2,8 @@ package asteroids;
 
 import java.awt.Color;
 
+import scenes.AsteroidsScene;
+
 import com.uqbar.vainilla.GameComponent;
 import com.uqbar.vainilla.appearances.Rectangle;
 

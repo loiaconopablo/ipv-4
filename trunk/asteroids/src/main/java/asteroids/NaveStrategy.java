@@ -1,5 +1,7 @@
 package asteroids;
 
+import scenes.AsteroidsScene;
+
 import com.uqbar.vainilla.DeltaState;
 import com.uqbar.vainilla.events.constants.Key;
 
