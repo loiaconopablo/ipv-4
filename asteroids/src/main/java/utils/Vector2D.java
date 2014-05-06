@@ -1,6 +1,9 @@
-package asteroids;
+package utils;
 
 
+/**
+ *
+ */
 public class Vector2D {
 
 	private double x;
@@ -76,6 +79,14 @@ public class Vector2D {
 		if (Double.doubleToLongBits(y) != Double.doubleToLongBits(other.y))
 			return false;
 		return true;
+	}
+	
+	public Vector2D toPolar() {
+		return new Vector2D(this.getModule(), Math.atan2(y, x));
+	}
+	
+	public Vector2D toCartesians() {
+		return new Vector2D(x * Math.cos(y), x * Math.sin(y));
 	}
 
 }

@@ -1,4 +1,4 @@
-package asteroids;
+package utils;
 
 
 import java.awt.Color;
