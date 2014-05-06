@@ -16,6 +16,7 @@ public class Nave extends GameComponent<AsteroidsScene>{
 	private double yMin;
 	private double yMax;
 	private double velocidad;
+	private double acelaracion;
 	private NaveStrategy strategy = new NaveStrategy();
 		
 	public Nave(Color color, int ancho, int alto, double x, double y, double velocidad, double xMin, double xMax, double yMin, double yMax){
@@ -79,5 +80,13 @@ public class Nave extends GameComponent<AsteroidsScene>{
 
 	public void setVelocidad(double velocidad) {
 		this.velocidad = velocidad;
+	}
+
+	public double getAcelaracion() {
+		return acelaracion;
+	}
+
+	public void setAcelaracion(double acelaracion) {
+		this.acelaracion = acelaracion;
 	}
 }

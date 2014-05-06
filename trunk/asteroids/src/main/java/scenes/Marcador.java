@@ -7,7 +7,7 @@ import com.uqbar.vainilla.GameComponent;
 import com.uqbar.vainilla.appearances.Appearance;
 import com.uqbar.vainilla.appearances.Label;
 
-public class Marcador extends GameComponent<AsteroideScene> {
+public class Marcador extends GameComponent<AsteroidsScene> {
 
 	private int value;
 	

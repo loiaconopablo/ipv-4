@@ -3,6 +3,8 @@ package scenes;
 import java.util.ArrayList;
 import java.util.List;
 
+import asteroids.Bala;
+import asteroids.Bloque;
 import asteroids.Nave;
 
 import com.uqbar.vainilla.GameScene;
@@ -19,18 +21,28 @@ public class AsteroidsScene extends GameScene {
 	public Nave getNave() {
 		return nave;
 	}
+	
 
 	public void setNave(Nave nave) {
 		this.addComponent(nave);
 		this.nave = nave;
 	}
 
+	public void addBala (Bala bala){
+		this.addComponent(bala);
+		this.balas.add(bala);
+	}
+	
+	public void addBloque (Bloque bloque){
+		this.addComponent(bloque);
+		this.bloques.add(bloque);
+	}
+	
 	public List<Bala> getBalas() {
 		return balas;
 	}
 
 	public void setBalas(List<Bala> balas) {
-		this.addComponent(balas);
 		this.balas = balas;
 	}
 
@@ -39,7 +51,6 @@ public class AsteroidsScene extends GameScene {
 	}
 
 	public void setBloques(List<Bloque> bloques) {
-		this.addComponent(bloques);
 		this.bloques = bloques;
 	}
 
@@ -74,17 +85,17 @@ public class AsteroidsScene extends GameScene {
 //		return arkanoidScene;
 //	}
 
-	public void revisarFinDelJuego() {
-		if (this.getBloques().isEmpty()) {
-			this.fin();
-		}
-	}
+//	public void revisarFinDelJuego() {
+//		if (this.getBloques().isEmpty()) {
+//			this.fin();
+//		}
+//	}
 
-	void fin() {
-		this.getGame().setCurrentScene(
-				((Asteroide) this.getGame()).buildEndScene(this.getMarcadorVidas(),this));
-
-	}
+//	void fin() {
+//		this.getGame().setCurrentScene(
+//				((Asteroide) this.getGame()).buildEndScene(this.getMarcadorVidas(),this));
+//
+//	}
 
 }
 

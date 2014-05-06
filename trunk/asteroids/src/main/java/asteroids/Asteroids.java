@@ -5,10 +5,12 @@ import java.awt.Color;
 import java.awt.Dimension;
 
 import scenes.AsteroidsScene;
+import utils.Tuning;
 
 import com.uqbar.vainilla.DesktopGameLauncher;
 import com.uqbar.vainilla.Game;
 import com.uqbar.vainilla.GameScene;
+import com.uqbar.vainilla.appearances.Rectangle;
 
 public class Asteroids extends Game {
 
@@ -30,7 +32,7 @@ public class Asteroids extends Game {
 		double x = dimension.getWidth() / 2;
 		double y = dimension.getHeight() / 2; 
 		
-		Nave nave = new Nave(Color.BLACK, naveAncho, naveAlto, x, y, Double.parseDouble("500"), 0, dimension.getWidth(),0, dimension.getHeight());
+		//Nave nave = new Nave(Color.BLACK, naveAncho, naveAlto, x, y, Double.parseDouble("500"), 0, dimension.getWidth(),0, dimension.getHeight());
 
 		this.setCurrentScene(asteroidsScene);
 		this.setPrincipalScene(asteroidsScene);
@@ -38,7 +40,7 @@ public class Asteroids extends Game {
 
 	public GameScene buildAsteroidsScene() {
 		AsteroidsScene asteroidsScene = new AsteroidsScene();
-
+		asteroidsScene.addBloque(new Bloque(new Rectangle(Color.BLUE, 50,50),70,70));
 		return asteroidsScene;
 	}
 
