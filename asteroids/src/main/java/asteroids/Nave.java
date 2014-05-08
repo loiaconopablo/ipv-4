@@ -1,27 +1,29 @@
 package asteroids;
 
 import java.awt.Color;
-
 import scenes.AsteroidsScene;
-
+import utils.Vector2D;
+import com.uqbar.vainilla.DeltaState;
 import com.uqbar.vainilla.GameComponent;
+import com.uqbar.vainilla.GameScene;
 import com.uqbar.vainilla.appearances.Rectangle;
+import com.uqbar.vainilla.events.constants.Key;
 
-public class Nave extends GameComponent<AsteroidsScene>{
-	
+public class Nave extends GameComponent<AsteroidsScene> {
+
 	private double xInicial;
 	private double yInicial;
 	private double xMin;
 	private double xMax;
 	private double yMin;
 	private double yMax;
-	private double velocidad;
-	private double acelaracion;
-	private NaveStrategy strategy = new NaveStrategy();
-		
-	public Nave(Color color, int ancho, int alto, double x, double y, double velocidad, double xMin, double xMax, double yMin, double yMax){
+
+	private Vector2D velocidadPolar = new Vector2D(0, 0);
+	private double rapidezDisparo = 100;
+
+	public Nave(Color color, int ancho, int alto, double x, double y,
+			double xMin, double xMax, double yMin, double yMax) {
 		super(new Rectangle(color, ancho, alto), x, y);
-		this.setVelocidad(velocidad);
 		this.xInicial = x;
 		this.yInicial = y;
 		this.setxMin(xMin);
@@ -29,18 +31,87 @@ public class Nave extends GameComponent<AsteroidsScene>{
 		this.setyMin(yMin);
 		this.setyMax(yMax);
 	}
-	
-	public void derecha(double delta) {
-		this.setX(Math.max(this.getX()-getVelocidad()*delta, getxMin()));
-		
+
+	@Override
+	public void update(DeltaState deltaState) {
+		actualizarVelocidad(deltaState);
+		actualizarPosicion(deltaState.getDelta());
 	}
 
-	public void izquierda(double delta) {
-		this.setX(Math.min(getxMax() - this.getAppearance().getWidth(), this.getX()+getVelocidad()*delta));
-		
+	private void actualizarVelocidad(DeltaState deltaState) {
+		double deltaAngle = Math.PI; // media vuelta por segundo
+		double deltaSpeed = 5;
+
+		double ro = velocidadPolar.getX();
+		double theta = velocidadPolar.getY();
+
+		if (deltaState.isKeyBeingHold(Key.UP)) {
+			ro += deltaSpeed * deltaState.getDelta();
+		} else if (deltaState.isKeyBeingHold(Key.DOWN)) {
+			ro = Math.max(0, ro - (deltaSpeed * deltaState.getDelta()));
+		} else if (deltaState.isKeyBeingHold(Key.RIGHT)) {
+			theta += deltaAngle * deltaState.getDelta();
+			// Si me pase del PI le resto una vuelta
+			theta = theta > Math.PI ? theta - 2 * Math.PI : theta;
+		} else if (deltaState.isKeyBeingHold(Key.LEFT)) {
+			theta = theta - (deltaAngle * deltaState.getDelta());
+			// Si me pase del -PI le sumo una vuelta
+			theta = theta < -Math.PI ? theta + 2 * Math.PI : theta;
+		}
+		if (deltaState.isKeyPressed(Key.ENTER)) {
+			disparar();
+		}
+		velocidadPolar = new Vector2D(ro, theta);
 	}
-	
-	//Accesors
+
+	private void disparar() {
+		this.getScene().addComponent(
+				new Bala<GameScene>(this.getX() + this.getAncho() / 2, this
+						.getY() + this.getAncho() / 2,
+
+				this.velocidadPolar.suma(new Vector2D(rapidezDisparo, 0))
+						.toCartesians()));
+	}
+
+	private void actualizarPosicion(double delta) {
+
+		Vector2D cartesianPosition = getPosition().suma(
+				getPolarVelocity().toCartesians().producto(delta));
+
+		setXVisible(cartesianPosition.getX());
+		setYVisible(cartesianPosition.getY());
+	}
+
+	public double getAncho() {
+		return this.getAppearance().getWidth();
+
+	}
+
+	// Accesors
+
+	public Vector2D getPolarVelocity() {
+		return velocidadPolar;
+	}
+
+	private void setYVisible(double yCartesiano) {
+		if (yCartesiano > 0
+				&& yCartesiano < this.getGame().getDisplayHeight()
+						- this.getAncho()) {
+			this.setY(yCartesiano);
+		}
+	}
+
+	private void setXVisible(double xCartesiano) {
+		if (xCartesiano > 0
+				&& xCartesiano < this.getGame().getDisplayWidth()
+						- this.getAncho()) {
+			this.setX(xCartesiano);
+		}
+	}
+
+	private Vector2D getPosition() {
+		return new Vector2D(this.getX(), this.getY());
+	}
 
 	public double getxMin() {
 		return xMin;
@@ -74,19 +145,4 @@ public class Nave extends GameComponent<AsteroidsScene>{
 		this.yMax = yMax;
 	}
 
-	public double getVelocidad() {
-		return velocidad;
-	}
-
-	public void setVelocidad(double velocidad) {
-		this.velocidad = velocidad;
-	}
-
-	public double getAcelaracion() {
-		return acelaracion;
-	}
-
-	public void setAcelaracion(double acelaracion) {
-		this.acelaracion = acelaracion;
-	}
 }

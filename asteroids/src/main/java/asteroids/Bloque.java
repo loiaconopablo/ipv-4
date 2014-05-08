@@ -4,10 +4,8 @@ import java.util.Random;
 
 import scenes.AsteroidsScene;
 import utils.Vector2D;
-
 import com.uqbar.vainilla.DeltaState;
 import com.uqbar.vainilla.GameComponent;
-import com.uqbar.vainilla.appearances.Circle;
 import com.uqbar.vainilla.appearances.Rectangle;
 
 public class Bloque extends GameComponent<AsteroidsScene>{
