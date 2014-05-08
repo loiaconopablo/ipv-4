@@ -21,7 +21,6 @@ public class AsteroidsScene extends GameScene {
 	public Nave getNave() {
 		return nave;
 	}
-	
 
 	public void setNave(Nave nave) {
 		this.addComponent(nave);

@@ -1,5 +1,5 @@
 package asteroids;
-
+/// HAY QUE BORRAR ESTA CLASE; LA DE DEJO POR LAS DUDAS POR AHORA.!!!!!!!!!!!!!!!!!!!!!!!!!
 import scenes.AsteroidsScene;
 
 import com.uqbar.vainilla.DeltaState;
@@ -12,10 +12,10 @@ public class NaveStrategy {
 	
 	public void update(Nave nave, AsteroidsScene scene, DeltaState deltaState) {
 		if(deltaState.isKeyBeingHold(rigthKey)) {
-			nave.derecha(deltaState.getDelta());
+			//nave.derecha(deltaState.getDelta());
 		}
 		else if(deltaState.isKeyBeingHold(leftKey)) {
-			nave.izquierda(deltaState.getDelta());
+			//nave.izquierda(deltaState.getDelta());
 		}
 	}
 
