@@ -1,8 +1,12 @@
 package asteroids;
 
 import java.awt.Color;
+import java.util.ArrayList;
+import java.util.List;
+
 import scenes.AsteroidsScene;
 import utils.Vector2D;
+
 import com.uqbar.vainilla.DeltaState;
 import com.uqbar.vainilla.GameComponent;
 import com.uqbar.vainilla.GameScene;
@@ -17,6 +21,7 @@ public class Nave extends GameComponent<AsteroidsScene> {
 	private double xMax;
 	private double yMin;
 	private double yMax;
+	private List<NaveRule> rules = new ArrayList<NaveRule>(); 
 
 	private Vector2D velocidadPolar = new Vector2D(0, 0);
 	private double rapidezDisparo = 100;
@@ -36,7 +41,16 @@ public class Nave extends GameComponent<AsteroidsScene> {
 	public void update(DeltaState deltaState) {
 		actualizarVelocidad(deltaState);
 		actualizarPosicion(deltaState.getDelta());
+		
+		for(NaveRule rule : this.getRules()) {
+			if(rule.mustApply(this, this.getScene())) {
+				rule.apply(this, this.getScene());
+				break;
+			}
+		}
 	}
+	
+	
 
 	private void actualizarVelocidad(DeltaState deltaState) {
 		double deltaAngle = Math.PI; // media vuelta por segundo
@@ -65,12 +79,13 @@ public class Nave extends GameComponent<AsteroidsScene> {
 	}
 
 	private void disparar() {
-		this.getScene().addComponent(
-				new Bala<GameScene>(this.getX() + this.getAncho() / 2, this
-						.getY() + this.getAncho() / 2,
+		Bala bala = new Bala<GameScene>(this.getX() + this.getAncho() / 2, this
+				.getY() + this.getAncho() / 2,
 
-				this.velocidadPolar.suma(new Vector2D(rapidezDisparo, 0))
-						.toCartesians()));
+		this.velocidadPolar.suma(new Vector2D(rapidezDisparo, 0))
+				.toCartesians());
+		this.getScene().addComponent(bala);
+		this.getScene().addBala(bala);
 	}
 
 	private void actualizarPosicion(double delta) {
@@ -145,4 +160,43 @@ public class Nave extends GameComponent<AsteroidsScene> {
 		this.yMax = yMax;
 	}
 
+	public List<NaveRule> getRules() {
+		if(this.rules.isEmpty()) {
+			this.initRules();
+		}
+		return this.rules;
+	}
+
+
+	public void setRules(List<NaveRule> rules) {
+		this.rules = rules;
+	}
+
+	private void initRules() {
+		for (Bloque bloque : this.getScene().getBloques() ) {
+			this.rules.add(new ColisionNaveRule(bloque));
+		}
+		
+	}
+
+	public void removeRule(ColisionNaveRule colisionNaveRule) {
+		this.getRules().remove(colisionNaveRule);
+		
+	}
+
+	public double getxInicial() {
+		return xInicial;
+	}
+
+	public void setxInicial(double xInicial) {
+		this.xInicial = xInicial;
+	}
+
+	public double getyInicial() {
+		return yInicial;
+	}
+
+	public void setyInicial(double yInicial) {
+		this.yInicial = yInicial;
+	}
 }

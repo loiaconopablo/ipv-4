@@ -24,6 +24,17 @@ public class Bala<T extends GameScene> extends GameComponent<GameScene> {
 		Vector2D newDelta = velocity.producto(deltaState.getDelta());
 		this.setX(this.getX() + newDelta.getX());
 		this.setY(this.getY() + newDelta.getY());
+//		if(this.seFueDelJuego()){
+//			this.getScene().removeComponent(this);
+			//faltaria remover la regla de los bloques con esta bala que se fue
+//		}
+	}
+
+	private boolean seFueDelJuego() {
+		return(this.getX()+this.getAppearance().getWidth() > this.getGame().getDisplayWidth() || 
+				this.getX()+this.getAppearance().getWidth() < this.getGame().getDisplayWidth() || 
+				this.getY()+this.getAppearance().getHeight() < this.getGame().getDisplayHeight()||
+				this.getY()+this.getAppearance().getHeight() > this.getGame().getDisplayHeight());
 	}
 
 }

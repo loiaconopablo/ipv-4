@@ -41,6 +41,11 @@ public class Marcador extends GameComponent<AsteroidsScene> {
 	public boolean fin() {
 		return this.getValue()==0;
 	}
+
+	public void descontarMarcador() {
+		this.setValue(this.getValue() - 1);
+		
+	}
 	
 	
 
