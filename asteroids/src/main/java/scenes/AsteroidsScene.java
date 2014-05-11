@@ -95,6 +95,17 @@ public class AsteroidsScene extends GameScene {
 //				((Asteroide) this.getGame()).buildEndScene(this.getMarcadorVidas(),this));
 //
 //	}
+	public void revisarFinDelJuego() {
+		if (this.getBloques().isEmpty()) {
+			//this.fin();
+		}
+	}
+
+//	void fin() {
+//		this.getGame().setCurrentScene(
+//				((Arkanoid) this.getGame()).buildEndScene(this.getMarcadorVidas(),this));
+//
+//	}
 
 }
 
