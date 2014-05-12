@@ -3,6 +3,7 @@ package scenes;
 import java.util.ArrayList;
 import java.util.List;
 
+import asteroids.Asteroids;
 import asteroids.Bala;
 import asteroids.Bloque;
 import asteroids.Nave;
@@ -71,41 +72,17 @@ public class AsteroidsScene extends GameScene {
 		this.addComponent(marcadorPuntos);
 	}
 
-//	public AsteroideScene agregarBloques(AsteroideScene arkanoidScene, Dimension dimension) {
-//		int alto = 25;
-//		int currentX = alto;
-//		for (int i = 0; i < 4; i++) {
-//			double anchoBloque = dimension.getWidth() / 5;
-//			arkanoidScene.addBloque(new BloqueSimple(Color.CYAN, (int) anchoBloque, alto, currentX, alto));
-//			arkanoidScene.addBloque(new BloqueSimple(Color.CYAN, (int)anchoBloque, alto, currentX, 75));
-//			arkanoidScene.addBloque(new BloqueSimple(Color.CYAN, (int) anchoBloque, alto, currentX, 125));
-//			currentX = currentX + (int) anchoBloque + alto;
-//		}
-//		return arkanoidScene;
-//	}
-
-//	public void revisarFinDelJuego() {
-//		if (this.getBloques().isEmpty()) {
-//			this.fin();
-//		}
-//	}
-
-//	void fin() {
-//		this.getGame().setCurrentScene(
-//				((Asteroide) this.getGame()).buildEndScene(this.getMarcadorVidas(),this));
-//
-//	}
 	public void revisarFinDelJuego() {
-		if (this.getBloques().isEmpty()) {
-			//this.fin();
+		if (this.marcadorVidas.getValue() <= 0 || this.marcadorPuntos.getValue() >=1500) {
+			this.fin();
 		}
 	}
 
-//	void fin() {
-//		this.getGame().setCurrentScene(
-//				((Arkanoid) this.getGame()).buildEndScene(this.getMarcadorVidas(),this));
-//
-//	}
+	void fin() {
+		this.getGame().setCurrentScene(
+				((Asteroids) this.getGame()).buildEndScene(this.getMarcadorVidas(),this));
+
+	}
 
 }
 
