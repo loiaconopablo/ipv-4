@@ -2,6 +2,8 @@ package asteroids;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.lang.reflect.InvocationTargetException;
+import java.util.Random;
 
 import scenes.AsteroidsScene;
 import scenes.Marcador;
@@ -26,7 +28,6 @@ public class Asteroids extends Game {
 	@Override
 	protected void setUpScenes() {
 		GameScene asteroidsScene = buildAsteroidsScene();
-		
 	
 		this.setCurrentScene(asteroidsScene);
 		this.setPrincipalScene(asteroidsScene);
@@ -36,9 +37,13 @@ public class Asteroids extends Game {
 		int lado = 30;
 		double x = dimension.getWidth() / 2;
 		double y = dimension.getHeight() / 2; 
+				
 		Nave nave = new Nave(Color.BLACK, lado, lado, x, y, 0, dimension.getWidth(),0, dimension.getHeight());
 		AsteroidsScene asteroidsScene = new AsteroidsScene();
-		asteroidsScene.addBloque(new Bloque(new Rectangle(Color.BLUE, 50,50),70,70));
+		
+		this.factoryBloques(3, asteroidsScene, BloqueChico.class);
+		this.factoryBloques(3, asteroidsScene, BloqueGrande.class);
+		
 		asteroidsScene.setNave(nave);
 		
 		asteroidsScene.setMarcadorPuntos(new Marcador(dimension.getWidth() / 4,
@@ -49,6 +54,39 @@ public class Asteroids extends Game {
 				Color.green, 3));
 		
 		return asteroidsScene;
+	}
+	
+	
+
+	private void factoryBloques(int cant, AsteroidsScene scena, Class<? extends Bloque > tipoBloque ) {
+		//Generar Bloques Grandes
+		for(int i = cant; i < 3; i++)
+			{int ypos = (int) (new Random().nextDouble() * this.getDisplaySize().getHeight());
+			int xpos = (int) (new Random().nextDouble() * this.getDisplaySize().getWidth());	
+			scena.addBloque(this.getInstancia(tipoBloque, xpos, ypos));
+			}
+//		//Generar Bloques Mediano
+//		for(int i = 0; i < 3; i++)
+//		{int ypos = (int) (new Random().nextDouble() * this.getDisplaySize().getHeight());
+//		int xpos = (int) (new Random().nextDouble() * this.getDisplaySize().getWidth());	
+//		scena.addBloque(this.getInstancia(tipoBloquexpos,ypos));
+//		}
+//		//Generar Bloques Chico
+//		for(int i = 0; i < 3; i++)
+//		{int ypos = (int) (new Random().nextDouble() * this.getDisplaySize().getHeight());
+//		int xpos = (int) (new Random().nextDouble() * this.getDisplaySize().getWidth());	
+//		scena.addBloque(new BloqueChico(xpos,ypos));
+//		}
+	}
+	
+	public Bloque getInstancia(Class<? extends Bloque > tipoBloque, int xpos, int ypos){
+		try {
+			return tipoBloque.getConstructor(int.class,int.class).newInstance(xpos,ypos);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			throw new RuntimeException(e);
+		}
+		
 	}
 
 	@Override

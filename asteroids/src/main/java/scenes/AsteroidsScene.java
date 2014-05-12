@@ -6,6 +6,8 @@ import java.util.List;
 import asteroids.Asteroids;
 import asteroids.Bala;
 import asteroids.Bloque;
+import asteroids.BloqueChico;
+import asteroids.BloqueMediano;
 import asteroids.Nave;
 
 import com.uqbar.vainilla.GameScene;
@@ -15,9 +17,13 @@ public class AsteroidsScene extends GameScene {
 
 	private Nave nave;
 	private List<Bala> balas = new ArrayList<Bala>();
-	private List<Bloque> bloques = new ArrayList<Bloque>();
+	private List<Bloque> bloques = new ArrayList<Bloque>(); //incluye a los bloques grandes
+	private List<BloqueMediano> bloquesMedianos = new ArrayList<BloqueMediano>();
+	private List<BloqueChico> bloquesChicos = new ArrayList<BloqueChico>();
 	private Marcador marcadorVidas;
 	private Marcador marcadorPuntos;
+	
+	
 
 	public Nave getNave() {
 		return nave;
@@ -82,6 +88,22 @@ public class AsteroidsScene extends GameScene {
 		this.getGame().setCurrentScene(
 				((Asteroids) this.getGame()).buildEndScene(this.getMarcadorVidas(),this));
 
+	}
+
+	public List<BloqueMediano> getBloquesMedianos() {
+		return bloquesMedianos;
+	}
+
+	public void setBloquesMedianos(List<BloqueMediano> bloquesMedianos) {
+		this.bloquesMedianos = bloquesMedianos;
+	}
+
+	public List<BloqueChico> getBloquesChicos() {
+		return bloquesChicos;
+	}
+
+	public void setBloquesChicos(List<BloqueChico> bloquesChicos) {
+		this.bloquesChicos = bloquesChicos;
 	}
 
 }

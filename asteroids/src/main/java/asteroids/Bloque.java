@@ -11,14 +11,16 @@ import com.uqbar.vainilla.DeltaState;
 import com.uqbar.vainilla.GameComponent;
 import com.uqbar.vainilla.appearances.Rectangle;
 
-public class Bloque extends GameComponent<AsteroidsScene> {
+public abstract class Bloque extends GameComponent<AsteroidsScene> {
 
 	private Vector2D velocidad;
 	private List<BalaRule> rules = new ArrayList<BalaRule>();
 
 	public Bloque(Rectangle rectangle, int x, int y) {
 		super(rectangle, x, y);
-		this.velocidad = new Vector2D(100, 0);
+		double randomx = (double)(Math.random()*(150-(-50)+1)-50);
+		double randomy = (double)(Math.random()*(150-(-50)+1)-50);
+		this.velocidad = new Vector2D(randomx,randomy);
 	}
 
 	@Override
@@ -87,4 +89,6 @@ public class Bloque extends GameComponent<AsteroidsScene> {
 			this.getRules().remove(colisionBalaRule);		
 	}
 
-}
+	}
+
+
