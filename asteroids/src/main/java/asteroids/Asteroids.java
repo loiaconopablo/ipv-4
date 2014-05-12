@@ -43,6 +43,7 @@ public class Asteroids extends Game {
 		
 		this.factoryBloques(3, asteroidsScene, BloqueChico.class);
 		this.factoryBloques(3, asteroidsScene, BloqueGrande.class);
+		this.factoryBloques(3, asteroidsScene, BloqueMediano.class);
 		
 		asteroidsScene.setNave(nave);
 		
@@ -60,7 +61,7 @@ public class Asteroids extends Game {
 
 	private void factoryBloques(int cant, AsteroidsScene scena, Class<? extends Bloque > tipoBloque ) {
 		//Generar Bloques Grandes
-		for(int i = cant; i < 3; i++)
+		for(int i = 0; i < cant; i++)
 			{int ypos = (int) (new Random().nextDouble() * this.getDisplaySize().getHeight());
 			int xpos = (int) (new Random().nextDouble() * this.getDisplaySize().getWidth());	
 			scena.addBloque(this.getInstancia(tipoBloque, xpos, ypos));
