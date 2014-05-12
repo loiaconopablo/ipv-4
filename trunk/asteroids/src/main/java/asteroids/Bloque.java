@@ -31,6 +31,13 @@ public class Bloque extends GameComponent<AsteroidsScene> {
 		this.setY(this.getY() + newDelta.getY());
 
 		actualizarPosicion(posicionPropuesta);
+		
+		for(BalaRule rule : this.getRules()) {
+			if(rule.mustApply(this, this.getScene())) {
+				rule.apply(this, this.getScene());
+				break;
+			}
+		}
 
 	}
 
@@ -60,10 +67,8 @@ public class Bloque extends GameComponent<AsteroidsScene> {
 	}
 
 	public List<BalaRule> getRules() {
-		if (this.rules.isEmpty()) {
-			this.initRules();
-		}
-		return this.rules;
+		this.initRules();
+		return rules;
 	}
 
 	private void initRules() {

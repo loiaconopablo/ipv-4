@@ -79,9 +79,9 @@ public class Nave extends GameComponent<AsteroidsScene> {
 	}
 
 	private void disparar() {
-		Bala bala = new Bala<GameScene>(this.getX() + this.getAncho() / 2, this
+		
+		Bala<GameScene> bala = new Bala<GameScene>(this.getX() + this.getAncho() / 2, this
 				.getY() + this.getAncho() / 2,
-
 		this.velocidadPolar.suma(new Vector2D(rapidezDisparo, 0))
 				.toCartesians());
 		this.getScene().addComponent(bala);

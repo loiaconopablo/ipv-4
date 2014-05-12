@@ -1,6 +1,5 @@
 package asteroids;
 
-
 import java.awt.Color;
 import java.awt.Dimension;
 
@@ -74,5 +73,9 @@ public class Asteroids extends Game {
 		this.principalScene = principalScene;
 	}
 
+	public GameScene buildEndScene(Marcador marcadorPuntos, AsteroidsScene asteroidsScene) {
+		return new EndScene(dimension.getWidth() / 6,
+				dimension.getHeight() / 10, marcadorPuntos, asteroidsScene);
+	}
 	
 }
