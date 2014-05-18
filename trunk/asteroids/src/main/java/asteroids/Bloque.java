@@ -17,7 +17,7 @@ public abstract class Bloque extends GameComponent<AsteroidsScene> {
 	private List<BalaRule> rules = new ArrayList<BalaRule>();
 
 	public Bloque(Rectangle rectangle, int x, int y) {
-		super(rectangle, x, y);
+		super(rectangle, x - 800, y - 600);
 		double randomx = (double)(Math.random()*(150-(-50)+1)-50);
 		double randomy = (double)(Math.random()*(150-(-50)+1)-50);
 		this.velocidad = new Vector2D(randomx,randomy);
@@ -54,7 +54,7 @@ public abstract class Bloque extends GameComponent<AsteroidsScene> {
 
 		if (x + this.getAppearance().getWidth() <= 0) {
 			x = this.getGame().getDisplayWidth();
-		} else if (x >= this.getGame().getDisplayWidth()) {
+		} else if (x >= this.getGame().getDisplayWidth()) {//linea del bug
 			x = -this.getAppearance().getWidth();
 		}
 
@@ -88,6 +88,8 @@ public abstract class Bloque extends GameComponent<AsteroidsScene> {
 		
 			this.getRules().remove(colisionBalaRule);		
 	}
+
+	public abstract void desintegrarse(AsteroidsScene scene);
 
 	}
 

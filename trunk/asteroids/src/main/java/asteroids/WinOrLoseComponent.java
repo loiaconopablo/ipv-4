@@ -19,7 +19,7 @@ public class WinOrLoseComponent extends GameComponent<GameScene> {
 
 	public WinOrLoseComponent(double x, double y, Marcador marcadorPuntos, AsteroidsScene asteroidsScene) {
 		super(new Label(new Font("verdana",  Font.BOLD, 24), Color.BLUE, "",
-				marcadorPuntos.fin()?"PERDISTE!, Presione N para un juego nuevo":"No hay mas ladrillos, Presione C para continuar"), x, y);
+				marcadorPuntos.fin()?"PERDISTE!, Presione N para un juego nuevo":"GANASTE!!!"), x, y);
 		this.setAsteroidsScene(asteroidsScene);
 	}
 	

@@ -66,18 +66,6 @@ public class Asteroids extends Game {
 			int xpos = (int) (new Random().nextDouble() * this.getDisplaySize().getWidth());	
 			scena.addBloque(this.getInstancia(tipoBloque, xpos, ypos));
 			}
-//		//Generar Bloques Mediano
-//		for(int i = 0; i < 3; i++)
-//		{int ypos = (int) (new Random().nextDouble() * this.getDisplaySize().getHeight());
-//		int xpos = (int) (new Random().nextDouble() * this.getDisplaySize().getWidth());	
-//		scena.addBloque(this.getInstancia(tipoBloquexpos,ypos));
-//		}
-//		//Generar Bloques Chico
-//		for(int i = 0; i < 3; i++)
-//		{int ypos = (int) (new Random().nextDouble() * this.getDisplaySize().getHeight());
-//		int xpos = (int) (new Random().nextDouble() * this.getDisplaySize().getWidth());	
-//		scena.addBloque(new BloqueChico(xpos,ypos));
-//		}
 	}
 	
 	public Bloque getInstancia(Class<? extends Bloque > tipoBloque, int xpos, int ypos){
