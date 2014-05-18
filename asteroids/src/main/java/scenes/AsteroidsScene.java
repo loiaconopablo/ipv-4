@@ -18,12 +18,17 @@ public class AsteroidsScene extends GameScene {
 	private Nave nave;
 	private List<Bala> balas = new ArrayList<Bala>();
 	private List<Bloque> bloques = new ArrayList<Bloque>(); //incluye a los bloques grandes
-	private List<BloqueMediano> bloquesMedianos = new ArrayList<BloqueMediano>();
-	private List<BloqueChico> bloquesChicos = new ArrayList<BloqueChico>();
+	private List<BloqueMediano> bloquesMedianos = new ArrayList<BloqueMediano>(); // pool de bloques medianos		
+	private List<BloqueChico> bloquesChicos = new ArrayList<BloqueChico>(); //pool de bloques chicos
 	private Marcador marcadorVidas;
 	private Marcador marcadorPuntos;
 	
-	
+	public AsteroidsScene(){
+		for(int i = 0; i <= 20; i++){
+			this.bloquesChicos.add(new BloqueChico(0, 0));
+			this.bloquesMedianos.add(new BloqueMediano(0, 0));
+		}
+	}
 
 	public Nave getNave() {
 		return nave;
@@ -78,8 +83,24 @@ public class AsteroidsScene extends GameScene {
 		this.addComponent(marcadorPuntos);
 	}
 
+	public List<BloqueMediano> getBloquesMedianos() {
+		return bloquesMedianos;
+	}
+	
+	public void setBloquesMedianos(List<BloqueMediano> bloquesMedianos) {
+		this.bloquesMedianos = bloquesMedianos;
+	}
+	
+	public List<BloqueChico> getBloquesChicos() {
+		return bloquesChicos;
+	}
+	
+	public void setBloquesChicos(List<BloqueChico> bloquesChicos) {
+		this.bloquesChicos = bloquesChicos;
+	}
+	
 	public void revisarFinDelJuego() {
-		if (this.marcadorVidas.getValue() <= 0 || this.marcadorPuntos.getValue() >=1500) {
+		if (this.marcadorVidas.getValue() <= 0 || this.marcadorPuntos.getValue() >=10) {
 			this.fin();
 		}
 	}
@@ -90,21 +111,8 @@ public class AsteroidsScene extends GameScene {
 
 	}
 
-	public List<BloqueMediano> getBloquesMedianos() {
-		return bloquesMedianos;
+	public boolean puedeAgregarBloques(){
+		return this.getMarcadorPuntos().getValue() < 10;
 	}
-
-	public void setBloquesMedianos(List<BloqueMediano> bloquesMedianos) {
-		this.bloquesMedianos = bloquesMedianos;
-	}
-
-	public List<BloqueChico> getBloquesChicos() {
-		return bloquesChicos;
-	}
-
-	public void setBloquesChicos(List<BloqueChico> bloquesChicos) {
-		this.bloquesChicos = bloquesChicos;
-	}
-
 }
 

@@ -25,7 +25,7 @@ public class Marcador extends GameComponent<AsteroidsScene> {
 	}
 	
 	public void subirMarcador() {
-		this.setValue(this.getValue() + 100);
+		this.setValue(this.getValue() + 1);
 	}
 	
 	public void reset(){

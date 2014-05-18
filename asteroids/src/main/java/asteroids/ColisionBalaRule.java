@@ -31,6 +31,7 @@ public class ColisionBalaRule implements BalaRule {
 	public void apply(Bloque bloque, AsteroidsScene scene) {
 		bloque.removeRule(this);
 		scene.getBalas().remove(this.objetoArebotar);
+		bloque.desintegrarse(scene);
 		scene.getBloques().remove(bloque);
 		this.objetoArebotar.destroy();
 		bloque.destroy();
