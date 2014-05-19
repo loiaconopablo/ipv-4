@@ -60,7 +60,6 @@ public class Asteroids extends Game {
 	
 
 	private void factoryBloques(int cant, AsteroidsScene scena, Class<? extends Bloque > tipoBloque ) {
-		//Generar Bloques Grandes
 		for(int i = 0; i < cant; i++)
 			{int ypos = (int) (new Random().nextDouble() * this.getDisplaySize().getHeight());
 			int xpos = (int) (new Random().nextDouble() * this.getDisplaySize().getWidth());	

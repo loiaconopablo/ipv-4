@@ -10,14 +10,15 @@ import utils.Vector2D;
 import com.uqbar.vainilla.DeltaState;
 import com.uqbar.vainilla.GameComponent;
 import com.uqbar.vainilla.appearances.Rectangle;
+import com.uqbar.vainilla.appearances.Sprite;
 
 public abstract class Bloque extends GameComponent<AsteroidsScene> {
 
 	private Vector2D velocidad;
 	private List<BalaRule> rules = new ArrayList<BalaRule>();
 
-	public Bloque(Rectangle rectangle, int x, int y) {
-		super(rectangle, x - 800, y - 600);
+	public Bloque(Sprite sprite, int x, int y) {
+		super(sprite, x - 800, y - 600);
 		double randomx = (double)(Math.random()*(150-(-50)+1)-50);
 		double randomy = (double)(Math.random()*(150-(-50)+1)-50);
 		this.velocidad = new Vector2D(randomx,randomy);
@@ -32,7 +33,7 @@ public abstract class Bloque extends GameComponent<AsteroidsScene> {
 		this.setX(this.getX() + newDelta.getX());
 		this.setY(this.getY() + newDelta.getY());
 
-		actualizarPosicion(posicionPropuesta);
+		this.actualizarPosicion(posicionPropuesta);
 		
 		for(BalaRule rule : this.getRules()) {
 			if(rule.mustApply(this, this.getScene())) {

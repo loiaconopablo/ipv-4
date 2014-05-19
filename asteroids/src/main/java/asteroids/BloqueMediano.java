@@ -5,11 +5,13 @@ import java.awt.Color;
 import scenes.AsteroidsScene;
 
 import com.uqbar.vainilla.appearances.Rectangle;
+import com.uqbar.vainilla.appearances.Sprite;
 
 public class BloqueMediano extends Bloque{
 
 	public BloqueMediano(int x, int y) {
-		super(new Rectangle(Color.GREEN, 50,50), x, y);
+		super(Sprite.fromImage("asteroideMediano.png"), x, y);
+		//super(new Rectangle(Color.RED, 50,50), x, y);
 		// TODO Auto-generated constructor stub
 	}
 
