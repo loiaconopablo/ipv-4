@@ -1,6 +1,7 @@
 package asteroids;
 
 import java.awt.Color;
+import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +11,9 @@ import utils.Vector2D;
 import com.uqbar.vainilla.DeltaState;
 import com.uqbar.vainilla.GameComponent;
 import com.uqbar.vainilla.GameScene;
+import com.uqbar.vainilla.appearances.Circle;
 import com.uqbar.vainilla.appearances.Rectangle;
+import com.uqbar.vainilla.appearances.Sprite;
 import com.uqbar.vainilla.events.constants.Key;
 
 public class Nave extends GameComponent<AsteroidsScene> {
@@ -21,14 +24,17 @@ public class Nave extends GameComponent<AsteroidsScene> {
 	private double xMax;
 	private double yMin;
 	private double yMax;
-	private List<NaveRule> rules = new ArrayList<NaveRule>(); 
-
+	private List<NaveRule> rules = new ArrayList<NaveRule>();
 	private Vector2D velocidadPolar = new Vector2D(0, 0);
 	private double rapidezDisparo = 100;
+	
+	private double angulo = velocidadPolar.getY();
+	private static Sprite image = Sprite.fromImage("nave_01.png");
+	
 
 	public Nave(Color color, int ancho, int alto, double x, double y,
 			double xMin, double xMax, double yMin, double yMax) {
-		super(new Rectangle(color, ancho, alto), x, y);
+		super(image, x, y);
 		this.xInicial = x;
 		this.yInicial = y;
 		this.setxMin(xMin);
@@ -41,20 +47,39 @@ public class Nave extends GameComponent<AsteroidsScene> {
 	public void update(DeltaState deltaState) {
 		actualizarVelocidad(deltaState);
 		actualizarPosicion(deltaState.getDelta());
-		
-		for(NaveRule rule : this.getRules()) {
-			if(rule.mustApply(this, this.getScene())) {
+
+		for (NaveRule rule : this.getRules()) {
+			if (rule.mustApply(this, this.getScene())) {
 				rule.apply(this, this.getScene());
 				break;
 			}
 		}
+		this.actualizarSprite(deltaState);
+		super.update(deltaState);
+		
+	}
+
+	private void actualizarSprite(DeltaState deltaState) {
+		
+		double angulo = velocidadPolar.getY();
+		if(angulo>0 && angulo<1) {
+			this.setAppearance(Sprite.fromImage("nave_40.png"));
+		}	
+		
+		
+	}
+
+	
+	@Override
+	public void render(Graphics2D graphics) {
+		super.render(graphics);
+	//	actualizarSprite();
 	}
 	
 	
-
 	private void actualizarVelocidad(DeltaState deltaState) {
 		double deltaAngle = Math.PI; // media vuelta por segundo
-		double deltaSpeed = 5;
+		double deltaSpeed = 20;
 
 		double ro = velocidadPolar.getX();
 		double theta = velocidadPolar.getY();
@@ -79,11 +104,11 @@ public class Nave extends GameComponent<AsteroidsScene> {
 	}
 
 	private void disparar() {
-		
-		Bala<GameScene> bala = new Bala<GameScene>(this.getX() + this.getAncho() / 2, this
-				.getY() + this.getAncho() / 2,
-		this.velocidadPolar.suma(new Vector2D(rapidezDisparo, 0))
-				.toCartesians());
+
+		Bala<GameScene> bala = new Bala<GameScene>(this.getX()
+				+ this.getAncho() / 2, this.getY() + this.getAncho() / 2,
+				this.velocidadPolar.suma(new Vector2D(rapidezDisparo, 0))
+						.toCartesians());
 		this.getScene().addComponent(bala);
 		this.getScene().addBala(bala);
 	}
@@ -99,6 +124,13 @@ public class Nave extends GameComponent<AsteroidsScene> {
 
 	public double getAncho() {
 		return this.getAppearance().getWidth();
+
+	}
+
+	private void initRules() {
+		for (Bloque bloque : this.getScene().getBloques()) {
+			this.rules.add(new ColisionNaveRule(bloque));
+		}
 
 	}
 
@@ -161,27 +193,19 @@ public class Nave extends GameComponent<AsteroidsScene> {
 	}
 
 	public List<NaveRule> getRules() {
-		if(this.rules.isEmpty()) {
+		if (this.rules.isEmpty()) {
 			this.initRules();
 		}
 		return this.rules;
 	}
 
-
 	public void setRules(List<NaveRule> rules) {
 		this.rules = rules;
 	}
 
-	private void initRules() {
-		for (Bloque bloque : this.getScene().getBloques() ) {
-			this.rules.add(new ColisionNaveRule(bloque));
-		}
-		
-	}
-
 	public void removeRule(ColisionNaveRule colisionNaveRule) {
 		this.getRules().remove(colisionNaveRule);
-		
+
 	}
 
 	public double getxInicial() {
@@ -198,5 +222,37 @@ public class Nave extends GameComponent<AsteroidsScene> {
 
 	public void setyInicial(double yInicial) {
 		this.yInicial = yInicial;
+	}
+	
+	public Vector2D getVelocidadPolar() {
+		return velocidadPolar;
+	}
+
+	public void setVelocidadPolar(Vector2D velocidadPolar) {
+		this.velocidadPolar = velocidadPolar;
+	}
+
+	public double getRapidezDisparo() {
+		return rapidezDisparo;
+	}
+
+	public void setRapidezDisparo(double rapidezDisparo) {
+		this.rapidezDisparo = rapidezDisparo;
+	}
+
+	public double getAngulo() {
+		return angulo;
+	}
+
+	public void setAngulo(double angulo) {
+		this.angulo = angulo;
+	}
+
+	public Sprite getImage() {
+		return image;
+	}
+
+	public void setImage(Sprite image) {
+		this.image = image;
 	}
 }

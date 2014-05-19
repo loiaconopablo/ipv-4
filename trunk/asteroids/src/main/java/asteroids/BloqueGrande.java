@@ -5,11 +5,13 @@ import java.awt.Color;
 import scenes.AsteroidsScene;
 
 import com.uqbar.vainilla.appearances.Rectangle;
+import com.uqbar.vainilla.appearances.Sprite;
 
 public class BloqueGrande extends Bloque{
 
 	public BloqueGrande(int x, int y) {
-		super(new Rectangle(Color.BLUE, 70,70), x, y);
+		super(Sprite.fromImage("asteroideGrande.png"), x, y);
+		//super(new Rectangle(Color.RED, 70,70), x, y);
 		// TODO Auto-generated constructor stub
 	}
 
