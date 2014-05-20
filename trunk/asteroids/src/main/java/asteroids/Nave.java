@@ -28,8 +28,8 @@ public class Nave extends GameComponent<AsteroidsScene> {
 	private Vector2D velocidadPolar = new Vector2D(0, 0);
 	private double rapidezDisparo = 100;
 	
-	private double angulo = velocidadPolar.getY();
-	private static Sprite image = Sprite.fromImage("nave_01.png");
+	//private double angulo = velocidadPolar.getY();
+	private static Sprite image = Sprite.fromImage("nave_1.png");
 	
 
 	public Nave(Color color, int ancho, int alto, double x, double y,
@@ -61,11 +61,36 @@ public class Nave extends GameComponent<AsteroidsScene> {
 
 	private void actualizarSprite(DeltaState deltaState) {
 		
+		double valor = Math.PI/6;
 		double angulo = velocidadPolar.getY();
-		if(angulo>0 && angulo<1) {
-			this.setAppearance(Sprite.fromImage("nave_40.png"));
-		}	
+		double angu = angulo*360;
 		
+//		if(angulo>0 && angulo<1) {
+//			this.setAppearance(Sprite.fromImage("nave_40.png"));
+//			System.out.println(angu);
+//		}	
+		
+//		if(angulo>=0) {
+//			System.out.println((angulo*360/Math.PI)+90);}
+//			else { System.out.println((angulo*360)/Math.PI);
+//			}
+//
+//		
+		
+//		for ( int i = 0; i<10; i++){
+//			if(angulo*360>=i*valor && angulo*360<(i++)*valor){
+//				this.setAppearance(Sprite.fromImage("nave_"+(i++)+".png"));
+//				System.out.println("nave_"+(i++)+".png");
+//			}
+//		}
+		System.out.println(angulo+"    "+valor);
+		for ( int i = 0; i<36; i++){
+			int j = 18 ;
+			if(angulo>=i*valor && angulo<(j++)*valor){
+				this.setAppearance(Sprite.fromImage("nave_"+(j++)+".png"));
+				System.out.println("nave_"+(i++)+".png");
+			}
+		}
 		
 	}
 
@@ -100,7 +125,7 @@ public class Nave extends GameComponent<AsteroidsScene> {
 		if (deltaState.isKeyPressed(Key.ENTER)) {
 			disparar();
 		}
-		velocidadPolar = new Vector2D(ro, theta);
+		velocidadPolar = new Vector2D(ro, (theta));
 	}
 
 	private void disparar() {
@@ -240,19 +265,12 @@ public class Nave extends GameComponent<AsteroidsScene> {
 		this.rapidezDisparo = rapidezDisparo;
 	}
 
-	public double getAngulo() {
-		return angulo;
-	}
-
-	public void setAngulo(double angulo) {
-		this.angulo = angulo;
-	}
 
 	public Sprite getImage() {
 		return image;
 	}
 
 	public void setImage(Sprite image) {
-		this.image = image;
+		Nave.image = image;
 	}
 }
