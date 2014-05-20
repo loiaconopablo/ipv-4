@@ -19,6 +19,9 @@ private GameComponent<AsteroidsScene> objetoArebotar;
 	public void apply(Nave nave, AsteroidsScene scene) {
 //		super.apply(nave, nuevaPosicion, scene);
 		//nave.removeRule(this);
+		nave.getRules().remove(this);
+		scene.getBloques().remove(this.objetoArebotar);
+		this.objetoArebotar.destroy();
 	    scene.getMarcadorVidas().descontarMarcador();
 //		scene.getMarcadorPuntos().subirMarcador();	
 		nave.setX(nave.getxInicial());

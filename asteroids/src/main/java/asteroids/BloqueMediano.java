@@ -22,6 +22,8 @@ public class BloqueMediano extends Bloque{
 		Bloque bloquederecha = scene.getBloquesChicos().get(1);
 		scene.addBloque(bloquederecha);
 		scene.addBloque(bloqueizquierda);
+		bloquederecha.setearScena(scene);
+		bloquederecha.setearScena(scene);
 		scene.getBloquesMedianos().add(this);
 		bloqueizquierda.setX(this.getX()-100);
 		bloquederecha.setX(this.getX() + 100 );
