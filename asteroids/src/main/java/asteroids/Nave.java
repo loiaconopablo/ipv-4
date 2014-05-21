@@ -1,7 +1,9 @@
 package asteroids;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Stroke;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,49 +63,23 @@ public class Nave extends GameComponent<AsteroidsScene> {
 
 	private void actualizarSprite(DeltaState deltaState) {
 		
-		double valor = Math.PI/6;
-		double angulo = velocidadPolar.getY();
-		double angu = angulo*360;
+		//CUALQUIERA DE LOS METODOS FUNCIONA;, uno esta calculado en grados y otro en Radian
 		
-//		if(angulo>0 && angulo<1) {
-//			this.setAppearance(Sprite.fromImage("nave_40.png"));
-//			System.out.println(angu);
-//		}	
-		
-//		if(angulo>=0) {
-//			System.out.println((angulo*360/Math.PI)+90);}
-//			else { System.out.println((angulo*360)/Math.PI);
-//			}
-//
-//		
-		
-//		for ( int i = 0; i<10; i++){
-//			if(angulo*360>=i*valor && angulo*360<(i++)*valor){
-//				this.setAppearance(Sprite.fromImage("nave_"+(i++)+".png"));
-//				System.out.println("nave_"+(i++)+".png");
-//			}
-//		}
-		System.out.println(angulo+"    "+valor);
-		for ( int i = 0; i<36; i++){
-			int j = 18 ;
-			if(angulo>=i*valor && angulo<(j++)*valor){
-				this.setAppearance(Sprite.fromImage("nave_"+(j++)+".png"));
-				System.out.println("nave_"+(i++)+".png");
+		double valor = 360/72;
+		double angu = Math.toDegrees(this.getVelocidadPolar().getY());
+//		double valor = (2*(Math.PI))/72;
+//		double angu = this.getVelocidadPolar().getY();
+
+		for ( double i = 0; i<73; i++){
+			if(angu>=(i*valor) && angu<((i+1)*valor)){
+				this.setAppearance(Sprite.fromImage("nave_"+(int)(i+1)+".png"));
+				//System.out.println("nave_"+(i+1)+".png");
 			}
 		}
-		
 	}
 
 	
-	@Override
-	public void render(Graphics2D graphics) {
-		super.render(graphics);
-	//	actualizarSprite();
-	}
-	
-	
 	private void actualizarVelocidad(DeltaState deltaState) {
-		double deltaAngle = Math.PI; // media vuelta por segundo
 		double deltaSpeed = 20;
 
 		double ro = velocidadPolar.getX();
@@ -114,20 +90,28 @@ public class Nave extends GameComponent<AsteroidsScene> {
 		} else if (deltaState.isKeyBeingHold(Key.DOWN)) {
 			ro = Math.max(0, ro - (deltaSpeed * deltaState.getDelta()));
 		} else if (deltaState.isKeyBeingHold(Key.RIGHT)) {
-			theta += deltaAngle * deltaState.getDelta();
-			// Si me pase del PI le resto una vuelta
-			theta = theta > Math.PI ? theta - 2 * Math.PI : theta;
+			theta = theta + (getVelocidadAngular() * deltaState.getDelta());
+			theta = ajustarAnguloEntrePiYMenosPi(theta);
 		} else if (deltaState.isKeyBeingHold(Key.LEFT)) {
-			theta = theta - (deltaAngle * deltaState.getDelta());
-			// Si me pase del -PI le sumo una vuelta
-			theta = theta < -Math.PI ? theta + 2 * Math.PI : theta;
+			theta = theta - (getVelocidadAngular() * deltaState.getDelta());
+			theta = ajustarAnguloEntrePiYMenosPi(theta);
 		}
 		if (deltaState.isKeyPressed(Key.ENTER)) {
 			disparar();
 		}
 		velocidadPolar = new Vector2D(ro, (theta));
 	}
+	
+	protected double getVelocidadAngular() {
+		return 2*Math.PI; // media vuelta por segundo
+	}
 
+	protected double ajustarAnguloEntrePiYMenosPi(double theta) {
+		theta = theta > getVelocidadAngular() ? theta -  getVelocidadAngular() : theta;
+		theta = theta < 0 ? theta + getVelocidadAngular() : theta;
+		return theta;
+	}
+	
 	private void disparar() {
 
 		Bala<GameScene> bala = new Bala<GameScene>(this.getX()
