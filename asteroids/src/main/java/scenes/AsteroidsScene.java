@@ -1,5 +1,6 @@
 package scenes;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +11,9 @@ import asteroids.BloqueChico;
 import asteroids.BloqueMediano;
 import asteroids.Nave;
 
+import com.uqbar.vainilla.GameComponent;
 import com.uqbar.vainilla.GameScene;
+import com.uqbar.vainilla.appearances.Rectangle;
 
 public class AsteroidsScene extends GameScene {
 
@@ -29,7 +32,7 @@ public class AsteroidsScene extends GameScene {
 			this.bloquesMedianos.add(new BloqueMediano(0, 0));
 		}
 	}
-
+	
 	public Nave getNave() {
 		return nave;
 	}
@@ -113,6 +116,29 @@ public class AsteroidsScene extends GameScene {
 
 	public boolean puedeAgregarBloques(){
 		return this.getMarcadorPuntos().getValue() < 10;
+	}
+
+	public Bloque dameUnBloqueMediano() {
+		if(this.getBloquesMedianos().isEmpty()){
+			return new BloqueMediano(0,0);//creo el objeto bajo demanda
+		}
+		else{
+			Bloque bloque = this.getBloquesMedianos().get(0);
+			this.getBloquesMedianos().remove(0);
+			return bloque;
+		}
+		
+	}
+
+	public Bloque dameUnBloqueChico() {
+		if(this.getBloquesChicos().isEmpty()){
+			return new BloqueChico(0,0);//creo el objeto bajo demanda
+		}
+		else{
+			Bloque bloque = this.getBloquesChicos().get(0);
+			this.getBloquesChicos().remove(0);
+			return bloque;
+		}
 	}
 }
 

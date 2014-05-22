@@ -31,7 +31,7 @@ public class Nave extends GameComponent<AsteroidsScene> {
 	private double rapidezDisparo = 100;
 	
 	//private double angulo = velocidadPolar.getY();
-	private static Sprite image = Sprite.fromImage("nave_1.png");
+	private static Sprite image = Sprite.fromImage("/nave_1.png");
 	
 
 	public Nave(Color color, int ancho, int alto, double x, double y,
@@ -72,7 +72,7 @@ public class Nave extends GameComponent<AsteroidsScene> {
 
 		for ( double i = 0; i<73; i++){
 			if(angu>=(i*valor) && angu<((i+1)*valor)){
-				this.setAppearance(Sprite.fromImage("nave_"+(int)(i+1)+".png"));
+				this.setAppearance(Sprite.fromImage("/nave_"+(int)(i+1)+".png"));
 				//System.out.println("nave_"+(i+1)+".png");
 			}
 		}
