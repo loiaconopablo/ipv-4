@@ -14,58 +14,28 @@ import com.uqbar.vainilla.appearances.Sprite;
 
 public abstract class Bloque extends GameComponent<BattleCityScene> {
 
-	private Vector2D velocidad;
 	private List<BalaRule> rules = new ArrayList<BalaRule>();
 
 	public Bloque(Sprite sprite, int x, int y) {
-		super(sprite, x - 800, y - 600);
+		super(sprite, x, y);
+		
+		
+	}
+	
+	public Bloque(Rectangle rectangle, int x, int y) {
+		super(rectangle, x - 800, y - 600);
 		double randomx = (double)(Math.random()*(150-(-50)+1)-50);
 		double randomy = (double)(Math.random()*(150-(-50)+1)-50);
-		this.velocidad = new Vector2D(randomx,randomy);
 	}
 
 	@Override
-	public void update(DeltaState deltaState) {
-		Vector2D posicionPropuesta = this.getPosicion().suma(
-				getVelocidad().producto(deltaState.getDelta()));
-
-		Vector2D newDelta = getVelocidad().producto(deltaState.getDelta());
-		this.setX(this.getX() + newDelta.getX());
-		this.setY(this.getY() + newDelta.getY());
-
-		this.actualizarPosicion(posicionPropuesta);
-		
+	public void update(DeltaState deltaState) {		
 		for(BalaRule rule : this.getRules()) {
 			if(rule.mustApply(this, this.getScene())) {
 				rule.apply(this, this.getScene());
 				break;
 			}
 		}
-
-	}
-
-	public Vector2D getPosicion() {
-		return new Vector2D(this.getX(), this.getY());
-	}
-
-	private void actualizarPosicion(Vector2D posicionPropuesta) {
-
-		double x = posicionPropuesta.getX();
-		double y = posicionPropuesta.getY();
-
-		if (x + this.getAppearance().getWidth() <= 0) {
-			x = this.getGame().getDisplayWidth();
-		} else if (x >= this.getGame().getDisplayWidth()) {//linea del bug
-			x = -this.getAppearance().getWidth();
-		}
-
-		if (y + this.getAppearance().getWidth() <= 0) {
-			y = this.getGame().getDisplayHeight();
-		} else if (y >= this.getGame().getDisplayHeight()) {
-			y = -this.getAppearance().getHeight();
-		}
-		this.setX(x);
-		this.setY(y);
 
 	}
 
@@ -79,10 +49,6 @@ public abstract class Bloque extends GameComponent<BattleCityScene> {
 			this.rules.add(new ColisionBalaRule(bala));
 		}
 
-	}
-
-	public Vector2D getVelocidad() {
-		return velocidad;
 	}
 
 	public void removeRule(ColisionBalaRule colisionBalaRule) {

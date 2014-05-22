@@ -8,8 +8,7 @@ import java.util.List;
 import battlecity.BattleCity;
 import battlecity.Bala;
 import battlecity.Bloque;
-import battlecity.BloqueChico;
-import battlecity.BloqueMediano;
+import battlecity.Pasto;
 import battlecity.Tanque;
 import battlecity.TanqueEnemigo;
 

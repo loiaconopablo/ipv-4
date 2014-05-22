@@ -19,7 +19,7 @@ private GameComponent<BattleCityScene> objetoArebotar;
 	public void apply(Tanque nave, BattleCityScene scene) {
 //		super.apply(nave, nuevaPosicion, scene);
 		//nave.removeRule(this);
-		nave.getRules().remove(this);
+		//nave.getRules().remove(this);
 		//scene.getBloques().remove(this.objetoArebotar);
 		this.objetoArebotar.destroy();
 	    scene.getMarcadorVidas().descontarMarcador();

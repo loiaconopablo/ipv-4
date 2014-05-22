@@ -1,12 +1,5 @@
 package battlecity;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.Stroke;
-import java.util.ArrayList;
-import java.util.List;
-
 import scenes.BattleCityScene;
 import utils.Vector2D;
 
@@ -26,14 +19,12 @@ public class Tanque extends GameComponent<BattleCityScene> {
 	private double xMax;
 	private double yMin;
 	private double yMax;
-	
-	private List<TanqueRule> rules = new ArrayList<TanqueRule>();
-	
+	//private List<NaveRule> rules = new ArrayList<NaveRule>();
+	private Vector2D velocidadPolar = new Vector2D(0, 0);
+	private double rapidezDisparo = 100;
+	//private double angulo = velocidadPolar.getY();
+	private static Sprite image = Sprite.fromImage("/tanqueArriba.png");
 	private double velocidad;
-	private double velocidadInicial;
-	private double rapidezDisparo = Double.parseDouble("50");
-	private static Sprite image = Sprite.fromImage("tanqueArriba.png");
-	
 
 	public double getVelocidad() {
 		return velocidad;
@@ -43,83 +34,129 @@ public class Tanque extends GameComponent<BattleCityScene> {
 		this.velocidad = velocidad;
 	}
 
-	public double getVelocidadInicial() {
-		return velocidadInicial;
-	}
-
-	public void setVelocidadInicial(double velocidadInicial) {
-		this.velocidadInicial = velocidadInicial;
-	}
-
 	public Tanque(double posx, double posy, double xMin, double xMax, double yMin, double yMax) {
 		super(image, posx, posy);
-//		this.xInicial = 300;
-//		this.yInicial = 500;
-		this.setVelocidadInicial(0);
-		this.setVelocidad(Double.parseDouble("100"));
+		this.xInicial = posx;
+		this.yInicial = posy;
 		this.setxMin(xMin);
 		this.setxMax(xMax);
 		this.setyMin(yMin);
 		this.setyMax(yMax);
+		this.setVelocidad(Double.parseDouble( "100" ));
 	}
+
+	private void actualizarSprite(DeltaState deltaState) {
+		double delta= deltaState.getDelta();
+		double ro = velocidadPolar.getX();
+		double theta = velocidadPolar.getY();
+		
+		if (deltaState.isKeyBeingHold(Key.UP)) {
+			this.setY(Math.max(this.getY()-getVelocidad()*delta, getyMin()));
+			this.setAppearance(Sprite.fromImage("/tanqueArriba.png"));
+			ro+=10;
+			
+		} else if (deltaState.isKeyBeingHold(Key.DOWN)) {
+			this.setY(Math.min(getyMax() - this.getAppearance().getHeight(), this.getY()+getVelocidad()*delta));
+			this.setAppearance(Sprite.fromImage("/tanqueAbajo.png"));
+			ro-=10;
+		} else if (deltaState.isKeyBeingHold(Key.RIGHT)) {
+			this.setX(Math.min(getxMax() - this.getAppearance().getWidth(), this.getX()+getVelocidad()*delta));
+			this.setAppearance(Sprite.fromImage("/tanqueDerecha.png"));
+			
+		} else if (deltaState.isKeyBeingHold(Key.LEFT)) {
+			this.setX(Math.max(this.getX()-getVelocidad()*delta, getxMin()));
+			this.setAppearance(Sprite.fromImage("/tanqueIzquierda.png"));
+		}
+		if (deltaState.isKeyPressed(Key.ENTER)) {
+			disparar();
+		}
+		this.velocidadPolar=new Vector2D(ro,theta);
+		
+	}	
+	
+	
 
 	@Override
 	public void update(DeltaState deltaState) {
-		actualizarDireccion(deltaState);
+		actualizarVelocidad(deltaState);
 //		actualizarPosicion(deltaState.getDelta());
 
-//		for (TanqueRule rule : this.getRules()) {
+//		for (NaveRule rule : this.getRules()) {
 //			if (rule.mustApply(this, this.getScene())) {
 //				rule.apply(this, this.getScene());
 //				break;
 //			}
 //		}
+		this.actualizarSprite(deltaState);
 		super.update(deltaState);
 		
 	}
 
 	
-	private void actualizarDireccion(DeltaState deltaState) {
-		double delta= deltaState.getDelta();
+
+	
+	private void actualizarVelocidad(DeltaState deltaState) {
+		double deltaSpeed = 20;
+
+		double ro = velocidadPolar.getX();
+		double theta = velocidadPolar.getY();
 
 		if (deltaState.isKeyBeingHold(Key.UP)) {
-			this.setY(Math.max(this.getY()-getVelocidad()*delta, getyMin()));
-			this.setAppearance(Sprite.fromImage("tanqueArriba.png"));
-			
+			ro += deltaSpeed * deltaState.getDelta();
+			//ro += 10;
 		} else if (deltaState.isKeyBeingHold(Key.DOWN)) {
-			this.setY(Math.min(getyMax() - this.getAppearance().getHeight(), this.getY()+getVelocidad()*delta));
-			this.setAppearance(Sprite.fromImage("tanqueAbajo.png"));
-			
+			ro = Math.max(0, ro - (deltaSpeed * deltaState.getDelta()));
+//			ro -= 10;
 		} else if (deltaState.isKeyBeingHold(Key.RIGHT)) {
-			this.setX(Math.min(getxMax() - this.getAppearance().getWidth(), this.getX()+getVelocidad()*delta));
-			this.setAppearance(Sprite.fromImage("tanqueDerecha.png"));
-			
+			theta = theta + (getVelocidadAngular() * deltaState.getDelta());
+			theta = ajustarAnguloEntrePiYMenosPi(theta);
+//			theta +=10;
 		} else if (deltaState.isKeyBeingHold(Key.LEFT)) {
-			this.setX(Math.max(this.getX()-getVelocidad()*delta, getxMin()));
-			this.setAppearance(Sprite.fromImage("tanqueIzquierda.png"));
+			theta = theta - (getVelocidadAngular() * deltaState.getDelta());
+			theta = ajustarAnguloEntrePiYMenosPi(theta);
+//			theta -= 10;
 		}
 		if (deltaState.isKeyPressed(Key.ENTER)) {
 			disparar();
 		}
+		velocidadPolar = new Vector2D(ro, (theta));
+	}
 	
+	protected double getVelocidadAngular() {
+		return 2*Math.PI; // media vuelta por segundo
 	}
 
+	protected double ajustarAnguloEntrePiYMenosPi(double theta) {
+		theta = theta > getVelocidadAngular() ? theta -  getVelocidadAngular() : theta;
+		theta = theta < 0 ? theta + getVelocidadAngular() : theta;
+		return theta;
+	}
+	
 	private void disparar() {
 
 		Bala<GameScene> bala = new Bala<GameScene>(this.getX()
-				+ this.getAncho() / 2, this.getY() + this.getAncho() / 2, rapidezDisparo);
+				+ this.getAncho() / 2, this.getY() + this.getAncho() / 2,
+				this.velocidadPolar.suma(new Vector2D(rapidezDisparo, 0))
+						.toCartesians());
 		this.getScene().addComponent(bala);
 		this.getScene().addBala(bala);
 	}
 
-//	private void actualizarPosicion(double delta) {
-//
-//		Vector2D cartesianPosition = getPosition().suma(
-//				getPolarVelocity().toCartesians().producto(delta));
-//
-//		setXVisible(cartesianPosition.getX());
-//		setYVisible(cartesianPosition.getY());
-//	}
+	protected Vector2D getVelocidadBala() {
+		return this.velocidadPolar.suma(new Vector2D(rapidezDisparo, 0))
+				.toCartesians();
+	}
+
+	
+
+	private void actualizarPosicion(double delta) {
+
+		Vector2D cartesianPosition = getPosition().suma(
+				getPolarVelocity().toCartesians().producto(delta));
+
+		setXVisible(cartesianPosition.getX());
+		setYVisible(cartesianPosition.getY());
+	}
 
 	public double getAncho() {
 		return this.getAppearance().getWidth();
@@ -130,16 +167,14 @@ public class Tanque extends GameComponent<BattleCityScene> {
 //		for (Bloque bloque : this.getScene().getBloques()) {
 //			this.rules.add(new ColisionNaveRule(bloque));
 //		}
+//
 //	}
-	
-	public void reset() {
-		this.setVelocidad(velocidadInicial);
-		this.setX(xInicial);
-		this.setY(yInicial);
-	}
 
 	// Accesors
 
+	public Vector2D getPolarVelocity() {
+		return velocidadPolar;
+	}
 
 	private void setYVisible(double yCartesiano) {
 		if (yCartesiano > 0
@@ -155,6 +190,10 @@ public class Tanque extends GameComponent<BattleCityScene> {
 						- this.getAncho()) {
 			this.setX(xCartesiano);
 		}
+	}
+
+	private Vector2D getPosition() {
+		return new Vector2D(this.getX(), this.getY());
 	}
 
 	public double getxMin() {
@@ -189,21 +228,21 @@ public class Tanque extends GameComponent<BattleCityScene> {
 		this.yMax = yMax;
 	}
 
-	public List<TanqueRule> getRules() {
-		if (this.rules.isEmpty()) {
-			//this.initRules();
-		}
-		return this.rules;
-	}
+//	public List<NaveRule> getRules() {
+//		if (this.rules.isEmpty()) {
+//			this.initRules();
+//		}
+//		return this.rules;
+//	}
 
-	public void setRules(List<TanqueRule> rules) {
-		this.rules = rules;
-	}
-
-	public void removeRule(ColisionNaveRule colisionNaveRule) {
-		this.getRules().remove(colisionNaveRule);
-
-	}
+//	public void setRules(List<NaveRule> rules) {
+//		this.rules = rules;
+//	}
+//
+//	public void removeRule(ColisionNaveRule colisionNaveRule) {
+//		this.getRules().remove(colisionNaveRule);
+//
+//	}
 
 	public double getxInicial() {
 		return xInicial;
@@ -221,6 +260,14 @@ public class Tanque extends GameComponent<BattleCityScene> {
 		this.yInicial = yInicial;
 	}
 	
+	public Vector2D getVelocidadPolar() {
+		return velocidadPolar;
+	}
+
+	public void setVelocidadPolar(Vector2D velocidadPolar) {
+		this.velocidadPolar = velocidadPolar;
+	}
+
 	public double getRapidezDisparo() {
 		return rapidezDisparo;
 	}
@@ -228,8 +275,6 @@ public class Tanque extends GameComponent<BattleCityScene> {
 	public void setRapidezDisparo(double rapidezDisparo) {
 		this.rapidezDisparo = rapidezDisparo;
 	}
-
-
 	public Sprite getImage() {
 		return image;
 	}
