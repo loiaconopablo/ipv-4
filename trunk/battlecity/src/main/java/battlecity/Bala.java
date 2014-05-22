@@ -12,18 +12,18 @@ import com.uqbar.vainilla.appearances.Rectangle;
 
 public class Bala<T extends GameScene> extends GameComponent<GameScene> {
 
-	private double velocity;
+	private Vector2D velocity;
 
-	public Bala(double x, double y, double velocity) {
+	public Bala(double x, double y, Vector2D velocity) {
 		super(new Circle(Color.RED, 7), x, y);
 		this.velocity = velocity;
 	}
 
 	@Override
 	public void update(DeltaState deltaState) {
-		double delta= deltaState.getDelta()*velocity;
-		this.setX(this.getX() + delta);
-		//this.setY(this.getY() + delta);
+		Vector2D newDelta = velocity.producto(deltaState.getDelta());
+		this.setX(this.getX() + newDelta.getX());
+		this.setY(this.getY() + newDelta.getY());
 //		if(this.seFueDelJuego()){
 //			this.getScene().removeComponent(this);
 			//faltaria remover la regla de los bloques con esta bala que se fue

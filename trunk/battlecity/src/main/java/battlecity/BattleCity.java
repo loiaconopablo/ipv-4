@@ -79,7 +79,7 @@ public class BattleCity extends Game {
 
 	@Override
 	public String getTitle() {
-		return "Asteroids";
+		return "BattleCity";
 	}
 
 	public static void main(String[] args) {
