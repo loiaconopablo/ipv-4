@@ -7,6 +7,7 @@ import java.util.Random;
 
 import scenes.BattleCityScene;
 import scenes.Marcador;
+import scenes.Texto;
 import utils.Tuning;
 
 import com.uqbar.vainilla.DesktopGameLauncher;
@@ -17,12 +18,14 @@ import com.uqbar.vainilla.GameScene;
 public class BattleCity extends Game {
 
 	private Dimension dimension;
+	private Dimension dimensionCuadro;
 	private GameScene principalScene;
 
 	@Override
 	protected void initializeResources() {
 		Tuning.load();
-		dimension = new Dimension(800, 600);
+		setDimensionCuadro(new Dimension(800, 600));
+		dimension = new Dimension(950,600);
 	}
 
 	@Override
@@ -36,19 +39,17 @@ public class BattleCity extends Game {
 	public GameScene buildBattleScene() {
 	
 				
-		Tanque tanque = new Tanque(300,500,0, dimension.getWidth(),0, dimension.getHeight());
+		Tanque tanque = new Tanque(300,500,0, dimensionCuadro.getWidth(),0, dimensionCuadro.getHeight());
 		BattleCityScene battleScene = new BattleCityScene(this);
 		
 		//this.factoryBloques(3, battleScene, BloqueChico.class);
 	
 		battleScene.setNave(tanque);
 		
-		battleScene.setMarcadorPuntos(new Marcador(dimension.getWidth() / 4,
-				-8, Color.blue, 0));
-
-		battleScene.setMarcadorVidas(new Marcador(
-				3 * dimension.getWidth() / 4, -8,
-				Color.green, 3));
+		battleScene.setLabelMarcador(new Texto(810, 20, Color.WHITE, "MARCADOR"));
+		battleScene.setMarcadorPuntos(new Marcador(830, 45, Color.blue, 0));
+		battleScene.setLabelVidas(new Texto(810, 120, Color.WHITE, "VIDAS"));
+		battleScene.setMarcadorVidas(new Marcador(830, 145,	Color.green, 3));
 		
 		return battleScene;
 	}
@@ -97,6 +98,14 @@ public class BattleCity extends Game {
 	public GameScene buildEndScene(Marcador marcadorPuntos, BattleCityScene battleScene) {
 		return new EndScene(dimension.getWidth() / 6,
 				dimension.getHeight() / 10, marcadorPuntos, battleScene);
+	}
+
+	public Dimension getDimensionCuadro() {
+		return dimensionCuadro;
+	}
+
+	public void setDimensionCuadro(Dimension dimensionCuadro) {
+		this.dimensionCuadro = dimensionCuadro;
 	}
 	
 }
