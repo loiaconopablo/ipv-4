@@ -8,7 +8,7 @@ import java.util.List;
 import battlecity.BattleCity;
 import battlecity.Bala;
 import battlecity.Bloque;
-import battlecity.Pasto;
+import battlecity.Ladrillo;
 import battlecity.Tanque;
 import battlecity.TanqueEnemigo;
 
@@ -20,32 +20,49 @@ public class BattleCityScene extends GameScene {
 
 
 	private Tanque nave;
-	private List<Bala> balas = new ArrayList<Bala>();
-	private List<TanqueEnemigo> tanquesEnemigos = new ArrayList<TanqueEnemigo>(); // pool de tanques enemigos		
-	private Marcador marcadorVidas;
-	private Marcador marcadorPuntos;
+	private List<TanqueEnemigo> tanquesEnemigos = new ArrayList<TanqueEnemigo>(); // pool de tanques enemigos	
+	private List<Bloque> bloques = new ArrayList<Bloque>(); //Va a contener a todos los tipos de terrenos
+	private Marcador marcadorVidas; 
+	private Texto labelVidas;
+	private Marcador marcadorPuntos; 
+	private Texto labelMarcador;
 	private GameComponent<GameScene> backGroundOne;
 	private GameComponent<GameScene> backGroundTwo;
 	
 	public BattleCityScene(BattleCity game){
-		this.tanquesEnemigos.add(new TanqueEnemigo(300,100,0, game.getDisplayWidth(),0, game.getDisplayHeight()));
-		this.tanquesEnemigos.add(new TanqueEnemigo(600,100,0, game.getDisplayWidth(),0, game.getDisplayHeight()));
+		//this.agregarTanquesEnemigos(new TanqueEnemigo(300,100,0, game.getDisplayWidth(),0, game.getDisplayHeight()));
+		//this.agregarTanquesEnemigos(new TanqueEnemigo(600,100,0, game.getDisplayWidth(),0, game.getDisplayHeight()));
+		//Hay que crear una interfaz para los enemigos,,sino cuando apretas las teclas se mueven, como si fuera el tuyo
 		
 		this.buildBackgroundOne(game.getDisplayWidth(),game.getDisplayHeight());
+		
 		this.buildBackgroundTwo(game.getDisplayWidth(),game.getDisplayHeight());
+		this.buildLadrillos();
 	}
 	
+	private void buildLadrillos() {
+		Ladrillo ladri = new Ladrillo(100,100);
+		this.bloques.add(ladri);
+		this.addComponent(ladri);
+		
+	}
+
 	private void buildBackgroundOne(int ancho, int alto) {
 		this.backGroundOne = new GameComponent<GameScene>(new Rectangle(Color.BLACK,
-				ancho, alto), 0, 0);
+				ancho-150, alto), 0, 0);
 		this.backGroundOne.setZ(-1);
 		this.addComponent(this.backGroundOne);
 	}
 	private void buildBackgroundTwo(int ancho, int alto) {
 		this.backGroundTwo = new GameComponent<GameScene>(new Rectangle(Color.GRAY,
-				ancho+100, alto+100), -20, -20);
+				ancho, alto), 0, 0);
 		this.backGroundTwo.setZ(-2);
 		this.addComponent(this.backGroundTwo);
+	}
+	
+	public void agregarTanquesEnemigos(TanqueEnemigo tanque){
+		this.tanquesEnemigos.add(tanque);
+		this.addComponent(tanque);
 	}
 	
 	public Tanque getNave() {
@@ -55,19 +72,6 @@ public class BattleCityScene extends GameScene {
 	public void setNave(Tanque nave) {
 		this.addComponent(nave);
 		this.nave = nave;
-	}
-
-	public void addBala (Bala bala){
-		this.addComponent(bala);
-		this.balas.add(bala);
-	}
-	
-	public List<Bala> getBalas() {
-		return balas;
-	}
-
-	public void setBalas(List<Bala> balas) {
-		this.balas = balas;
 	}
 
 	public Marcador getMarcadorVidas() {
@@ -114,5 +118,32 @@ public class BattleCityScene extends GameScene {
 	public void setBackGroundOne(GameComponent<GameScene> backGroundOne) {
 		this.backGroundOne = backGroundOne;
 	}
+
+	public Texto getLabelVidas() {
+		return labelVidas;
+	}
+
+	public void setLabelVidas(Texto labelVidas) {
+		this.labelVidas = labelVidas;
+		this.addComponent(labelVidas);
+	}
+
+	public Texto getLabelMarcador() {
+		return labelMarcador;
+	}
+
+	public void setLabelMarcador(Texto labelMarcador) {
+		this.labelMarcador = labelMarcador;
+		this.addComponent(labelMarcador);
+	}
+
+	public List<Bloque> getBloques() {
+		return bloques;
+	}
+
+	public void setBloques(List<Bloque> bloques) {
+		this.bloques = bloques;
+	}
+
 }
 

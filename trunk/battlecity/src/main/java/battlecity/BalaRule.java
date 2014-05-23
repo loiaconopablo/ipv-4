@@ -1,10 +1,14 @@
 package battlecity;
 
 import scenes.BattleCityScene;
+import utils.Vector2D;
 
 public interface BalaRule {
 	
-	boolean mustApply(Bloque bloque, BattleCityScene scene);
-	void apply(Bloque bloque, BattleCityScene scene);
+	boolean mustApply(Bala bala, BattleCityScene scene);
+	void apply(Bala bala, BattleCityScene scene);
+	
 
 }
+
+
