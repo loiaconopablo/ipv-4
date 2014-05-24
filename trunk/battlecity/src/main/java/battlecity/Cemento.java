@@ -1,17 +1,14 @@
 package battlecity;
 
-import java.awt.Color;
-
 import scenes.BattleCityScene;
 
 import com.uqbar.vainilla.DeltaState;
-import com.uqbar.vainilla.appearances.Rectangle;
 import com.uqbar.vainilla.appearances.Sprite;
 
-public class Ladrillo extends Bloque{
+public class Cemento extends Bloque{
 
-	public Ladrillo(int x, int y) {
-		super(Sprite.fromImage("ladrillo.png"), x, y);
+	public Cemento(int x, int y) {
+		super(Sprite.fromImage("cemento.png"), x, y);
 		//super(new Rectangle(Color.RED, 25,25), x, y);
 		// TODO Auto-generated constructor stub
 	}
@@ -27,6 +24,4 @@ public class Ladrillo extends Bloque{
 	public void choqueConBala(BattleCityScene scene) {
 		scene.removeComponent(this);
 	}
-
-
 }
