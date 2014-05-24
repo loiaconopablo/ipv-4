@@ -14,6 +14,8 @@ public class ColisionBloqueRule extends ColisionRule {
 	@Override
 	public void apply(Bala bala, BattleCityScene scene) {
 		super.apply(bala, scene);
+		scene.removeComponent(bala);
+		bala.volverASetearseAsuDueño();
 		this.objetoArebotar.choqueConBala(scene);	
 		
 	}

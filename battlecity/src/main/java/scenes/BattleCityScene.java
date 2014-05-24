@@ -8,7 +8,9 @@ import java.util.List;
 import battlecity.BattleCity;
 import battlecity.Bala;
 import battlecity.Bloque;
+import battlecity.Cemento;
 import battlecity.Ladrillo;
+import battlecity.Pasto;
 import battlecity.Tanque;
 import battlecity.TanqueEnemigo;
 
@@ -34,12 +36,25 @@ public class BattleCityScene extends GameScene {
 		//this.agregarTanquesEnemigos(new TanqueEnemigo(600,100,0, game.getDisplayWidth(),0, game.getDisplayHeight()));
 		//Hay que crear una interfaz para los enemigos,,sino cuando apretas las teclas se mueven, como si fuera el tuyo
 		
-		this.buildBackgroundOne(game.getDisplayWidth(),game.getDisplayHeight());
-		
+		this.buildBackgroundOne(game.getDisplayWidth(),game.getDisplayHeight());		
 		this.buildBackgroundTwo(game.getDisplayWidth(),game.getDisplayHeight());
 		this.buildLadrillos();
+		this.buildCementos();
+		this.buildPastos();
 	}
 	
+	private void buildPastos() {
+		Pasto pasto = new Pasto(150,100);
+		this.bloques.add(pasto);
+		this.addComponent(pasto);
+	}
+
+	private void buildCementos() {
+		Cemento cemento = new Cemento(200,100);
+		this.bloques.add(cemento);
+		this.addComponent(cemento);
+	}
+
 	private void buildLadrillos() {
 		Ladrillo ladri = new Ladrillo(100,100);
 		this.bloques.add(ladri);
