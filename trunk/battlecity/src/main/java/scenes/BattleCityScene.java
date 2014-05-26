@@ -22,6 +22,7 @@ public class BattleCityScene extends GameScene {
 
 
 	private Tanque nave;
+	private List<Bala> balas = new ArrayList<Bala>();
 	private List<TanqueEnemigo> tanquesEnemigos = new ArrayList<TanqueEnemigo>(); // pool de tanques enemigos	
 	private List<Bloque> bloques = new ArrayList<Bloque>(); //Va a contener a todos los tipos de terrenos
 	private Marcador marcadorVidas; 
@@ -158,6 +159,14 @@ public class BattleCityScene extends GameScene {
 
 	public void setBloques(List<Bloque> bloques) {
 		this.bloques = bloques;
+	}
+	
+	public List<Bala> getBalas() {
+		return balas;
+	}
+
+	public void setBalas(List<Bala> balas) {
+		this.balas = balas;
 	}
 
 }
