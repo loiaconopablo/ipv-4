@@ -16,7 +16,7 @@ import com.uqbar.vainilla.appearances.Rectangle;
 
 public class Bala extends GameComponent<BattleCityScene> {
 	private Vector2D velocity;
-	private List<BalaRule> rules = new ArrayList<BalaRule>();
+	private List<ColisionBalaBloqueRule> rules = new ArrayList<ColisionBalaBloqueRule>();
 	private Tanque propietario;
 	
 	public Bala(Tanque dueño, double x, double y, Vector2D velocity) {
@@ -33,8 +33,15 @@ public class Bala extends GameComponent<BattleCityScene> {
 		if(this.seFueDelJuego()){
 			this.volverASetearseAsuDueño();
 			this.getScene().removeComponent(this);
-			//faltaria remover la regla de los bloques con esta bala que se fue
 		}
+		
+		for(ColisionBalaBloqueRule rule : this.getRules()) {
+			if(rule.mustApply(this, this.getScene())) {
+				rule.apply(this, this.getScene());
+				break;
+			}
+		}
+		
 	}
 
 	private boolean seFueDelJuego() {
@@ -58,7 +65,7 @@ public class Bala extends GameComponent<BattleCityScene> {
 		this.getPropietario().setTieneBala(true);
 	}
 	
-	public List<BalaRule> getRules() {
+	public List<ColisionBalaBloqueRule> getRules() {
 		if(this.rules.isEmpty()) {
 			this.initRules();
 		}
@@ -74,12 +81,14 @@ public class Bala extends GameComponent<BattleCityScene> {
 	}
 
 	private void initRules() {
+		
 		for (Bloque bloque : this.getScene().getBloques() ) {
-			this.rules.add(new ColisionBloqueRule(bloque));
+			this.rules.add(bloque.crearSuColisionConBala());
 		}
+
 	}
 
-	public void setRules(List<BalaRule> rules) {
+	public void setRules(List<ColisionBalaBloqueRule> rules) {
 		this.rules = rules;
 	}
 

@@ -12,42 +12,16 @@ import com.uqbar.vainilla.appearances.Sprite;
 
 public class Ladrillo extends Bloque{
 
-	private List<ColisionLadrilloBalaRule> rules = new ArrayList<ColisionLadrilloBalaRule>();
+	private List<ColisionBalaLadrilloRule> rules = new ArrayList<ColisionBalaLadrilloRule>();
 	
 	public Ladrillo(int x, int y) {
-		super(Sprite.fromImage("/ladrillo.png"), x, y);
+		super(Sprite.fromImage("ladrillo.png"), x, y);
+	}
+
+	@Override
+	public ColisionBalaBloqueRule crearSuColisionConBala() {
+		return new ColisionBalaLadrilloRule(this);
 	}
 
 	
-	public void update(DeltaState deltaState) {
-		for(ColisionLadrilloBalaRule rule : this.getRules()) {
-			if(rule.mustApply(this, this.getScene())) {
-				rule.apply(this, this.getScene());
-				break;
-			}
-		}
-		
-		super.update(deltaState);
-		
-		
-	}
-	
-	public List<ColisionLadrilloBalaRule> getRules() {
-		this.initRules();
-		return rules;
-	}
-
-	private void initRules() {
-		for (Bala bala : this.getScene().getBalas()) {
-			this.rules.add(new ColisionLadrilloBalaRule(bala));
-		}
-
-	}
-	
-	public void removeRule(ColisionLadrilloBalaRule colisionBalaRule) {
-		
-		this.getRules().remove(colisionBalaRule);		
-	}
-
-
 }
