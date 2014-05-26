@@ -24,6 +24,7 @@ public class BattleCityScene extends GameScene {
 	private Tanque nave;
 	private List<Bala> balas = new ArrayList<Bala>();
 	private List<TanqueEnemigo> tanquesEnemigos = new ArrayList<TanqueEnemigo>(); // pool de tanques enemigos	
+
 	private List<Bloque> bloques = new ArrayList<Bloque>(); //Va a contener a todos los tipos de terrenos
 	private Marcador marcadorVidas; 
 	private Texto labelVidas;
@@ -33,8 +34,8 @@ public class BattleCityScene extends GameScene {
 	private GameComponent<GameScene> backGroundTwo;
 	
 	public BattleCityScene(BattleCity game){
-		//this.agregarTanquesEnemigos(new TanqueEnemigo(300,100,0, game.getDisplayWidth(),0, game.getDisplayHeight()));
-		//this.agregarTanquesEnemigos(new TanqueEnemigo(600,100,0, game.getDisplayWidth(),0, game.getDisplayHeight()));
+		this.agregarTanquesEnemigos(new TanqueEnemigo(300,100,0, game.getDisplayWidth(),0, game.getDisplayHeight()));
+		this.agregarTanquesEnemigos(new TanqueEnemigo(600,100,0, game.getDisplayWidth(),0, game.getDisplayHeight()));
 		//Hay que crear una interfaz para los enemigos,,sino cuando apretas las teclas se mueven, como si fuera el tuyo
 		
 		this.buildBackgroundOne(game.getDisplayWidth(),game.getDisplayHeight());		
@@ -169,5 +170,12 @@ public class BattleCityScene extends GameScene {
 		this.balas = balas;
 	}
 
+	public List<TanqueEnemigo> getTanquesEnemigos() {
+		return tanquesEnemigos;
+	}
+	
+	public void setTanquesEnemigos(List<TanqueEnemigo> tanquesEnemigos) {
+		this.tanquesEnemigos = tanquesEnemigos;
+	}
 }
 
