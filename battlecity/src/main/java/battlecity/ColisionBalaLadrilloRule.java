@@ -19,7 +19,7 @@ public class ColisionBalaLadrilloRule extends ColisionBalaBloqueRule {
 		((Bala) objeto).volverASetearseAsuDueño();	
 		scene.removeComponent(objeto);
 		this.getObjetoArebotar().destroy();
-		scene.revisarFinDelJuego();
+//		scene.revisarFinDelJuego();
 		
 	}
 

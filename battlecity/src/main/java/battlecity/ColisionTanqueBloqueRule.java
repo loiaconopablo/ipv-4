@@ -40,10 +40,11 @@ public class ColisionTanqueBloqueRule{
 		this.objetoArebotar = objetoArebotar;
 	}
 	
-	public void apply(GameComponent<BattleCityScene> objetoArebotar,
+	public void apply(GameComponent<BattleCityScene> objeto,
 			BattleCityScene scene) {
-		objetoArebotar.setY(objetoArebotar.getY());
-		objetoArebotar.setX(objetoArebotar.getX());
+		objeto.setY(objeto.getY());
+		objeto.setX(objeto.getX());
+	//	((Tanque)objeto).quedarseQuieto();
 		System.out.println("Choco");
 	}
 

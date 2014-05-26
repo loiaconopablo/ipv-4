@@ -220,4 +220,5 @@ public class Tanque extends GameComponent<BattleCityScene> {
 	public void setTieneBala(boolean tieneBala) {
 		this.tieneBala = tieneBala;
 	}
+
 }
