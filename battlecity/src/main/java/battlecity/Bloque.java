@@ -12,9 +12,7 @@ public abstract class Bloque extends GameComponent<BattleCityScene> {
 		super(sprite, x, y);
 	}
 
-	public abstract void update(Bloque bloque, BattleCityScene scene, DeltaState deltaState);
-
-	public abstract void choqueConBala(BattleCityScene scene);
+	public abstract void removeRule(ColisionLadrilloBalaRule colision);
 
 	}
 

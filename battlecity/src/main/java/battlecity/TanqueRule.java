@@ -5,7 +5,7 @@ import utils.Vector2D;
 
 public interface TanqueRule {
 	
-	boolean mustApply(Tanque nave, BattleCityScene scene);
-	void apply(Tanque nave, BattleCityScene scene);
+	boolean mustApply(Tanque tanque, BattleCityScene scene);
+	void apply(Tanque tanque, BattleCityScene scene);
 
 }
