@@ -42,10 +42,17 @@ public class ColisionTanqueBloqueRule{
 	
 	public void apply(GameComponent<BattleCityScene> objeto,
 			BattleCityScene scene) {
-		objeto.setY(objeto.getY());
+		if(this.getObjetoArebotar().getY()>objeto.getY()+objeto.getAppearance().getHeight()){
+			objeto.setY(Math.min(objeto.getY()+objeto.getAppearance().getHeight(),
+					this.getObjetoArebotar().getY()));
+		}
+		else{
+			objeto.setY(Math.max(objeto.getY(),this.getObjetoArebotar().getY()-(this.getObjetoArebotar().getAppearance().getHeight()/2)));
+		}
+		
 		objeto.setX(objeto.getX());
 	//	((Tanque)objeto).quedarseQuieto();
-		System.out.println("Choco");
+		//System.out.println("Choco");
 	}
 
 }

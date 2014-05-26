@@ -15,8 +15,10 @@ public class ColisionBalaLadrilloRule extends ColisionBalaBloqueRule {
 	
 	@Override
 	public void apply(GameComponent<BattleCityScene> objeto, BattleCityScene scene) {
+		((Bala) objeto).removeRule(this);
 		scene.getBalas().remove(objeto);
 		((Bala) objeto).volverASetearseAsuDueño();	
+		scene.getBloques().remove(this.getObjetoArebotar());
 		scene.removeComponent(objeto);
 		this.getObjetoArebotar().destroy();
 //		scene.revisarFinDelJuego();

@@ -19,6 +19,7 @@ public class Bala extends GameComponent<BattleCityScene> {
 	private List<ColisionBalaBloqueRule> rules = new ArrayList<ColisionBalaBloqueRule>();
 	private Tanque propietario;
 	
+	
 	public Bala(Tanque dueño, double x, double y, Vector2D velocity) {
 		super(new Circle(Color.RED, 7), x, y);
 		this.setVelocity(velocity);
@@ -85,7 +86,10 @@ public class Bala extends GameComponent<BattleCityScene> {
 		for (Bloque bloque : this.getScene().getBloques() ) {
 			this.rules.add(bloque.crearSuColisionConBala());
 		}
-
+		
+		for (Tanque tanque : this.getScene().getTanquesEnemigos()) {
+			this.rules.add(new ColisionBalaTanqueRule(tanque));
+		}
 	}
 
 	public void setRules(List<ColisionBalaBloqueRule> rules) {
@@ -98,6 +102,10 @@ public class Bala extends GameComponent<BattleCityScene> {
 
 	public void setPropietario(Tanque propietario) {
 		this.propietario = propietario;
+	}
+
+	public void removeRule(ColisionBalaBloqueRule colisionBalaBloqueRule) {
+		this.getRules().remove(colisionBalaBloqueRule);		
 	}
 
 
