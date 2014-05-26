@@ -20,7 +20,7 @@ public class Tanque extends GameComponent<BattleCityScene> {
 	private double xMax;
 	private double yMin;
 	private double yMax;
-	private List<ColisionBalaBloqueRule> rules = new ArrayList<ColisionBalaBloqueRule>();
+	private List<ColisionTanqueBloqueRule> rules = new ArrayList<ColisionTanqueBloqueRule>();
 	private Vector2D velocidadPolar = new Vector2D(0, -Math.PI / 2);
 	private double rapidezDisparo = 300;
 	private static Sprite image = Sprite.fromImage("tanqueArriba.png");
@@ -88,14 +88,14 @@ public class Tanque extends GameComponent<BattleCityScene> {
 
 	@Override
 	public void update(DeltaState deltaState) {
-		for(ColisionBalaBloqueRule rule : this.getRules()) {
+		super.update(deltaState);
+		for(ColisionTanqueBloqueRule rule : this.getRules()) {
 			if(rule.mustApply(this, this.getScene())) {
 				rule.apply(this, this.getScene());
 				break;
 			}
 		}
 		this.actualizarSpriteYDireccion(deltaState);
-		super.update(deltaState);
 
 	}
 
@@ -124,14 +124,13 @@ public class Tanque extends GameComponent<BattleCityScene> {
 	}
 	
 	private void initRules() {
-		
 		for (Bloque bloque : this.getScene().getBloques() ) {
-			this.rules.add(bloque.crearSuColisionConBala());
+			this.rules.add(new ColisionTanqueBloqueRule(bloque));
 		}
 
 	}
 	
-	public List<ColisionBalaBloqueRule> getRules() {
+	public List<ColisionTanqueBloqueRule> getRules() {
 		if (this.rules.isEmpty()) {
 			this.initRules();
 		}
