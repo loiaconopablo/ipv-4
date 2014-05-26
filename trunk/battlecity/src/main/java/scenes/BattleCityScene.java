@@ -46,7 +46,7 @@ public class BattleCityScene extends GameScene {
 	
 	private void buildPastos() {
 		Pasto pasto = new Pasto(150,100);
-		this.bloques.add(pasto);
+		//this.bloques.add(pasto);
 		this.addComponent(pasto);
 	}
 

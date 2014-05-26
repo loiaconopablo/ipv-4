@@ -12,8 +12,10 @@ public abstract class Bloque extends GameComponent<BattleCityScene> {
 		super(sprite, x, y);
 	}
 
-	public abstract void removeRule(ColisionLadrilloBalaRule colision);
+	public abstract ColisionBalaBloqueRule crearSuColisionConBala();
+}
 
-	}
+
+
 
 
