@@ -23,7 +23,7 @@ public class Tanque extends GameComponent<BattleCityScene> {
 	private List<ColisionTanqueBloqueRule> rules = new ArrayList<ColisionTanqueBloqueRule>();
 	private Vector2D velocidadPolar = new Vector2D(0, -Math.PI / 2);
 	private double rapidezDisparo = 300;
-	private static Sprite image = Sprite.fromImage("tanqueArriba.png");
+	private static Sprite image = Sprite.fromImage("/tanqueArriba.png");
 	private double velocidad;
 	private boolean tieneBala;
 	
@@ -57,26 +57,26 @@ public class Tanque extends GameComponent<BattleCityScene> {
 
 		if (deltaState.isKeyBeingHold(Key.UP)) {
 			this.setY(Math.max(this.getY() - getVelocidad() * delta, getyMin()));
-			this.setAppearance(Sprite.fromImage("tanqueArriba.png"));
+			this.setAppearance(Sprite.fromImage("/tanqueArriba.png"));
 			anguloDisparo = -Math.PI / 2;
 			ro += deltaSpeed * deltaState.getDelta();
 
 		} else if (deltaState.isKeyBeingHold(Key.DOWN)) {
 			this.setY(Math.min(getyMax() - this.getAppearance().getHeight(),
 					this.getY() + getVelocidad() * delta));
-			this.setAppearance(Sprite.fromImage("tanqueAbajo.png"));
+			this.setAppearance(Sprite.fromImage("/tanqueAbajo.png"));
 			anguloDisparo = Math.PI / 2;
 			ro = Math.max(0, ro - (deltaSpeed * deltaState.getDelta()));
 
 		} else if (deltaState.isKeyBeingHold(Key.RIGHT)) {
 			this.setX(Math.min(getxMax() - this.getAppearance().getWidth(),
 					this.getX() + getVelocidad() * delta));
-			this.setAppearance(Sprite.fromImage("tanqueDerecha.png"));
+			this.setAppearance(Sprite.fromImage("/tanqueDerecha.png"));
 			anguloDisparo = 2 * Math.PI;
 
 		} else if (deltaState.isKeyBeingHold(Key.LEFT)) {
 			this.setX(Math.max(this.getX() - getVelocidad() * delta, getxMin()));
-			this.setAppearance(Sprite.fromImage("tanqueIzquierda.png"));
+			this.setAppearance(Sprite.fromImage("/tanqueIzquierda.png"));
 			anguloDisparo = Math.PI;
 		}
 		if (deltaState.isKeyPressed(Key.ENTER)) {
@@ -96,10 +96,10 @@ public class Tanque extends GameComponent<BattleCityScene> {
 			}
 		}
 		this.actualizarSpriteYDireccion(deltaState);
-
+	
 	}
 
-	private void disparar() {
+	public void disparar() {
 		if (this.isTieneBala()) {
 			Bala bala = new Bala(this,this.getX() + this.getAncho() / 2,
 					this.getY() + this.getAncho() / 2, this.velocidadPolar.suma(

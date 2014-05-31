@@ -13,7 +13,7 @@ public class Cemento extends Bloque{
 	private List<ColisionBalaCementoRule> rules = new ArrayList<ColisionBalaCementoRule>();
 	
 	public Cemento(int x, int y) {
-		super(Sprite.fromImage("cemento.png"), x, y);
+		super(Sprite.fromImage("/cemento.png"), x, y);
 		//super(new Rectangle(Color.RED, 25,25), x, y);
 		// TODO Auto-generated constructor stub
 	}

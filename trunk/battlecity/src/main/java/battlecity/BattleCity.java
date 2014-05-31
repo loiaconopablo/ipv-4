@@ -44,7 +44,7 @@ public class BattleCity extends Game {
 		
 		//this.factoryBloques(3, battleScene, BloqueChico.class);
 	
-		battleScene.setNave(tanque);
+		battleScene.setTanque(tanque);
 		
 		battleScene.setLabelMarcador(new Texto(810, 20, Color.WHITE, "MARCADOR"));
 		battleScene.setMarcadorPuntos(new Marcador(830, 45, Color.blue, 0));

@@ -21,7 +21,7 @@ import com.uqbar.vainilla.appearances.Rectangle;
 public class BattleCityScene extends GameScene {
 
 
-	private Tanque nave;
+	private Tanque tanque;
 	private List<Bala> balas = new ArrayList<Bala>();
 	private List<TanqueEnemigo> tanquesEnemigos = new ArrayList<TanqueEnemigo>(); // pool de tanques enemigos	
 
@@ -82,13 +82,13 @@ public class BattleCityScene extends GameScene {
 		this.addComponent(tanque);
 	}
 	
-	public Tanque getNave() {
-		return nave;
+	public Tanque getTanque() {
+		return tanque;
 	}
 
-	public void setNave(Tanque nave) {
-		this.addComponent(nave);
-		this.nave = nave;
+	public void setTanque(Tanque tanque) {
+		this.addComponent(tanque);
+		this.tanque = tanque;
 	}
 
 	public Marcador getMarcadorVidas() {
