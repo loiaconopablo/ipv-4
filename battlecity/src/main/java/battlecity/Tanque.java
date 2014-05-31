@@ -27,6 +27,8 @@ public class Tanque extends GameComponent<BattleCityScene> {
 	private double velocidad;
 	private boolean tieneBala;
 	
+	private double contadorTanqueEnemigo = 0;
+	
 	public double getVelocidad() {
 		return velocidad;
 	}
@@ -96,7 +98,12 @@ public class Tanque extends GameComponent<BattleCityScene> {
 			}
 		}
 		this.actualizarSpriteYDireccion(deltaState);
-	
+		this.contadorTanqueEnemigo += deltaState.getDelta();
+		if(this.contadorTanqueEnemigo >= 5.0){
+			this.contadorTanqueEnemigo = 0.0;
+			this.getScene().agregarTanquesEnemigos(new TanqueEnemigo(740,0,0, this.getScene().getGame().getDisplayWidth(),0, this.getScene().getGame().getDisplayHeight()));
+		}
+		
 	}
 
 	public void disparar() {
