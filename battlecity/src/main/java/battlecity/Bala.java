@@ -22,6 +22,7 @@ public class Bala extends GameComponent<BattleCityScene> {
 	
 	public Bala(Tanque dueño, double x, double y, Vector2D velocity) {
 		super(new Circle(Color.RED, 7), x, y);
+		this.setZ(-1);
 		this.setVelocity(velocity);
 		this.setPropietario(dueño);
 	}
@@ -45,7 +46,7 @@ public class Bala extends GameComponent<BattleCityScene> {
 		
 	}
 
-	private boolean seFueDelJuego() {
+	public boolean seFueDelJuego() {
 		return(	this.getGame().getDisplayHeight() <= this.getY()+this.getAppearance().getHeight() ||
 		this.getY() <= 0 ||
 		this.getGame().getDisplayWidth()-150 <= this.getX()+this.getAppearance().getWidth() ||
