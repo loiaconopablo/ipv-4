@@ -30,6 +30,7 @@ public class BattleCityScene extends GameScene {
 	private Texto labelVidas;
 	private Marcador marcadorPuntos; 
 	private Texto labelMarcador;
+	private boolean finDeJuego = false;
 	private GameComponent<GameScene> backGroundOne;
 	private GameComponent<GameScene> backGroundTwo;
 	
@@ -112,6 +113,7 @@ public class BattleCityScene extends GameScene {
 	public void revisarFinDelJuego() {
 		if (this.marcadorVidas.getValue() <= 0 || this.marcadorPuntos.getValue() >=500) {
 			this.fin();
+			this.setFinDeJuego(true);
 		}
 	}
 
@@ -176,6 +178,14 @@ public class BattleCityScene extends GameScene {
 	
 	public void setTanquesEnemigos(List<TanqueEnemigo> tanquesEnemigos) {
 		this.tanquesEnemigos = tanquesEnemigos;
+	}
+
+	public boolean isFinDeJuego() {
+		return finDeJuego;
+	}
+
+	public void setFinDeJuego(boolean finDeJuego) {
+		this.finDeJuego = finDeJuego;
 	}
 }
 

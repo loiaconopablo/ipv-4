@@ -32,7 +32,7 @@ public class Bala extends GameComponent<BattleCityScene> {
 		Vector2D newDelta = velocity.producto(deltaState.getDelta());
 		this.setX(this.getX() + newDelta.getX());
 		this.setY(this.getY() + newDelta.getY());
-		if(this.seFueDelJuego()){
+		if(!this.getScene().isFinDeJuego() && this.seFueDelJuego() ){
 			this.volverASetearseAsuDueño();
 			this.getScene().removeComponent(this);
 		}
@@ -52,16 +52,6 @@ public class Bala extends GameComponent<BattleCityScene> {
 		this.getGame().getDisplayWidth()-150 <= this.getX()+this.getAppearance().getWidth() ||
 		this.getX() <= 0); 
 		}
-//		pelota.getGame().getDisplayHeight() <= nuevaPosicion.getY() + pelota.getAppearance().getHeight() ||
-//		nuevaPosicion.getY() <= 0 ||
-//				pelota.getGame().getDisplayWidth() <= nuevaPosicion.getX() + pelota.getAppearance().getWidth() ||
-//				nuevaPosicion.getX() <= 0 ||		
-//		
-//		return(this.getX()+this.getAppearance().getWidth() > this.getGame().getDisplayWidth() || 
-//				this.getX()+this.getAppearance().getWidth() < this.getGame().getDisplayWidth() || 
-//				this.getY()+this.getAppearance().getHeight() < this.getGame().getDisplayHeight()||
-//				this.getY()+this.getAppearance().getHeight() > this.getGame().getDisplayHeight());
-//	}
 
 	public void volverASetearseAsuDueño(){
 		this.getPropietario().setTieneBala(true);

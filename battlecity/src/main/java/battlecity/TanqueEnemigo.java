@@ -18,8 +18,7 @@ public class TanqueEnemigo extends Tanque {
 	public TanqueEnemigo(double posx, double posy, double xMin, double xMax,
 			double yMin, double yMax) {
 		super(posx, posy, xMin, xMax, yMin, yMax);
-		this.setAppearance(Sprite.fromImage("/tanqueEnemigoAbajo.png"));
-		
+		this.setAppearance(Sprite.fromImage("tanqueEnemigoAbajo.png"));
 	}
 
 	@Override
