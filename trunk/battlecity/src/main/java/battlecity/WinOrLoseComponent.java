@@ -15,12 +15,12 @@ import com.uqbar.vainilla.events.constants.Key;
 
 public class WinOrLoseComponent extends GameComponent<GameScene> {
 	
-	private BattleCityScene asteroidsScene;
+	private BattleCityScene battleScene;
 
 	public WinOrLoseComponent(double x, double y, Marcador marcadorPuntos, BattleCityScene asteroidsScene) {
 		super(new Label(new Font("verdana",  Font.BOLD, 24), Color.BLUE, "",
 				marcadorPuntos.fin()?"PERDISTE!, Presione N para un juego nuevo":"GANASTE!!!"), x, y);
-		this.setAsteroidsScene(asteroidsScene);
+		this.setBatleCityScene(asteroidsScene);
 	}
 	
 	
@@ -38,12 +38,12 @@ public class WinOrLoseComponent extends GameComponent<GameScene> {
 
 
 	public BattleCityScene getAsteroidsScene() {
-		return asteroidsScene;
+		return battleScene;
 	}
 
 
-	public void setAsteroidsScene(BattleCityScene asteroidsScene) {
-		this.asteroidsScene = asteroidsScene;
+	public void setBatleCityScene(BattleCityScene asteroidsScene) {
+		this.battleScene = asteroidsScene;
 	}
 	
 }

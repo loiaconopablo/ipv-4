@@ -15,7 +15,7 @@ public class Ladrillo extends Bloque{
 	private List<ColisionBalaLadrilloRule> rules = new ArrayList<ColisionBalaLadrilloRule>();
 	
 	public Ladrillo(int x, int y) {
-		super(Sprite.fromImage("/ladrillo.png"), x, y);
+		super(Sprite.fromImage("ladrillo.png"), x, y);
 	}
 
 	@Override
