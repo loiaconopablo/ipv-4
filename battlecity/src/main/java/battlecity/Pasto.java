@@ -1,6 +1,8 @@
 package battlecity;
 
 
+import colisiones.ColisionBalaBloqueRule;
+
 import com.uqbar.vainilla.DeltaState;
 import com.uqbar.vainilla.appearances.Sprite;
 

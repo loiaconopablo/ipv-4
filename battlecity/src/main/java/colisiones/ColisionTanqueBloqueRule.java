@@ -1,4 +1,4 @@
-package battlecity;
+package colisiones;
 
 import scenes.BattleCityScene;
 

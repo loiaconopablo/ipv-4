@@ -1,4 +1,6 @@
-package battlecity;
+package colisiones;
+
+import battlecity.Bala;
 
 import com.uqbar.vainilla.GameComponent;
 import com.uqbar.vainilla.colissions.CollisionDetector;

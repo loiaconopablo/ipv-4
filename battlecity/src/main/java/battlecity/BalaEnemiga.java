@@ -4,6 +4,9 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
+import colisiones.ColisionBalaBloqueRule;
+import colisiones.ColisionBalaTanqueJugadorRule;
+
 import com.uqbar.vainilla.DeltaState;
 import com.uqbar.vainilla.appearances.Circle;
 

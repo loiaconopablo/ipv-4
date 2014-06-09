@@ -6,7 +6,9 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Random;
 
 import scenes.BattleCityScene;
+import scenes.EndScene;
 import scenes.Marcador;
+import scenes.StartScene;
 import scenes.Texto;
 import utils.Tuning;
 
@@ -30,12 +32,21 @@ public class BattleCity extends Game {
 
 	@Override
 	protected void setUpScenes() {
-		GameScene asteroidsScene = buildBattleScene();
-	
-		this.setCurrentScene(asteroidsScene);
-		this.setPrincipalScene(asteroidsScene);
+		GameScene battleScene = buildBattleScene();
+//		this.setCurrentScene(battleScene);
+//		this.setPrincipalScene(battleScene);
+//		
+		GameScene inicioScene = buildStartScene(battleScene);
+		this.setCurrentScene(inicioScene);
+		this.setPrincipalScene(inicioScene);
+		
+		
 	}
 
+	
+	
+	
+	
 	public GameScene buildBattleScene() {
 	
 				
@@ -98,6 +109,10 @@ public class BattleCity extends Game {
 	public GameScene buildEndScene(Marcador marcadorPuntos, BattleCityScene battleScene) {
 		return new EndScene(dimension.getWidth() / 6,
 				dimension.getHeight() / 10, marcadorPuntos, battleScene);
+	}
+	public GameScene buildStartScene(GameScene battleScene) {
+		return new StartScene(dimension.getWidth() / 6,
+				dimension.getHeight() / 2, battleScene);
 	}
 
 	public Dimension getDimensionCuadro() {
