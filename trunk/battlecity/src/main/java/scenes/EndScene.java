@@ -1,9 +1,9 @@
 package scenes;
 
 import scenes.Marcador;
-import battlecity.WinOrLoseComponent;
 
 import com.uqbar.vainilla.GameScene;
+import components.scenas.WinOrLoseComponent;
 
 
 public class EndScene extends GameScene {

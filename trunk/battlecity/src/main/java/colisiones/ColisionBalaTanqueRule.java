@@ -1,6 +1,7 @@
-package battlecity;
+package colisiones;
 
 import scenes.BattleCityScene;
+import battlecity.Bala;
 
 import com.uqbar.vainilla.GameComponent;
 

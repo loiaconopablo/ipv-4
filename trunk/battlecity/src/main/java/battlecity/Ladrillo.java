@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import scenes.BattleCityScene;
+import colisiones.ColisionBalaBloqueRule;
+import colisiones.ColisionBalaLadrilloRule;
 
 import com.uqbar.vainilla.DeltaState;
 import com.uqbar.vainilla.appearances.Rectangle;

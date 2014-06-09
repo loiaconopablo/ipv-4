@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import scenes.BattleCityScene;
+import colisiones.ColisionBalaBloqueRule;
+import colisiones.ColisionBalaCementoRule;
 
 import com.uqbar.vainilla.DeltaState;
 import com.uqbar.vainilla.appearances.Sprite;

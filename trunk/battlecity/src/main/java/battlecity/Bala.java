@@ -7,6 +7,8 @@ import java.util.List;
 
 import scenes.BattleCityScene;
 import utils.Vector2D;
+import colisiones.ColisionBalaBloqueRule;
+import colisiones.ColisionBalaTanqueRule;
 
 import com.uqbar.vainilla.DeltaState;
 import com.uqbar.vainilla.GameComponent;

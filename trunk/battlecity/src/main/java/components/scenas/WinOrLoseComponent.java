@@ -1,4 +1,4 @@
-package battlecity;
+package components.scenas;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -6,6 +6,7 @@ import java.awt.Font;
 
 import scenes.BattleCityScene;
 import scenes.Marcador;
+import battlecity.BattleCity;
 
 import com.uqbar.vainilla.DeltaState;
 import com.uqbar.vainilla.GameComponent;
@@ -17,10 +18,10 @@ public class WinOrLoseComponent extends GameComponent<GameScene> {
 	
 	private BattleCityScene battleScene;
 
-	public WinOrLoseComponent(double x, double y, Marcador marcadorPuntos, BattleCityScene asteroidsScene) {
+	public WinOrLoseComponent(double x, double y, Marcador marcadorPuntos, BattleCityScene battleScenea) {
 		super(new Label(new Font("verdana",  Font.BOLD, 24), Color.BLUE, "",
 				marcadorPuntos.fin()?"PERDISTE!, Presione N para un juego nuevo":"GANASTE!!!"), x, y);
-		this.setBatleCityScene(asteroidsScene);
+		this.setBatleCityScene(battleScenea);
 	}
 	
 	
