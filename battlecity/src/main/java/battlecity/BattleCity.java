@@ -33,13 +33,13 @@ public class BattleCity extends Game {
 	@Override
 	protected void setUpScenes() {
 		GameScene battleScene = buildBattleScene();
-//		this.setCurrentScene(battleScene);
-//		this.setPrincipalScene(battleScene);
+		this.setCurrentScene(battleScene);
+		this.setPrincipalScene(battleScene);
 //		
-		GameScene inicioScene = buildStartScene(battleScene);
-		this.setCurrentScene(inicioScene);
-		this.setPrincipalScene(inicioScene);
-		
+//		GameScene inicioScene = buildStartScene(battleScene);
+//		this.setCurrentScene(inicioScene);
+//		this.setPrincipalScene(inicioScene);
+//		
 		
 	}
 
@@ -50,7 +50,8 @@ public class BattleCity extends Game {
 	public GameScene buildBattleScene() {
 	
 				
-		Tanque tanque = new Tanque(300,500,0, dimensionCuadro.getWidth(),0, dimensionCuadro.getHeight());
+//		Tanque tanque = new Tanque(300,500,0, dimensionCuadro.getWidth(),0, dimensionCuadro.getHeight());
+		Tanque tanque = new Tanque(200,500,0, dimensionCuadro.getWidth(),0, dimensionCuadro.getHeight());
 		BattleCityScene battleScene = new BattleCityScene(this);
 		
 		//this.factoryBloques(3, battleScene, BloqueChico.class);

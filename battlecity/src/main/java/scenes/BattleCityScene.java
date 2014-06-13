@@ -5,6 +5,8 @@ import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
 
+import map.Map;
+import map.MapManager;
 import battlecity.BattleCity;
 import battlecity.Bala;
 import battlecity.Bloque;
@@ -34,16 +36,20 @@ public class BattleCityScene extends GameScene {
 	private GameComponent<GameScene> backGroundOne;
 	private GameComponent<GameScene> backGroundTwo;
 	
+	private MapManager manager = new MapManager();
+	
 	public BattleCityScene(BattleCity game){
+		this.manager.build(this);
+		
 		this.agregarTanquesEnemigos(new TanqueEnemigo(300,100,0, game.getDisplayWidth(),0, game.getDisplayHeight()));
 		this.agregarTanquesEnemigos(new TanqueEnemigo(600,100,0, game.getDisplayWidth(),0, game.getDisplayHeight()));
 		//Hay que crear una interfaz para los enemigos,,sino cuando apretas las teclas se mueven, como si fuera el tuyo
 		
 		this.buildBackgroundOne(game.getDisplayWidth(),game.getDisplayHeight());		
 		this.buildBackgroundTwo(game.getDisplayWidth(),game.getDisplayHeight());
-		this.buildLadrillos();
-		this.buildCementos();
-		this.buildPastos();
+//		this.buildLadrillos();
+//		this.buildCementos();
+//		this.buildPastos();
 	}
 	
 	private void buildPastos() {
@@ -51,11 +57,36 @@ public class BattleCityScene extends GameScene {
 		//this.bloques.add(pasto);
 		this.addComponent(pasto);
 	}
+	
 
-	private void buildCementos() {
+	public void buildCementos() {
 		Cemento cemento = new Cemento(200,100);
 		this.bloques.add(cemento);
 		this.addComponent(cemento);
+	}
+
+	public void buildCementos(int x, int y) {
+		y = this.generarPosicion(y);
+		x = this.generarPosicion(x);
+		Cemento cemento = new Cemento(x,y);
+		this.bloques.add(cemento);
+		this.addComponent(cemento);
+	}
+	
+	public void buildLadrillos(int x, int y) {
+		y = this.generarPosicion(y);
+		x = this.generarPosicion(x);
+		Ladrillo ladrillo = new Ladrillo(x,y);
+		this.bloques.add(ladrillo);
+		this.addComponent(ladrillo);
+	}
+	
+	public void buildPasto(int x, int y) {
+		y = this.generarPosicion(y);
+		x = this.generarPosicion(x);
+		Pasto pasto = new Pasto(x,y);
+		this.bloques.add(pasto);
+		this.addComponent(pasto);
 	}
 
 	private void buildLadrillos() {
@@ -63,6 +94,10 @@ public class BattleCityScene extends GameScene {
 		this.bloques.add(ladri);
 		this.addComponent(ladri);
 		
+	}
+
+	private int generarPosicion(int x) {
+		return x * 50;
 	}
 
 	private void buildBackgroundOne(int ancho, int alto) {
@@ -186,6 +221,14 @@ public class BattleCityScene extends GameScene {
 
 	public void setFinDeJuego(boolean finDeJuego) {
 		this.finDeJuego = finDeJuego;
+	}
+
+	public MapManager getManager() {
+		return manager;
+	}
+
+	public void setManager(MapManager manager) {
+		this.manager = manager;
 	}
 }
 
