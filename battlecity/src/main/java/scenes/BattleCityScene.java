@@ -11,14 +11,18 @@ import battlecity.BattleCity;
 import battlecity.Bala;
 import battlecity.Bloque;
 import battlecity.Cemento;
+import battlecity.Grilla;
+import battlecity.HalconVida;
 import battlecity.Ladrillo;
 import battlecity.Pasto;
+import battlecity.Posicion;
 import battlecity.Tanque;
 import battlecity.TanqueEnemigo;
 
 import com.uqbar.vainilla.GameComponent;
 import com.uqbar.vainilla.GameScene;
 import com.uqbar.vainilla.appearances.Rectangle;
+import com.uqbar.vainilla.appearances.Sprite;
 
 public class BattleCityScene extends GameScene {
 
@@ -33,8 +37,20 @@ public class BattleCityScene extends GameScene {
 	private Marcador marcadorPuntos; 
 	private Texto labelMarcador;
 	private boolean finDeJuego = false;
+	private Grilla grilla = new Grilla();
+	
+
+	public Grilla getGrilla() {
+		return grilla;
+	}
+
+	public void setGrilla(Grilla grilla) {
+		this.grilla = grilla;
+	}
+
 	private GameComponent<GameScene> backGroundOne;
 	private GameComponent<GameScene> backGroundTwo;
+	private HalconVida vida;
 	
 	private MapManager manager = new MapManager();
 	
@@ -47,9 +63,8 @@ public class BattleCityScene extends GameScene {
 		
 		this.buildBackgroundOne(game.getDisplayWidth(),game.getDisplayHeight());		
 		this.buildBackgroundTwo(game.getDisplayWidth(),game.getDisplayHeight());
-//		this.buildLadrillos();
-//		this.buildCementos();
-//		this.buildPastos();
+		this.vida= new HalconVida(Sprite.fromImage("halcon.png"), 350, 500);
+		this.addComponent(vida);
 	}
 	
 	private void buildPastos() {
@@ -64,30 +79,15 @@ public class BattleCityScene extends GameScene {
 		this.bloques.add(cemento);
 		this.addComponent(cemento);
 	}
+	
+	public void buildComponent(int x, int y, GameComponent elemento){
+		y = this.generarPosicion(y);
+		x = this.generarPosicion(x);
+		
+		this.bloques.add((Bloque) elemento);
+		this.addComponent(elemento);
+	}
 
-	public void buildCementos(int x, int y) {
-		y = this.generarPosicion(y);
-		x = this.generarPosicion(x);
-		Cemento cemento = new Cemento(x,y);
-		this.bloques.add(cemento);
-		this.addComponent(cemento);
-	}
-	
-	public void buildLadrillos(int x, int y) {
-		y = this.generarPosicion(y);
-		x = this.generarPosicion(x);
-		Ladrillo ladrillo = new Ladrillo(x,y);
-		this.bloques.add(ladrillo);
-		this.addComponent(ladrillo);
-	}
-	
-	public void buildPasto(int x, int y) {
-		y = this.generarPosicion(y);
-		x = this.generarPosicion(x);
-		Pasto pasto = new Pasto(x,y);
-		this.bloques.add(pasto);
-		this.addComponent(pasto);
-	}
 
 	private void buildLadrillos() {
 		Ladrillo ladri = new Ladrillo(100,100);
@@ -139,6 +139,14 @@ public class BattleCityScene extends GameScene {
 	public Marcador getMarcadorPuntos() {
 		return marcadorPuntos;
 	}
+	
+	public HalconVida getVida() {
+		return vida;
+	}
+
+	public void setVida(HalconVida vida) {
+		this.vida = vida;
+	}
 
 	public void setMarcadorPuntos(Marcador marcadorPuntos) {
 		this.marcadorPuntos = marcadorPuntos;
@@ -151,8 +159,10 @@ public class BattleCityScene extends GameScene {
 			this.setFinDeJuego(true);
 		}
 	}
+	
+	
 
-	void fin() {
+	public void fin() {
 		this.getGame().setCurrentScene(
 				((BattleCity) this.getGame()).buildEndScene(this.getMarcadorVidas(),this));
 	}
@@ -229,6 +239,11 @@ public class BattleCityScene extends GameScene {
 
 	public void setManager(MapManager manager) {
 		this.manager = manager;
+	}
+
+	public void agregarALaGrilla(int x, int y, GameComponent elemento) {
+		this.getGrilla().setPosicion(x, y,new Posicion(x,y, elemento));
+		
 	}
 }
 

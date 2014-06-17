@@ -1,5 +1,8 @@
 package map;
 
+import battlecity.Cemento;
+import battlecity.Ladrillo;
+import battlecity.Pasto;
 import scenes.BattleCityScene;
 
 public class MapManager {
@@ -12,20 +15,27 @@ public class MapManager {
 				this.build(battleCityScene, x, y);
 			}
 		}
-		System.out.println(this.mapa.getMapa()[1][0]);
-		System.out.println(this.mapa.getMapa().length);
+//		System.out.println(this.mapa.getMapa()[1][0]);
+//		System.out.println(this.mapa.getMapa().length);
 		
 	}
 
 	private void build(BattleCityScene battleCityScene, int x, int y) {
 		if(this.mapa.getMapa()[y][x] == 1){
-			battleCityScene.buildCementos(x, y);
+			Cemento cemento = new Cemento(x,y);
+			battleCityScene.agregarALaGrilla(x,y,cemento);
+			battleCityScene.buildComponent(x, y,cemento);
+
 		}
 		if(this.mapa.getMapa()[y][x] == 2){
-			battleCityScene.buildLadrillos(x, y);
+			Ladrillo ladrillo = new Ladrillo(x,y);
+			battleCityScene.agregarALaGrilla(x,y,ladrillo);
+			battleCityScene.buildComponent(x, y,ladrillo);
 		}
 		if(this.mapa.getMapa()[y][x] == 3){
-			battleCityScene.buildPasto(x, y);
+			Pasto pasto = new Pasto(x,y);
+			battleCityScene.agregarALaGrilla(x,y,pasto);
+			battleCityScene.buildComponent(x, y,pasto);
 		}
 		
 	}

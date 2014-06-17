@@ -8,6 +8,7 @@ import java.util.List;
 import scenes.BattleCityScene;
 import utils.Vector2D;
 import colisiones.ColisionBalaBloqueRule;
+import colisiones.ColisionBalaHalconVidaRule;
 import colisiones.ColisionBalaTanqueRule;
 
 import com.uqbar.vainilla.DeltaState;
@@ -83,6 +84,8 @@ public class Bala extends GameComponent<BattleCityScene> {
 		for (Tanque tanque : this.getScene().getTanquesEnemigos()) {
 			this.rules.add(new ColisionBalaTanqueRule(tanque));
 		}
+		
+		this.rules.add(new ColisionBalaHalconVidaRule(this.getScene().getVida()));
 	}
 
 	public void setRules(List<ColisionBalaBloqueRule> rules) {
