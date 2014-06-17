@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import colisiones.ColisionBalaBloqueRule;
+import colisiones.ColisionBalaHalconVidaRule;
 import colisiones.ColisionBalaTanqueJugadorRule;
 
 import com.uqbar.vainilla.DeltaState;
@@ -76,6 +77,7 @@ public class BalaEnemiga extends Bala {
 		}
 		
 		this.rules.add(new ColisionBalaTanqueJugadorRule(this.getScene().getTanque()));
+		this.rules.add(new ColisionBalaHalconVidaRule(this.getScene().getVida()));
 	}
 
 	public void setRules(List<ColisionBalaBloqueRule> rules) {

@@ -33,13 +33,13 @@ public class BattleCity extends Game {
 	@Override
 	protected void setUpScenes() {
 		GameScene battleScene = buildBattleScene();
-		this.setCurrentScene(battleScene);
-		this.setPrincipalScene(battleScene);
-//		
-//		GameScene inicioScene = buildStartScene(battleScene);
-//		this.setCurrentScene(inicioScene);
-//		this.setPrincipalScene(inicioScene);
-//		
+//		this.setCurrentScene(battleScene);
+//		this.setPrincipalScene(battleScene);
+		
+		GameScene inicioScene = buildStartScene(battleScene);
+		this.setCurrentScene(inicioScene);
+		this.setPrincipalScene(inicioScene);
+		
 		
 	}
 
