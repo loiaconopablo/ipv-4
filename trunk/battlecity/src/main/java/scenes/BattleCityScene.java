@@ -63,38 +63,22 @@ public class BattleCityScene extends GameScene {
 		
 		this.buildBackgroundOne(game.getDisplayWidth(),game.getDisplayHeight());		
 		this.buildBackgroundTwo(game.getDisplayWidth(),game.getDisplayHeight());
-		this.vida= new HalconVida(Sprite.fromImage("halcon.png"), 350, 500);
+		this.vida= new HalconVida(Sprite.fromImage("/halcon.png"), 350, 500);
 		this.addComponent(vida);
 	}
 	
-	private void buildPastos() {
-		Pasto pasto = new Pasto(150,100);
-		//this.bloques.add(pasto);
-		this.addComponent(pasto);
-	}
 	
-
-	public void buildCementos() {
-		Cemento cemento = new Cemento(200,100);
-		this.bloques.add(cemento);
-		this.addComponent(cemento);
-	}
 	
 	public void buildComponent(int x, int y, GameComponent elemento){
 		y = this.generarPosicion(y);
 		x = this.generarPosicion(x);
-		
+		elemento.setX(x);
+		elemento.setY(y);
 		this.bloques.add((Bloque) elemento);
 		this.addComponent(elemento);
 	}
 
 
-	private void buildLadrillos() {
-		Ladrillo ladri = new Ladrillo(100,100);
-		this.bloques.add(ladri);
-		this.addComponent(ladri);
-		
-	}
 
 	private int generarPosicion(int x) {
 		return x * 50;
