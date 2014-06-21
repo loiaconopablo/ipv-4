@@ -24,7 +24,7 @@ public class Tanque extends GameComponent<BattleCityScene> {
 	private List<ColisionTanqueBloqueRule> rules = new ArrayList<ColisionTanqueBloqueRule>();
 	private Vector2D velocidadPolar = new Vector2D(0, -Math.PI / 2);
 	private double rapidezDisparo = 300;
-	private static Sprite image = Sprite.fromImage("tanqueArriba.png");
+	private static Sprite image = Sprite.fromImage("/tanqueArriba.png");
 	private double velocidad;
 	private boolean tieneBala;
 	
@@ -57,38 +57,47 @@ public class Tanque extends GameComponent<BattleCityScene> {
 
 		double ro = velocidadPolar.getX();
 		double anguloDisparo = velocidadPolar.getY();
-
+		Posicion actual = this.posicionActual();
+		if(this.noHayObstaculos(actual)){
 		if (deltaState.isKeyBeingHold(Key.UP)) {
 			this.setY(Math.max(this.getY() - getVelocidad() * delta, getyMin()));
-			this.setAppearance(Sprite.fromImage("tanqueArriba.png"));
+			this.setAppearance(Sprite.fromImage("/tanqueArriba.png"));
 			anguloDisparo = -Math.PI / 2;
 			ro += deltaSpeed * deltaState.getDelta();
 
 		} else if (deltaState.isKeyBeingHold(Key.DOWN)) {
 			this.setY(Math.min(getyMax() - this.getAppearance().getHeight(),
 					this.getY() + getVelocidad() * delta));
-			this.setAppearance(Sprite.fromImage("tanqueAbajo.png"));
+			this.setAppearance(Sprite.fromImage("/tanqueAbajo.png"));
 			anguloDisparo = Math.PI / 2;
 			ro = Math.max(0, ro - (deltaSpeed * deltaState.getDelta()));
 
 		} else if (deltaState.isKeyBeingHold(Key.RIGHT)) {
 			this.setX(Math.min(getxMax() - this.getAppearance().getWidth(),
 					this.getX() + getVelocidad() * delta));
-			this.setAppearance(Sprite.fromImage("tanqueDerecha.png"));
+			this.setAppearance(Sprite.fromImage("/tanqueDerecha.png"));
 			anguloDisparo = 2 * Math.PI;
 
 		} else if (deltaState.isKeyBeingHold(Key.LEFT)) {
 			this.setX(Math.max(this.getX() - getVelocidad() * delta, getxMin()));
-			this.setAppearance(Sprite.fromImage("tanqueIzquierda.png"));
+			this.setAppearance(Sprite.fromImage("/tanqueIzquierda.png"));
 			anguloDisparo = Math.PI;
 		}
 		if (deltaState.isKeyPressed(Key.ENTER)) {
 			disparar();
 		}
 		this.velocidadPolar = new Vector2D(ro, anguloDisparo);
-
+		}
 	}
 
+	public boolean noHayObstaculos(Posicion actual) {
+		return this.getScene().getGrilla().noHayBloque(actual);
+	}
+	
+	public Posicion posicionActual(){
+		return this.getScene().getGrilla().getMapa()[(int)this.getY() / 50][(int)this.getX() / 50];
+	}
+	
 	@Override
 	public void update(DeltaState deltaState) {
 		super.update(deltaState);

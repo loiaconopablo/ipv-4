@@ -227,7 +227,6 @@ public class BattleCityScene extends GameScene {
 
 	public void agregarALaGrilla(int x, int y, GameComponent elemento) {
 		this.getGrilla().setPosicion(x, y,new Posicion(x,y, elemento));
-		
 	}
 }
 
