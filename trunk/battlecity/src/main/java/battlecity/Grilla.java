@@ -5,6 +5,15 @@ import com.uqbar.vainilla.GameComponent;
 public class Grilla {
 	
 	private Posicion mapa [][] = new Posicion[12][16];
+	
+	public Grilla(){
+		super();
+		for(int y = 0; y < this.mapa.length; y++){
+			for(int x = 0; x < this.mapa[0].length; x++){
+				this.setPosicion(x, y, new Posicion(x, y, null));
+			}
+		}
+	}
 
 	public Posicion[][] getMapa() {
 		return mapa;
@@ -44,5 +53,17 @@ public class Grilla {
 			return this.getMapa()[posicion.getY()][posicion.getX() + 1];
 			}
 		return null;
+	}
+
+	public Posicion getPosicion(double x, double y) {
+		int indexX = (int)x / 50;
+		int indexY = (int) y / 50; 
+		return this.getMapa()[indexY][indexX];
+		
+	}
+
+	public boolean noHayBloque(Posicion actual) {
+		return (this.mapa[actual.getY()][actual.getX()].getElemento() == null);
+		
 	}
 }
