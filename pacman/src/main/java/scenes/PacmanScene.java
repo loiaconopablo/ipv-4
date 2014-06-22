@@ -26,9 +26,8 @@ public class PacmanScene extends GameScene {
 
 
 	private Personaje personaje;
-	private List<Comida> balas = new ArrayList<Comida>();
+	private List<Comida> comidas = new ArrayList<Comida>();
 	private List<Fantasma> fantasmas = new ArrayList<Fantasma>(); // pool de fantasmas enemigos	
-
 	private List<Bloque> bloques = new ArrayList<Bloque>(); //Va a contener a todos los tipos de bloques
 	private Marcador marcadorVidas; 
 	private Texto labelVidas;
@@ -71,9 +70,26 @@ public class PacmanScene extends GameScene {
 		elemento.setY(y);
 		this.bloques.add((Bloque) elemento);
 		this.addComponent(elemento);
+		if(elemento.getClass() == TerrenoVacio.class)
+		{this.crearComidaEnTerreno(x, y);}
 	}
 
 
+	public void buildPersonaje(int x, int y) {
+		int ynew = this.generarPosicion(y);
+		int xnew = this.generarPosicion(x);
+		Personaje pac = new Personaje(xnew,ynew,0, 800  ,0, 600);
+		this.agregarALaGrilla(x,y,pac);	
+		this.setFantasma(pac);		
+		
+	}
+	
+	public void crearComidaEnTerreno(int x, int y) {
+		Comida comida = new Comida(x+25,y+25);
+		this.getComidas().add(comida);
+		this.addComponent(comida);
+		
+	}
 
 	private int generarPosicion(int x) {
 		return x * 50;
@@ -125,9 +141,9 @@ public class PacmanScene extends GameScene {
 	}
 	
 	public void revisarFinDelJuego() {
-		if (this.marcadorVidas.getValue() <= 0 || this.marcadorPuntos.getValue() >=500) {
-			this.fin();
+		if (this.marcadorVidas.getValue() <= 0 || this.getComidas().size()==0) {
 			this.setFinDeJuego(true);
+			this.fin();
 		}
 	}
 	
@@ -180,12 +196,12 @@ public class PacmanScene extends GameScene {
 		this.bloques = bloques;
 	}
 	
-	public List<Comida> getBalas() {
-		return balas;
+	public List<Comida> getComidas() {
+		return comidas;
 	}
 
-	public void setBalas(List<Comida> balas) {
-		this.balas = balas;
+	public void setComidas(List<Comida> comida) {
+		this.comidas = comida;
 	}
 
 	public List<Fantasma> getFantasmas() {
@@ -215,5 +231,6 @@ public class PacmanScene extends GameScene {
 	public void agregarALaGrilla(int x, int y, GameComponent elemento) {
 		this.getGrilla().setPosicion(x, y,new Posicion(x,y, elemento));
 	}
+
 }
 

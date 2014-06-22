@@ -17,7 +17,7 @@ public class ColisionBalaLadrilloRule extends ColisionBalaBloqueRule {
 	@Override
 	public void apply(GameComponent<PacmanScene> objeto, PacmanScene scene) {
 		((Comida) objeto).removeRule(this);
-		scene.getBalas().remove(objeto);
+		scene.getComidas().remove(objeto);
 		scene.getBloques().remove(this.getObjetoArebotar());
 		scene.removeComponent(objeto);
 		Posicion ladrillo=scene.getGrilla().getPosicion(this.getObjetoArebotar().getX(), this.getObjetoArebotar().getY());

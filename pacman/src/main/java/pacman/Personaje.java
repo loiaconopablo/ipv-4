@@ -48,45 +48,38 @@ public class Personaje extends GameComponent<PacmanScene> {
 		this.setyMax(yMax);
 		this.setVelocidad(Double.parseDouble("100"));
 		this.initSound();
+		this.setZ(2);
 		
 	}
 
 	private void actualizarSpriteYDireccion(DeltaState deltaState) {
 		double delta = deltaState.getDelta();
-		double deltaSpeed = 20;
 		Posicion actual = this.posicionActual();
 //		if(this.noHayObstaculos(actual)){
-			
-
 		if (deltaState.isKeyPressed(Key.UP) || this.direccion == "UP") {
 			this.direccion = "UP";
 			this.setY(Math.max(this.getY() - getVelocidad() * delta, getyMin()));
 			this.intercambiarApariencia("personajeCerradoArriba.png","personajeAbiertoArriba.png",deltaState);
-			//anguloDisparo = -Math.PI / 2;
 		}
 		if (deltaState.isKeyPressed(Key.DOWN)|| this.direccion == "DOWN") {
 			this.direccion = "DOWN";
 			this.setY(Math.min(getyMax() - this.getAppearance().getHeight(),this.getY() + getVelocidad() * delta));
 			this.intercambiarApariencia("personajeCerradoAbajo.png","personajeAbiertoAbajo.png",deltaState);
-			//anguloDisparo = Math.PI / 2;
 		}
 		if (deltaState.isKeyPressed(Key.RIGHT)|| this.direccion == "RIGHT") {
 			this.direccion = "RIGHT";
 			this.setX(Math.min(getxMax() - this.getAppearance().getWidth(),this.getX() + getVelocidad() * delta));
 			this.intercambiarApariencia("personajeCerradoDerecha.png","personajeAbiertoDerecha.png",deltaState);
-			//anguloDisparo = 2 * Math.PI;
 		}
 		if (deltaState.isKeyPressed(Key.LEFT)|| this.direccion == "LEFT") {
 			this.direccion = "LEFT";
 			this.setX(Math.max(this.getX() - getVelocidad() * delta, getxMin()));
 			this.intercambiarApariencia("personajeCerradoIzquierda.png","personajeAbiertoIzquierda.png",deltaState);
-			//anguloDisparo = Math.PI;
 		}
 		
 	}
 
 	private void intercambiarApariencia(String string, String string2, DeltaState deltaState) {
-		//this.setAppearance(Sprite.fromImage(string2));
 		this.tiempo += deltaState.getDelta();
 		if( this.tiempo >= this.comparador){
 			this.cambiarApariencia(string,string2);

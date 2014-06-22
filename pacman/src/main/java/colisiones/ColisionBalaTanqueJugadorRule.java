@@ -15,7 +15,7 @@ public class ColisionBalaTanqueJugadorRule extends ColisionBalaBloqueRule {
 		@Override
 		public void apply(GameComponent<PacmanScene> objeto, PacmanScene scene) {
 			((Comida) objeto).removeRule(this);
-			scene.getBalas().remove(objeto);
+			scene.getComidas().remove(objeto);
 			scene.removeComponent(objeto);
 			((Personaje)this.getObjetoArebotar()).resetCentrar();
 			scene.getMarcadorVidas().descontarMarcador();

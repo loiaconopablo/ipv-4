@@ -16,7 +16,7 @@ import com.uqbar.vainilla.GameComponent;
 		@Override
 		public void apply(GameComponent<PacmanScene> objeto, PacmanScene scene) {
 			((Comida) objeto).removeRule(this);
-			scene.getBalas().remove(objeto);
+			scene.getComidas().remove(objeto);
 			scene.getFantasmas().remove(this.getObjetoArebotar());
 			scene.removeComponent(objeto);
 			scene.getMarcadorPuntos().subirMarcador();
