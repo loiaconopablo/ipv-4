@@ -16,7 +16,7 @@ public class ColisionBalaCementoRule extends ColisionBalaBloqueRule{
 
 	@Override
 	public void apply(GameComponent<PacmanScene> objeto, PacmanScene scene) {
-		scene.getBalas().remove(objeto);
+		scene.getComidas().remove(objeto);
 		scene.removeComponent(objeto);
 		//this.getObjetoArebotar().destroy();
 		scene.revisarFinDelJuego();

@@ -1,6 +1,8 @@
 package map;
 
+import pacman.Comida;
 import pacman.Pared;
+import pacman.Personaje;
 import pacman.TerrenoVacio;
 import scenes.PacmanScene;
 
@@ -19,20 +21,26 @@ public class MapManager {
 		
 	}
 
-	private void build(PacmanScene battleCityScene, int x, int y) {
+	private void build(PacmanScene pacmanScene, int x, int y) {
 		if(this.mapa.getMapa()[y][x] == 1){
 			Pared pared = new Pared(x,y);
-			battleCityScene.agregarALaGrilla(x,y,pared);
-			battleCityScene.buildComponent(x, y,pared);
+			pacmanScene.agregarALaGrilla(x,y,pared);
+			pacmanScene.buildComponent(x, y,pared);
 
 		}
 		if(this.mapa.getMapa()[y][x] == 2){
 			TerrenoVacio vacio = new TerrenoVacio(x,y);
-			battleCityScene.agregarALaGrilla(x,y,vacio);
-			battleCityScene.buildComponent(x, y,vacio);
+			pacmanScene.agregarALaGrilla(x,y,vacio);
+			pacmanScene.buildComponent(x, y,vacio);
+			
+		}
+		if(this.mapa.getMapa()[y][x] == 3){
+			pacmanScene.buildPersonaje(x, y);
 		}
 		
 	}
+
+
 	
 
 }

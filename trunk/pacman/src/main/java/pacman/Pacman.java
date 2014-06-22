@@ -45,11 +45,9 @@ public class Pacman extends Game {
 	
 	public GameScene buildPacmanScene() {
 			
-		Personaje tanque = new Personaje(200,500,0, dimensionCuadro.getWidth(),0, dimensionCuadro.getHeight());
+	//	Personaje tanque = new Personaje(200,500,0, dimensionCuadro.getWidth(),0, dimensionCuadro.getHeight());
 		PacmanScene pacmanScene = new PacmanScene(this);
-			
-		pacmanScene.setFantasma(tanque);
-		
+		//pacmanScene.setFantasma(tanque);
 		pacmanScene.setLabelMarcador(new Texto(810, 20, Color.WHITE, "MARCADOR"));
 		pacmanScene.setMarcadorPuntos(new Marcador(830, 45, Color.blue, 0));
 		pacmanScene.setLabelVidas(new Texto(810, 120, Color.WHITE, "VIDAS"));

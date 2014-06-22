@@ -17,27 +17,22 @@ import com.uqbar.vainilla.appearances.Circle;
 import com.uqbar.vainilla.appearances.Rectangle;
 
 public class Comida extends GameComponent<PacmanScene> {
-	private Vector2D velocity;
 	private List<ColisionBalaBloqueRule> rules = new ArrayList<ColisionBalaBloqueRule>();
-	private Personaje propietario;
 	
-	
-	public Comida(Personaje dueño, double x, double y, Vector2D velocity) {
+	public Comida(double x, double y) {
 		super(new Circle(Color.RED, 7), x, y);
-		this.setZ(-1);
-		this.setVelocity(velocity);
-		this.setPropietario(dueño);
+		this.setZ(1);
 	}
 
 	@Override
 	public void update(DeltaState deltaState) {
 				
-		for(ColisionBalaBloqueRule rule : this.getRules()) {
-			if(rule.mustApply(this, this.getScene())) {
-				rule.apply(this, this.getScene());
-				break;
-			}
-		}
+//		for(ColisionBalaBloqueRule rule : this.getRules()) {
+//			if(rule.mustApply(this, this.getScene())) {
+//				rule.apply(this, this.getScene());
+//				break;
+//			}
+//		}
 	}
 	public boolean seFueDelJuego() {
 		return(	this.getGame().getDisplayHeight() <= this.getY()+this.getAppearance().getHeight() ||
@@ -53,20 +48,9 @@ public class Comida extends GameComponent<PacmanScene> {
 		return rules;
 	}
 
-	public Vector2D getVelocity() {
-		return velocity;
-	}
-
-	public void setVelocity(Vector2D velocity) {
-		this.velocity = velocity;
-	}
 
 	private void initRules() {
-		
-		for (Bloque bloque : this.getScene().getBloques() ) {
-			this.rules.add(bloque.crearSuColisionConBala());
-		}
-		
+	
 		for (Personaje tanque : this.getScene().getFantasmas()) {
 			this.rules.add(new ColisionBalaTanqueRule(tanque));
 		}
@@ -75,14 +59,6 @@ public class Comida extends GameComponent<PacmanScene> {
 
 	public void setRules(List<ColisionBalaBloqueRule> rules) {
 		this.rules = rules;
-	}
-
-	public Personaje getPropietario() {
-		return propietario;
-	}
-
-	public void setPropietario(Personaje propietario) {
-		this.propietario = propietario;
 	}
 
 	public void removeRule(ColisionBalaBloqueRule colisionBalaBloqueRule) {
