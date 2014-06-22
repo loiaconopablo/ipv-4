@@ -14,6 +14,8 @@ import com.uqbar.vainilla.GameScene;
 import com.uqbar.vainilla.appearances.Label;
 import com.uqbar.vainilla.appearances.Sprite;
 import com.uqbar.vainilla.events.constants.Key;
+import com.uqbar.vainilla.sound.Sound;
+import com.uqbar.vainilla.sound.SoundBuilder;
 
 public class StartComponent extends GameComponent<GameScene> {
 	
@@ -21,13 +23,19 @@ public class StartComponent extends GameComponent<GameScene> {
 	private GameScene battleScene;
 	private double tiempo = 0;
 	private double comparador = 1;
+	private Sound inicio;
 
 	public StartComponent(double x, double y, GameScene battleScene2) {
 		super(new Label(new Font("verdana", Font.BOLD, 24), Color.BLUE, "",
 				"PRESIONE ENTER PARA INICIAR EL JUEGO"), x, y);
-		
+		this.initSound("init.wav");
+		this.inicio.play();
 		this.setBattleScene(battleScene2);
 		
+	}
+	
+	protected void initSound(String soundFile) {
+		this.inicio= new SoundBuilder().buildSound(this.getClass().getClassLoader().getResourceAsStream(soundFile));
 	}
 
 	@Override
