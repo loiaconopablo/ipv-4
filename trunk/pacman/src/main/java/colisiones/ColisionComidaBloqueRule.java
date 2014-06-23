@@ -5,11 +5,11 @@ import com.uqbar.vainilla.colissions.CollisionDetector;
 
 import scenes.PacmanScene;
 
-public abstract class ColisionBalaBloqueRule {
+public abstract class ColisionComidaBloqueRule {
 	
 	private GameComponent<PacmanScene> objetoArebotar;
 
-	public ColisionBalaBloqueRule(GameComponent<PacmanScene> objetoArebotar) {
+	public ColisionComidaBloqueRule(GameComponent<PacmanScene> objetoArebotar) {
 		this.objetoArebotar = objetoArebotar;
 	}
 	public GameComponent<PacmanScene> getObjetoArebotar() {

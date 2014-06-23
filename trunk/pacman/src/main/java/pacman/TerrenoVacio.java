@@ -2,7 +2,7 @@ package pacman;
 
 
 import java.awt.Color;
-import colisiones.ColisionBalaBloqueRule;
+import colisiones.ColisionComidaBloqueRule;
 import colisiones.ColisionBalaPastoRule;
 import com.uqbar.vainilla.appearances.Rectangle;
 
@@ -14,12 +14,6 @@ public class TerrenoVacio extends Bloque{
 		super(new Rectangle(Color.BLACK, 50,50), x, y);
 		//this.setZ(1);
 		
-	}
-
-
-	@Override
-	public ColisionBalaBloqueRule crearSuColisionConBala() {
-		return new ColisionBalaPastoRule(this);
 	}
 
 }

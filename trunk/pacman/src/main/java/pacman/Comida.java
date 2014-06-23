@@ -7,7 +7,7 @@ import java.util.List;
 
 import scenes.PacmanScene;
 import utils.Vector2D;
-import colisiones.ColisionBalaBloqueRule;
+import colisiones.ColisionComidaBloqueRule;
 import colisiones.ColisionBalaTanqueRule;
 
 import com.uqbar.vainilla.DeltaState;
@@ -17,7 +17,7 @@ import com.uqbar.vainilla.appearances.Circle;
 import com.uqbar.vainilla.appearances.Rectangle;
 
 public class Comida extends GameComponent<PacmanScene> {
-	private List<ColisionBalaBloqueRule> rules = new ArrayList<ColisionBalaBloqueRule>();
+	private List<ColisionComidaBloqueRule> rules = new ArrayList<ColisionComidaBloqueRule>();
 	
 	public Comida(double x, double y) {
 		super(new Circle(Color.RED, 7), x, y);
@@ -41,7 +41,7 @@ public class Comida extends GameComponent<PacmanScene> {
 		this.getX() <= 0); 
 		}
 
-	public List<ColisionBalaBloqueRule> getRules() {
+	public List<ColisionComidaBloqueRule> getRules() {
 		if(this.rules.isEmpty()) {
 			this.initRules();
 		}
@@ -57,11 +57,11 @@ public class Comida extends GameComponent<PacmanScene> {
 		
 	}
 
-	public void setRules(List<ColisionBalaBloqueRule> rules) {
+	public void setRules(List<ColisionComidaBloqueRule> rules) {
 		this.rules = rules;
 	}
 
-	public void removeRule(ColisionBalaBloqueRule colisionBalaBloqueRule) {
+	public void removeRule(ColisionComidaBloqueRule colisionBalaBloqueRule) {
 		this.getRules().remove(colisionBalaBloqueRule);		
 	}
 
