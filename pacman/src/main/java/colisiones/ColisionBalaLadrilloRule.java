@@ -8,7 +8,7 @@ import com.uqbar.vainilla.colissions.CollisionDetector;
 
 import scenes.PacmanScene;
 
-public class ColisionBalaLadrilloRule extends ColisionBalaBloqueRule {
+public class ColisionBalaLadrilloRule extends ColisionComidaBloqueRule {
 
 	public ColisionBalaLadrilloRule(GameComponent<PacmanScene> objetoArebotar) {
 		super(objetoArebotar);

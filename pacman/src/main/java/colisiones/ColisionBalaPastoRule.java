@@ -4,7 +4,7 @@ import scenes.PacmanScene;
 
 import com.uqbar.vainilla.GameComponent;
 
-public class ColisionBalaPastoRule extends ColisionBalaBloqueRule {
+public class ColisionBalaPastoRule extends ColisionComidaBloqueRule {
 	
 	private GameComponent<PacmanScene> objetoArebotar;
 

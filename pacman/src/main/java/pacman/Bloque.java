@@ -1,7 +1,4 @@
 package pacman;
-import colisiones.ColisionBalaBloqueRule;
-
-import com.uqbar.vainilla.DeltaState;
 import com.uqbar.vainilla.GameComponent;
 import com.uqbar.vainilla.appearances.Rectangle;
 import com.uqbar.vainilla.appearances.Sprite;
@@ -18,7 +15,6 @@ public abstract class Bloque extends GameComponent<PacmanScene> {
 		super(rectangle, x, y);
 	}
 
-	public abstract ColisionBalaBloqueRule crearSuColisionConBala();
 }
 
 

@@ -6,6 +6,7 @@ import java.util.List;
 
 import scenes.PacmanScene;
 import utils.Vector2D;
+import colisiones.ColisionPersonajeComidaRule;
 import colisiones.ColisionTanqueBloqueRule;
 
 import com.uqbar.vainilla.DeltaState;
@@ -25,10 +26,11 @@ public class Personaje extends GameComponent<PacmanScene> {
 	private double xMax;
 	private double yMin;
 	private double yMax;
-	private List<ColisionTanqueBloqueRule> rules = new ArrayList<ColisionTanqueBloqueRule>();
-	private static Sprite image = Sprite.fromImage("personajeAbiertoIzquierda.png");
+	private List<ColisionPersonajeComidaRule> rules = new ArrayList<ColisionPersonajeComidaRule>();
+	private static Sprite image = Sprite
+			.fromImage("personajeAbiertoIzquierda.png");
 	private double velocidad;
-	private double velocidadInicial;
+	private double velocidadInicial = 0;
 	private double tiempo = 1;
 	private double comparador = 1;
 	private double contadorFantasmas = 0;
@@ -49,117 +51,151 @@ public class Personaje extends GameComponent<PacmanScene> {
 		this.setVelocidad(Double.parseDouble("100"));
 		this.initSound();
 		this.setZ(2);
-		
+
 	}
 
 	private void actualizarSpriteYDireccion(DeltaState deltaState) {
+
 		double delta = deltaState.getDelta();
 		Posicion actual = this.posicionActual();
-//		if(this.noHayObstaculos(actual)){
+		// if(this.noHayObstaculos(actual)){
 		if (deltaState.isKeyPressed(Key.UP) || this.direccion == "UP") {
 			this.direccion = "UP";
-			this.setY(Math.max(this.getY() - getVelocidad() * delta, getyMin()));
-			this.intercambiarApariencia("personajeCerradoArriba.png","personajeAbiertoArriba.png",deltaState);
+			this.setY(this.analizarPosicionY(this.getY() - getVelocidad() * delta));
+			this.intercambiarApariencia("personajeCerradoArriba.png",
+					"personajeAbiertoArriba.png", deltaState);
 		}
-		if (deltaState.isKeyPressed(Key.DOWN)|| this.direccion == "DOWN") {
+		if (deltaState.isKeyPressed(Key.DOWN) || this.direccion == "DOWN") {
 			this.direccion = "DOWN";
-			this.setY(Math.min(getyMax() - this.getAppearance().getHeight(),this.getY() + getVelocidad() * delta));
-			this.intercambiarApariencia("personajeCerradoAbajo.png","personajeAbiertoAbajo.png",deltaState);
+			this.setY(this.analizarPosicionY(this.getY() + getVelocidad() * delta));
+			this.intercambiarApariencia("personajeCerradoAbajo.png",
+					"personajeAbiertoAbajo.png", deltaState);
 		}
-		if (deltaState.isKeyPressed(Key.RIGHT)|| this.direccion == "RIGHT") {
+		if (deltaState.isKeyPressed(Key.RIGHT) || this.direccion == "RIGHT") {
 			this.direccion = "RIGHT";
-			this.setX(Math.min(getxMax() - this.getAppearance().getWidth(),this.getX() + getVelocidad() * delta));
-			this.intercambiarApariencia("personajeCerradoDerecha.png","personajeAbiertoDerecha.png",deltaState);
+			this.setX(this.analizarPosicionX(this.getX() + getVelocidad()
+					* delta));
+			this.intercambiarApariencia("personajeCerradoDerecha.png",
+					"personajeAbiertoDerecha.png", deltaState);
 		}
-		if (deltaState.isKeyPressed(Key.LEFT)|| this.direccion == "LEFT") {
+		if (deltaState.isKeyPressed(Key.LEFT) || this.direccion == "LEFT") {
 			this.direccion = "LEFT";
-			this.setX(Math.max(this.getX() - getVelocidad() * delta, getxMin()));
-			this.intercambiarApariencia("personajeCerradoIzquierda.png","personajeAbiertoIzquierda.png",deltaState);
+			this.setX(this.analizarPosicionX(this.getX() - getVelocidad()
+					* delta));
+			this.intercambiarApariencia("personajeCerradoIzquierda.png",
+					"personajeAbiertoIzquierda.png", deltaState);
 		}
-		
+
 	}
 
-	private void intercambiarApariencia(String string, String string2, DeltaState deltaState) {
+	private double analizarPosicionX(double x) {
+		if (x + this.getAppearance().getWidth() <= 0) {
+			x = ((Pacman) this.getGame()).getDimensionCuadro().getWidth()
+					- this.getAppearance().getWidth();
+		} else if (x + this.getAppearance().getWidth() >= ((Pacman) this.getGame()).getDimensionCuadro().getWidth()) {
+			x = -this.getAppearance().getWidth();
+		}
+		return x;
+	}
+
+	private double analizarPosicionY(double y) {
+		if (y + this.getAppearance().getHeight() <= 0) {
+			y = ((Pacman) this.getGame()).getDimensionCuadro().getHeight()
+					- this.getAppearance().getHeight();
+		} else if (y+ this.getAppearance().getHeight() >= this.getGame().getDisplayHeight()) {
+			y = -this.getAppearance().getHeight();
+		}
+		return y;
+
+	}
+
+	private void intercambiarApariencia(String string, String string2,
+			DeltaState deltaState) {
 		this.tiempo += deltaState.getDelta();
-		if( this.tiempo >= this.comparador){
-			this.cambiarApariencia(string,string2);
+		if (this.tiempo >= this.comparador) {
+			this.cambiarApariencia(string, string2);
 			this.comparador += 0.1;
 		}
-		
+
 	}
 
-	private void initSound() 
-	{this.music= new SoundBuilder().buildSound(this.getClass().getClassLoader().getResourceAsStream("music.wav"));
+	private void initSound() {
+		this.setMusic(new SoundBuilder().buildSound(this.getClass()
+				.getClassLoader().getResourceAsStream("faster.wav")));
 	}
 
 	private void cambiarApariencia(String string, String string2) {
-		if(this.bocaAbierta)
-		{this.setAppearance(Sprite.fromImage(string));
-		this.bocaAbierta = false;}
-		else{
+		if (this.bocaAbierta) {
+			this.setAppearance(Sprite.fromImage(string));
+			this.bocaAbierta = false;
+		} else {
 			this.setAppearance(Sprite.fromImage(string2));
-			this.bocaAbierta = true;}
+			this.bocaAbierta = true;
+		}
 	}
 
 	public boolean noHayObstaculos(Posicion actual) {
 		return this.getScene().getGrilla().noHayBloque(actual);
 	}
-	
-	public Posicion posicionActual(){
-		return this.getScene().getGrilla().getMapa()[(int)this.getY() / 50][(int)this.getX() / 50];
+
+	public Posicion posicionActual() {
+		return this.getScene().getGrilla().getMapa()[(int) this.getY() / 50][(int) this
+				.getX() / 50];
 	}
-	
+
 	@Override
 	public void update(DeltaState deltaState) {
 		super.update(deltaState);
-//		for(ColisionTanqueBloqueRule rule : this.getRules()) {
-//			if(rule.mustApply(this, this.getScene())) {
-//				rule.apply(this, this.getScene());
-//				break;
-//			}
-//		}
-		this.actualizarSpriteYDireccion(deltaState);
-		this.contadorFantasmas += deltaState.getDelta();
-		if(this.contadorFantasmas >= 5.0){
-			this.contadorFantasmas = 0.0;
-			this.getScene().agregarFantasmas(new Fantasma(700,100,0, this.getScene().getGame().getDisplayWidth(),0, this.getScene().getGame().getDisplayHeight()));
+
+		for (ColisionPersonajeComidaRule rule : this.getRules()) {
+			if (rule.mustApply(this, this.getScene())) {
+				rule.apply(this, this.getScene());
+				break;
+			}
 		}
-		
+		this.actualizarSpriteYDireccion(deltaState);
+
+		// this.contadorFantasmas += deltaState.getDelta();
+		// if(this.contadorFantasmas >= 5.0){
+		// this.contadorFantasmas = 0.0;
+		// this.getScene().agregarFantasmas(new Fantasma(700,100,0,
+		// this.getScene().getGame().getDisplayWidth(),0,
+		// this.getScene().getGame().getDisplayHeight()));
+		// }
+
 	}
 
-		
 	public void resetCentrar() {
-		//this.setVelocidad(velocidadInicial);
+		this.setVelocidad(velocidadInicial);
 		this.setX(xInicial);
 		this.setY(yInicial);
 	}
 
-
 	// Accesors
-
 
 	public double getAncho() {
 		return this.getAppearance().getWidth();
 
 	}
-	
+
 	private void initRules() {
-		for (Bloque bloque : this.getScene().getBloques() ) {
-			this.rules.add(new ColisionTanqueBloqueRule(bloque));
+		for (Comida comida : this.getScene().getComidas()) {
+			this.rules.add(new ColisionPersonajeComidaRule(comida));
 		}
 
 	}
-	
-	public List<ColisionTanqueBloqueRule> getRules() {
+
+	public void removeRule(ColisionPersonajeComidaRule colisionPersonaComida) {
+		this.getRules().remove(colisionPersonaComida);
+
+	}
+
+	public List<ColisionPersonajeComidaRule> getRules() {
 		if (this.rules.isEmpty()) {
 			this.initRules();
 		}
 		return this.rules;
 	}
-
-//	public Vector2D getPolarVelocity() {
-//		return velocidadPolar;
-//	}
 
 	public double getxMin() {
 		return xMin;
@@ -240,6 +276,7 @@ public class Personaje extends GameComponent<PacmanScene> {
 	public void setVelocidadInicial(double velocidadInicial) {
 		this.velocidadInicial = velocidadInicial;
 	}
+
 	public double getVelocidad() {
 		return velocidad;
 	}
@@ -254,6 +291,14 @@ public class Personaje extends GameComponent<PacmanScene> {
 
 	public void setEnMoviento(boolean enMoviento) {
 		this.enMoviento = enMoviento;
+	}
+
+	public Sound getMusic() {
+		return music;
+	}
+
+	public void setMusic(Sound music) {
+		this.music = music;
 	}
 
 }

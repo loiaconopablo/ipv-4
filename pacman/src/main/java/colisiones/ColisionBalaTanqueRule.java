@@ -6,7 +6,7 @@ import scenes.PacmanScene;
 import com.uqbar.vainilla.GameComponent;
 
 
-	public class ColisionBalaTanqueRule extends ColisionBalaBloqueRule {
+	public class ColisionBalaTanqueRule extends ColisionComidaBloqueRule {
 
 
 		public ColisionBalaTanqueRule(GameComponent<PacmanScene> objetoArebotar) {
