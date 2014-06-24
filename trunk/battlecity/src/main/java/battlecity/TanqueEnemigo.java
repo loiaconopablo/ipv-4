@@ -1,6 +1,8 @@
 package battlecity;
 
 import java.awt.Color;
+import java.util.ArrayList;
+import java.util.List;
 
 import utils.Vector2D;
 
@@ -28,15 +30,34 @@ public class TanqueEnemigo extends Tanque {
 			this.disparar();
 			this.comparadorDeDisparo += 1.0;
 		}
-		Posicion actual = this.posicionActual();
-		if(this.sePuedeMover(actual, Direccion.IZQUIERDA)){
-			if(this.noHayObstaculos(actual)){
-				this.moverAIzquierda(deltaState);			
+		Posicion actual = this.getScene().getGrilla().getPosicion(this.getX(), this.getY());
+		if(this.sePuedeMover(actual, Direccion.ABAJO)){
+			if(this.noHayObstaculos(actual, Direccion.ABAJO)){
+				this.moverAbajo(deltaState);			
 			}
 		}
+		this.buscarTanque();
 	}
+	
+	
 
 	
+
+	private void buscarTanque() {
+		Tanque tanque = this.getScene().getTanque();
+		Posicion posicionTanque = this.getScene().getGrilla().getPosicion(tanque.getX(), tanque.getY());
+		System.out.println(posicionTanque.getX()+"/"+posicionTanque.getY());
+		
+		List<List<Posicion>> caminos = this.generarCaminos(tanque);
+	}
+
+	private List<List<Posicion>> generarCaminos(Tanque tanque) {
+		List<ArrayList<Posicion>> caminos = new ArrayList<ArrayList<Posicion>>();
+		Posicion posicionTanque = this.getScene().getGrilla().getPosicion(tanque.getX(), tanque.getY()); 
+		//while()
+		
+		return null;
+	}
 
 	private void moverAIzquierda(DeltaState deltaState) {
 		double delta = deltaState.getDelta();
@@ -100,7 +121,7 @@ public class TanqueEnemigo extends Tanque {
 			return actual.getX()<=15;
 			}
 		if(direccion.equals(Direccion.ABAJO)){
-			return actual.getX()<=11;
+			return actual.getY()<=11;
 			}
 		return actual.getY()>=0;
 	}

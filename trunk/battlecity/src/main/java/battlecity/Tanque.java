@@ -58,7 +58,6 @@ public class Tanque extends GameComponent<BattleCityScene> {
 		double ro = velocidadPolar.getX();
 		double anguloDisparo = velocidadPolar.getY();
 		Posicion actual = this.posicionActual();
-		if(this.noHayObstaculos(actual)){
 		if (deltaState.isKeyBeingHold(Key.UP)) {
 			this.setY(Math.max(this.getY() - getVelocidad() * delta, getyMin()));
 			this.setAppearance(Sprite.fromImage("/tanqueArriba.png"));
@@ -87,15 +86,15 @@ public class Tanque extends GameComponent<BattleCityScene> {
 			disparar();
 		}
 		this.velocidadPolar = new Vector2D(ro, anguloDisparo);
-		}
+		
 	}
 
-	public boolean noHayObstaculos(Posicion actual) {
-		return this.getScene().getGrilla().noHayBloque(actual);
+	public boolean noHayObstaculos(Posicion actual, Direccion direccion) {
+		return this.getScene().getGrilla().noHayBloque(actual, direccion);
 	}
 	
 	public Posicion posicionActual(){
-		return this.getScene().getGrilla().getMapa()[(int)this.getY() / 50][(int)this.getX() / 50];
+		return this.getScene().getGrilla().getPosicion((int)this.getX() / 50, (int)this.getY() / 50);
 	}
 	
 	@Override
