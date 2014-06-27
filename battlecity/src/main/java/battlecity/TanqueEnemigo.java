@@ -1,6 +1,5 @@
 package battlecity;
 
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,11 +15,13 @@ public class TanqueEnemigo extends Tanque {
 	
 	private Vector2D velocidadPolar = new Vector2D(0, Math.PI / 2);
 	private double rapidezDisparo = 300;
+	double deltaSpeed = 20;
+	double anguloDisparo;
 	
 	public TanqueEnemigo(double posx, double posy, double xMin, double xMax,
 			double yMin, double yMax) {
 		super(posx, posy, xMin, xMax, yMin, yMax);
-		this.setAppearance(Sprite.fromImage("/tanqueEnemigoAbajo.png"));
+		this.setAppearance(Sprite.fromImage("tanqueEnemigoAbajo.png"));
 	}
 
 	@Override
@@ -30,23 +31,21 @@ public class TanqueEnemigo extends Tanque {
 			this.disparar();
 			this.comparadorDeDisparo += 1.0;
 		}
-		Posicion actual = this.getScene().getGrilla().getPosicion(this.getX(), this.getY());
-		if(this.sePuedeMover(actual, Direccion.ABAJO)){
-			if(this.noHayObstaculos(actual, Direccion.ABAJO)){
-				this.moverAbajo(deltaState);			
-			}
-		}
+		Posicion actual = this.posicionActual();
+		Posicion ESI = this.posicionExtremoSuperiorIzquierdo();
+		Posicion ESD = this.posicionExtremoSuperiorDerecho();
+		Posicion EII = this.posicionExtremoInferiorIzquierdo();
+		Posicion EID = this.posicionExtremoInferiorDerecho();
+		
+		if(this.sePuedeMover(actual, Direccion.ABAJO) & this.noHayObstaculos(EII, EID, Direccion.ABAJO) )
+			{this.moverAbajo(deltaState);	}
 		this.buscarTanque();
 	}
 	
-	
-
-	
-
 	private void buscarTanque() {
 		Tanque tanque = this.getScene().getTanque();
 		Posicion posicionTanque = this.getScene().getGrilla().getPosicion(tanque.getX(), tanque.getY());
-		System.out.println(posicionTanque.getX()+"/"+posicionTanque.getY());
+		//System.out.println(posicionTanque.getX()+"/"+posicionTanque.getY());
 		
 		List<List<Posicion>> caminos = this.generarCaminos(tanque);
 	}
@@ -61,70 +60,47 @@ public class TanqueEnemigo extends Tanque {
 
 	private void moverAIzquierda(DeltaState deltaState) {
 		double delta = deltaState.getDelta();
-		double deltaSpeed = 20;
 		double ro = velocidadPolar.getX();
-		double anguloDisparo = velocidadPolar.getY();
-		
-		
+
 		this.setX(Math.max(this.getX() - getVelocidad() * delta, getxMin()));
-		this.setAppearance(Sprite.fromImage("/tanqueIzquierda.png"));
+		this.setAppearance(Sprite.fromImage("tanqueIzquierda.png"));
 		anguloDisparo = Math.PI;
 	}
 	
 	private void moverADerecha(DeltaState deltaState) {
 		double delta = deltaState.getDelta();
-		double deltaSpeed = 20;
 		double ro = velocidadPolar.getX();
-		double anguloDisparo = velocidadPolar.getY();
-		
+				
 		this.setX(Math.min(getxMax() - this.getAppearance().getWidth(),
 				this.getX() + getVelocidad() * delta));
-		this.setAppearance(Sprite.fromImage("/tanqueDerecha.png"));
+		this.setAppearance(Sprite.fromImage("tanqueDerecha.png"));
 		anguloDisparo = 2 * Math.PI;
-
 		
 	}
 	
 	private void moverAbajo(DeltaState deltaState) {
 		double delta = deltaState.getDelta();
-		double deltaSpeed = 20;
 		double ro = velocidadPolar.getX();
-		double anguloDisparo = velocidadPolar.getY();
 		
 		this.setY(Math.min(getyMax() - this.getAppearance().getHeight(),
 				this.getY() + getVelocidad() * delta));
-		this.setAppearance(Sprite.fromImage("/tanqueAbajo.png"));
+		this.setAppearance(Sprite.fromImage("tanqueAbajo.png"));
 		anguloDisparo = Math.PI / 2;
 		ro = Math.max(0, ro - (deltaSpeed * deltaState.getDelta()));		
 	}
 	
 	private void moverArriba(DeltaState deltaState) {
 		double delta = deltaState.getDelta();
-		double deltaSpeed = 20;
 		double ro = velocidadPolar.getX();
-		double anguloDisparo = velocidadPolar.getY();
-		
-		
+
 		this.setY(Math.max(this.getY() - getVelocidad() * delta, getyMin()));
-		this.setAppearance(Sprite.fromImage("/tanqueArriba.png"));
+		this.setAppearance(Sprite.fromImage("tanqueArriba.png"));
 		anguloDisparo = -Math.PI / 2;
 		ro += deltaSpeed * deltaState.getDelta();
 
-		
 	}
 
-	private boolean sePuedeMover(Posicion actual, Direccion direccion) {
-		if(direccion.equals(Direccion.IZQUIERDA)){
-			return actual.getX()>=0;
-		}
-		if(direccion.equals(Direccion.DERECHA)){
-			return actual.getX()<=15;
-			}
-		if(direccion.equals(Direccion.ABAJO)){
-			return actual.getY()<=11;
-			}
-		return actual.getY()>=0;
-	}
+
 
 	public void disparar() {
 		if (this.isTieneBala()) {

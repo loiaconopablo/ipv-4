@@ -1,7 +1,5 @@
 package battlecity;
 
-import com.uqbar.vainilla.GameComponent;
-
 public class Grilla {
 	
 	private Posicion mapa [][]; 
@@ -65,17 +63,17 @@ public class Grilla {
 
 	public boolean noHayBloque(Posicion actual, Direccion direccion) {
 		if(direccion.equals(Direccion.ABAJO)){
-			System.out.println(this.mapa[actual.getY()+1][actual.getX()].getElemento());
-			return (this.mapa[actual.getY()+1][actual.getX()].getElemento() == null);
+		//	System.out.println(this.mapa[actual.getY()+1][actual.getX()].getElemento());
+			return (this.mapa[actual.getY()+1][actual.getX()].puedePasar());
 		}
 		if(direccion.equals(Direccion.ARRIBA)){
-			return (this.mapa[actual.getY()][actual.getX()].getElemento() == null);
+			return (this.mapa[actual.getY()][actual.getX()].puedePasar());
 		}
 		if(direccion.equals(Direccion.IZQUIERDA)){
-			return (this.mapa[actual.getY()][actual.getX()].getElemento() == null);
+			return (this.mapa[actual.getY()][actual.getX()].puedePasar());
 		}
 		//hay obstaculo a derecha
-		return (this.mapa[actual.getY()][actual.getX()+1].getElemento() == null);
+		return (this.mapa[actual.getY()][actual.getX()+1].puedePasar());
 		
 	}
 	

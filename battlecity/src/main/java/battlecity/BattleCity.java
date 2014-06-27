@@ -39,25 +39,13 @@ public class BattleCity extends Game {
 		GameScene inicioScene = buildStartScene(battleScene);
 		this.setCurrentScene(inicioScene);
 		this.setPrincipalScene(inicioScene);
-		
-		
+				
 	}
-
-	
-	
-	
 	
 	public GameScene buildBattleScene() {
-	
-				
-//		Tanque tanque = new Tanque(300,500,0, dimensionCuadro.getWidth(),0, dimensionCuadro.getHeight());
-		Tanque tanque = new Tanque(200,500,0, dimensionCuadro.getWidth(),0, dimensionCuadro.getHeight());
+					
 		BattleCityScene battleScene = new BattleCityScene(this);
-		
 		//this.factoryBloques(3, battleScene, BloqueChico.class);
-	
-		battleScene.setTanque(tanque);
-		
 		battleScene.setLabelMarcador(new Texto(810, 20, Color.WHITE, "MARCADOR"));
 		battleScene.setMarcadorPuntos(new Marcador(830, 45, Color.blue, 0));
 		battleScene.setLabelVidas(new Texto(810, 120, Color.WHITE, "VIDAS"));
@@ -65,7 +53,6 @@ public class BattleCity extends Game {
 		
 		return battleScene;
 	}
-	
 	
 //	private void factoryBloques(int cant, BattleCity scena, Class<? extends Bloque > tipoBloque ) {
 //		for(int i = 0; i < cant; i++)

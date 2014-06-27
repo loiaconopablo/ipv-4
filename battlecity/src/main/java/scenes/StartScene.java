@@ -6,6 +6,7 @@ import com.uqbar.vainilla.GameComponent;
 import com.uqbar.vainilla.GameScene;
 import com.uqbar.vainilla.appearances.Rectangle;
 import com.uqbar.vainilla.appearances.Sprite;
+import com.uqbar.vainilla.sound.Sound;
 
 import components.scenas.StartComponent;
 
@@ -15,7 +16,7 @@ public class StartScene extends GameScene {
 	private Sprite logo;
 	public StartScene( double x, double y, GameScene battleScene) {
 		super(new StartComponent(x, y, battleScene));
-		this.setLogo(Sprite.fromImage("/inicio.png"));
+		this.setLogo(Sprite.fromImage("inicio.png"));
 		GameComponent logoInicio = new GameComponent(logo,100,100);
 		this.addComponent(logoInicio);
 		
