@@ -8,6 +8,7 @@ public class Posicion {
 	private int y;
 	private GameComponent elemento;
 	
+	
 	public Posicion(int x, int y, GameComponent elemento){
 		this.setX(x);
 		this.setY(y);
@@ -31,6 +32,12 @@ public class Posicion {
 	}
 	public void setElemento(GameComponent elemento) {
 		this.elemento = elemento;
+	}
+	
+	public boolean puedePasar(){
+		if(this.getElemento() == null || this.getElemento().getClass() == Pasto.class)
+			return true;
+		else {return false;}
 	}
 	
 

@@ -1,20 +1,14 @@
 package scenes;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
-
-import map.Map;
 import map.MapManager;
 import battlecity.BattleCity;
 import battlecity.Bala;
 import battlecity.Bloque;
-import battlecity.Cemento;
 import battlecity.Grilla;
 import battlecity.HalconVida;
-import battlecity.Ladrillo;
-import battlecity.Pasto;
 import battlecity.Posicion;
 import battlecity.Tanque;
 import battlecity.TanqueEnemigo;
@@ -55,19 +49,15 @@ public class BattleCityScene extends GameScene {
 	private MapManager manager = new MapManager();
 	
 	public BattleCityScene(BattleCity game){
-		this.manager.build(this);
+		this.manager.build(this,game);
 		
 		this.agregarTanquesEnemigos(new TanqueEnemigo(300,100,0, game.getDisplayWidth(),0, game.getDisplayHeight()));
 		this.agregarTanquesEnemigos(new TanqueEnemigo(600,100,0, game.getDisplayWidth(),0, game.getDisplayHeight()));
 		//Hay que crear una interfaz para los enemigos,,sino cuando apretas las teclas se mueven, como si fuera el tuyo
-		
 		this.buildBackgroundOne(game.getDisplayWidth(),game.getDisplayHeight());		
 		this.buildBackgroundTwo(game.getDisplayWidth(),game.getDisplayHeight());
-		this.vida= new HalconVida(Sprite.fromImage("/halcon.png"), 350, 500);
-		this.addComponent(vida);
+		
 	}
-	
-	
 	
 	public void buildComponent(int x, int y, GameComponent elemento){
 		y = this.generarPosicion(y);
@@ -77,8 +67,20 @@ public class BattleCityScene extends GameScene {
 		this.bloques.add((Bloque) elemento);
 		this.addComponent(elemento);
 	}
-
-
+	public void buildTanque(int x, int y, double xMax, double yMax ) {
+		int ynew = this.generarPosicion(y);
+		int xnew = this.generarPosicion(x);
+		//Tanque tanque = new Tanque(200,500,0, dimensionCuadro.getWidth(),0, dimensionCuadro.getHeight());
+		Tanque tanque = new Tanque(xnew,ynew,0, xMax  ,0, yMax);
+		this.agregarALaGrilla(x,y,tanque);	
+		this.setTanque(tanque);
+	}
+	public void buildVidaPrincipal(int x, int y) {
+		int ynew = this.generarPosicion(y);
+		int xnew = this.generarPosicion(x);
+		this.vida= new HalconVida(Sprite.fromImage("halcon.png"), xnew, ynew);
+		this.addComponent(vida);
+	}
 
 	private int generarPosicion(int x) {
 		return x * 50;
@@ -143,8 +145,6 @@ public class BattleCityScene extends GameScene {
 			this.setFinDeJuego(true);
 		}
 	}
-	
-	
 
 	public void fin() {
 		this.getGame().setCurrentScene(
@@ -228,5 +228,9 @@ public class BattleCityScene extends GameScene {
 	public void agregarALaGrilla(int x, int y, GameComponent elemento) {
 		this.getGrilla().setPosicion(x, y,new Posicion(x,y, elemento));
 	}
+
+	
+
+	
 }
 
