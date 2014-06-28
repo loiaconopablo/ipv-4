@@ -78,7 +78,7 @@ public class BattleCityScene extends GameScene {
 	public void buildVidaPrincipal(int x, int y) {
 		int ynew = this.generarPosicion(y);
 		int xnew = this.generarPosicion(x);
-		this.vida= new HalconVida(Sprite.fromImage("halcon.png"), xnew, ynew);
+		this.vida= new HalconVida(Sprite.fromImage("/halcon.png"), xnew, ynew);
 		this.addComponent(vida);
 	}
 
