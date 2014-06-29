@@ -21,7 +21,7 @@ public class Tanque extends GameComponent<BattleCityScene> {
 	private double xMax;
 	private double yMin;
 	private double yMax;
-	private List<ColisionTanqueBloqueRule> rules = new ArrayList<ColisionTanqueBloqueRule>();
+//	private List<ColisionTanqueBloqueRule> rules = new ArrayList<ColisionTanqueBloqueRule>();
 	private Vector2D velocidadPolar = new Vector2D(0, -Math.PI / 2);
 	private double rapidezDisparo = 300;
 	private static Sprite image = Sprite.fromImage("/tanqueArriba.png");
@@ -54,28 +54,28 @@ public class Tanque extends GameComponent<BattleCityScene> {
 		Posicion ESD = this.posicionExtremoSuperiorDerecho();
 		Posicion EII = this.posicionExtremoInferiorIzquierdo();
 		Posicion EID = this.posicionExtremoInferiorDerecho();
-
+		Posicion actual = this.getScene().getGrilla().getPosicion(this.getX(), this.getY());
 		
-		if (deltaState.isKeyBeingHold(Key.UP)&& this.noHayObstaculos(ESI,ESD, Direccion.ARRIBA)) {
+		if (deltaState.isKeyBeingHold(Key.UP) && this.sePuedeMover(actual, Direccion.ARRIBA) && this.noHayObstaculos(this,actual, Direccion.ARRIBA)) {
 			this.setY(Math.max(this.getY() - getVelocidad() * delta, getyMin()));
 			this.setAppearance(Sprite.fromImage("/tanqueArriba.png"));
 			anguloDisparo = -Math.PI / 2;
 			ro += deltaSpeed * deltaState.getDelta();
 
-		} else if (deltaState.isKeyBeingHold(Key.DOWN) && this.noHayObstaculos(EII, EID, Direccion.ABAJO)) {
+		} else if (deltaState.isKeyBeingHold(Key.DOWN) && this.sePuedeMover(actual, Direccion.ABAJO) && this.noHayObstaculos(this,actual, Direccion.ABAJO)) {
 			this.setY(Math.min(getyMax() - this.getAppearance().getHeight(),
 					this.getY() + getVelocidad() * delta));
 			this.setAppearance(Sprite.fromImage("/tanqueAbajo.png"));
 			anguloDisparo = Math.PI / 2;
 			ro = Math.max(0, ro - (deltaSpeed * deltaState.getDelta()));
 
-		} else if (deltaState.isKeyBeingHold(Key.RIGHT) && this.noHayObstaculos(ESD,EID, Direccion.DERECHA)) {
+		} else if (deltaState.isKeyBeingHold(Key.RIGHT) && this.sePuedeMover(actual, Direccion.DERECHA) && this.noHayObstaculos(this,actual, Direccion.DERECHA)) {
 			this.setX(Math.min(getxMax() - this.getAppearance().getWidth(),
 					this.getX() + getVelocidad() * delta));
 			this.setAppearance(Sprite.fromImage("/tanqueDerecha.png"));
 			anguloDisparo = 2 * Math.PI;
 
-		} else if (deltaState.isKeyBeingHold(Key.LEFT)&& this.noHayObstaculos(ESI,EII, Direccion.IZQUIERDA)) {
+		} else if (deltaState.isKeyBeingHold(Key.LEFT)&& this.sePuedeMover(actual, Direccion.IZQUIERDA) && this.noHayObstaculos(this,actual, Direccion.IZQUIERDA)) {
 			this.setX(Math.max(this.getX() - getVelocidad() * delta, getxMin()));
 			this.setAppearance(Sprite.fromImage("/tanqueIzquierda.png"));
 			anguloDisparo = Math.PI;
@@ -104,11 +104,14 @@ public class Tanque extends GameComponent<BattleCityScene> {
 
 
 
-	public boolean noHayObstaculos(Posicion A, Posicion B, Direccion direccion) {
-		return (this.getScene().getGrilla().noHayBloque(A, direccion)&&
-				(this.getScene().getGrilla().noHayBloque(B, direccion)));
-	}
+//	public boolean noHayObstaculos(Posicion A, Posicion B, Direccion direccion) {
+//		return (this.getScene().getGrilla().noHayBloque(A, direccion)&&
+//				(this.getScene().getGrilla().noHayBloque(B, direccion)));
+//	}
 	
+	public boolean noHayObstaculos(Tanque tanque,Posicion actual, Direccion direccion) {
+        return this.getScene().getGrilla().noHayBloque(tanque,actual, direccion);
+	 }
 	public Posicion posicionActual(){
 		//return this.getScene().getGrilla().getPosicion((int)this.getX() / 50, (int)this.getY() / 50);
 		return this.getScene().getGrilla().getPosicion(this.getX(), this.getY());
@@ -171,19 +174,19 @@ public class Tanque extends GameComponent<BattleCityScene> {
 
 	}
 	
-	private void initRules() {
-		for (Bloque bloque : this.getScene().getBloques() ) {
-			this.rules.add(new ColisionTanqueBloqueRule(bloque));
-		}
-
-	}
+//	private void initRules() {
+//		for (Bloque bloque : this.getScene().getBloques() ) {
+//			this.rules.add(new ColisionTanqueBloqueRule(bloque));
+//		}
+//
+//	}
 	
-	public List<ColisionTanqueBloqueRule> getRules() {
-		if (this.rules.isEmpty()) {
-			this.initRules();
-		}
-		return this.rules;
-	}
+//	public List<ColisionTanqueBloqueRule> getRules() {
+//		if (this.rules.isEmpty()) {
+//			this.initRules();
+//		}
+//		return this.rules;
+//	}
 
 	public Vector2D getPolarVelocity() {
 		return velocidadPolar;
