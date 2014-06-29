@@ -13,6 +13,7 @@ import battlecity.HalconVida;
 import battlecity.Posicion;
 import battlecity.Tanque;
 import battlecity.TanqueEnemigo;
+import colisiones.ColisionTanqueBloqueRule;
 
 import com.uqbar.vainilla.GameComponent;
 import com.uqbar.vainilla.GameScene;
@@ -102,6 +103,7 @@ public class BattleCityScene extends GameScene {
 	
 	public void agregarTanquesEnemigos(TanqueEnemigo tanque){
 		this.tanquesEnemigos.add(tanque);
+		this.tanque.getRules().add(new ColisionTanqueBloqueRule(tanque));
 		this.addComponent(tanque);
 	}
 	

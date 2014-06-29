@@ -62,7 +62,6 @@ public class Grilla {
 	}
 
 	public boolean noHayBloque(Tanque tanque,Posicion actual, Direccion direccion) {
-	System.out.println(tanque.getY());
 		if(direccion.equals(Direccion.ABAJO)){
 			if((tanque.getX()>= actual.getX()*50) && tanque.getX() <=((actual.getX()*50) +5)){
 				return (this.mapa[actual.getY()+1][actual.getX()].puedePasar());				

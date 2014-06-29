@@ -5,6 +5,7 @@ import java.util.List;
 
 import scenes.BattleCityScene;
 import utils.Vector2D;
+import colisiones.ColisionBalaBloqueRule;
 import colisiones.ColisionTanqueBloqueRule;
 
 import com.uqbar.vainilla.DeltaState;
@@ -21,7 +22,7 @@ public class Tanque extends GameComponent<BattleCityScene> {
 	private double xMax;
 	private double yMin;
 	private double yMax;
-//	private List<ColisionTanqueBloqueRule> rules = new ArrayList<ColisionTanqueBloqueRule>();
+	private List<ColisionTanqueBloqueRule> rules = new ArrayList<ColisionTanqueBloqueRule>();
 	private Vector2D velocidadPolar = new Vector2D(0, -Math.PI / 2);
 	private double rapidezDisparo = 300;
 	private static Sprite image = Sprite.fromImage("/tanqueArriba.png");
@@ -129,6 +130,12 @@ public class Tanque extends GameComponent<BattleCityScene> {
 			this.getScene().agregarTanquesEnemigos(new TanqueEnemigo(700,100,0, this.getScene().getGame().getDisplayWidth(),0, this.getScene().getGame().getDisplayHeight()));
 		}
 		
+		for(ColisionTanqueBloqueRule rule : this.getRules()) {
+			if(rule.mustApply(this, this.getScene())) {
+				rule.apply(this, this.getScene());
+				break;
+			}
+		}
 	}
 	
 	protected boolean sePuedeMover(Posicion actual, Direccion direccion) {
@@ -174,19 +181,19 @@ public class Tanque extends GameComponent<BattleCityScene> {
 
 	}
 	
-//	private void initRules() {
-//		for (Bloque bloque : this.getScene().getBloques() ) {
-//			this.rules.add(new ColisionTanqueBloqueRule(bloque));
-//		}
-//
-//	}
+	private void initRules() {
+		for (Tanque tanque: this.getScene().getTanquesEnemigos() ) {
+			this.rules.add(new ColisionTanqueBloqueRule(tanque));
+		}
+
+	}
 	
-//	public List<ColisionTanqueBloqueRule> getRules() {
-//		if (this.rules.isEmpty()) {
-//			this.initRules();
-//		}
-//		return this.rules;
-//	}
+	public List<ColisionTanqueBloqueRule> getRules() {
+		if (this.rules.isEmpty()) {
+			this.initRules();
+		}
+		return this.rules;
+	}
 
 	public Vector2D getPolarVelocity() {
 		return velocidadPolar;
