@@ -61,20 +61,38 @@ public class Grilla {
 		
 	}
 
-	public boolean noHayBloque(Posicion actual, Direccion direccion) {
+	public boolean noHayBloque(Tanque tanque,Posicion actual, Direccion direccion) {
+	System.out.println(tanque.getY());
 		if(direccion.equals(Direccion.ABAJO)){
-		//	System.out.println(this.mapa[actual.getY()+1][actual.getX()].getElemento());
-			return (this.mapa[actual.getY()+1][actual.getX()].puedePasar());
+			if((tanque.getX()>= actual.getX()*50) && tanque.getX() <=((actual.getX()*50) +5)){
+				return (this.mapa[actual.getY()+1][actual.getX()].puedePasar());				
+			}else{
+				return ((this.mapa[actual.getY()+1][actual.getX()].puedePasar()) &&
+						(this.mapa[actual.getY()+1][actual.getX()+1].puedePasar()));
+			}
 		}
 		if(direccion.equals(Direccion.ARRIBA)){
-			return (this.mapa[actual.getY()][actual.getX()].puedePasar());
+			if((tanque.getX()>= actual.getX()*50) && tanque.getX() <=((actual.getX()*50) +5)){
+				return (this.mapa[actual.getY()][actual.getX()].puedePasar());	
+			}else{
+				return ((this.mapa[actual.getY()][actual.getX()].puedePasar()) && 
+						this.mapa[actual.getY()][actual.getX()+1].puedePasar());
+			}
 		}
 		if(direccion.equals(Direccion.IZQUIERDA)){
-			return (this.mapa[actual.getY()][actual.getX()].puedePasar());
+			if(tanque.getY()>= actual.getY()*50 && tanque.getY() <=((actual.getY()*50) +5)){
+				return (this.mapa[actual.getY()][actual.getX()].puedePasar());
+			}else {
+				return (this.mapa[actual.getY()][actual.getX()].puedePasar()) &&
+						(this.mapa[actual.getY()+1][actual.getX()].puedePasar());
+			}
 		}
-		//hay obstaculo a derecha
-		return (this.mapa[actual.getY()][actual.getX()+1].puedePasar());
-		
+		if((tanque.getY()>= (actual.getY())) && tanque.getY() <=((actual.getY()*50) +5)){
+			return (this.mapa[actual.getY()][actual.getX()+1].puedePasar());			
+		}
+		return ((this.mapa[actual.getY()][actual.getX()+1].puedePasar()) &&
+				(this.mapa[actual.getY()+1][actual.getX()+1].puedePasar()));
+				
 	}
 	
 }

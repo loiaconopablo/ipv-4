@@ -3,6 +3,7 @@ package scenes;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
+
 import map.MapManager;
 import battlecity.BattleCity;
 import battlecity.Bala;
@@ -51,8 +52,8 @@ public class BattleCityScene extends GameScene {
 	public BattleCityScene(BattleCity game){
 		this.manager.build(this,game);
 		
-		this.agregarTanquesEnemigos(new TanqueEnemigo(300,100,0, game.getDisplayWidth(),0, game.getDisplayHeight()));
-		this.agregarTanquesEnemigos(new TanqueEnemigo(600,100,0, game.getDisplayWidth(),0, game.getDisplayHeight()));
+//		this.agregarTanquesEnemigos(new TanqueEnemigo(600,100,0, game.getDisplayWidth(),0, game.getDisplayHeight()));
+//		this.agregarTanquesEnemigos(new TanqueEnemigo(300,100,0, game.getDisplayWidth(),0, game.getDisplayHeight()));
 		//Hay que crear una interfaz para los enemigos,,sino cuando apretas las teclas se mueven, como si fuera el tuyo
 		this.buildBackgroundOne(game.getDisplayWidth(),game.getDisplayHeight());		
 		this.buildBackgroundTwo(game.getDisplayWidth(),game.getDisplayHeight());
@@ -72,7 +73,7 @@ public class BattleCityScene extends GameScene {
 		int xnew = this.generarPosicion(x);
 		//Tanque tanque = new Tanque(200,500,0, dimensionCuadro.getWidth(),0, dimensionCuadro.getHeight());
 		Tanque tanque = new Tanque(xnew,ynew,0, xMax  ,0, yMax);
-		this.agregarALaGrilla(x,y,tanque);	
+//		this.agregarALaGrilla(x,y,tanque);	
 		this.setTanque(tanque);
 	}
 	public void buildVidaPrincipal(int x, int y) {

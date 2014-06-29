@@ -37,19 +37,14 @@ public class TanqueEnemigo extends Tanque {
 		Posicion EII = this.posicionExtremoInferiorIzquierdo();
 		Posicion EID = this.posicionExtremoInferiorDerecho();
 		
-//		if(this.sePuedeMover(actual, Direccion.ABAJO) & this.noHayObstaculos(actual, Direccion.ABAJO) )
-//			{this.moverAbajo(deltaState);	}
-		if(this.sePuedeMover(actual, Direccion.IZQUIERDA) & this.noHayObstaculos(actual, Direccion.IZQUIERDA) )
-		{this.moverAIzquierda(deltaState);	}
-		this.buscarTanque();
+		if(this.sePuedeMover(actual, Direccion.ABAJO) & this.noHayObstaculos(this,actual, Direccion.ABAJO) )
+			{this.moverAbajo(deltaState);	}
+//		if(this.sePuedeMover(actual, Direccion.IZQUIERDA) & this.noHayObstaculos(actual, Direccion.IZQUIERDA) )
+//		{this.moverAIzquierda(deltaState);	}
+//		this.buscarTanque();
 	}
 	
-	 public boolean noHayObstaculos(Posicion actual, Direccion direccion) {
-         return this.getScene().getGrilla().noHayBloque(actual, direccion);
-	 }
-
-
-	private void buscarTanque() {
+	protected void buscarTanque() {
 		Tanque tanque = this.getScene().getTanque();
 		Posicion posicionTanque = this.getScene().getGrilla().getPosicion(tanque.getX(), tanque.getY());
 		//System.out.println(posicionTanque.getX()+"/"+posicionTanque.getY());
@@ -109,7 +104,7 @@ public class TanqueEnemigo extends Tanque {
 		
 	}
 
-	private void moverAIzquierda(DeltaState deltaState) {
+	protected void moverAIzquierda(DeltaState deltaState) {
 		double delta = deltaState.getDelta();
 		double ro = velocidadPolar.getX();
 
@@ -118,7 +113,7 @@ public class TanqueEnemigo extends Tanque {
 		anguloDisparo = Math.PI;
 	}
 	
-	private void moverADerecha(DeltaState deltaState) {
+	protected void moverADerecha(DeltaState deltaState) {
 		double delta = deltaState.getDelta();
 		double ro = velocidadPolar.getX();
 				
@@ -129,7 +124,7 @@ public class TanqueEnemigo extends Tanque {
 		
 	}
 	
-	private void moverAbajo(DeltaState deltaState) {
+	protected void moverAbajo(DeltaState deltaState) {
 		double delta = deltaState.getDelta();
 		double ro = velocidadPolar.getX();
 		
@@ -140,7 +135,7 @@ public class TanqueEnemigo extends Tanque {
 		ro = Math.max(0, ro - (deltaSpeed * deltaState.getDelta()));		
 	}
 	
-	private void moverArriba(DeltaState deltaState) {
+	protected void moverArriba(DeltaState deltaState) {
 		double delta = deltaState.getDelta();
 		double ro = velocidadPolar.getX();
 
