@@ -1,8 +1,6 @@
 package map;
 
-import pacman.Comida;
 import pacman.Pared;
-import pacman.Personaje;
 import pacman.TerrenoVacio;
 import scenes.PacmanScene;
 
@@ -36,6 +34,16 @@ public class MapManager {
 		}
 		if(this.mapa.getMapa()[y][x] == 3){
 			pacmanScene.buildPersonaje(x, y);
+		}
+
+		if(this.mapa.getMapa()[y][x] == 4){
+			pacmanScene.buildFantasmaRojo(x, y);
+		}
+		if(this.mapa.getMapa()[y][x] == 5){
+			pacmanScene.buildFantasmaRosa(x, y);
+		}
+		if(this.mapa.getMapa()[y][x] == 6){
+			pacmanScene.buildFantasmaCeleste(x, y);
 		}
 		
 	}

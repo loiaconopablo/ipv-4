@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import pacman.Comida;
+import pacman.FantasmaCeleste;
+import pacman.FantasmaRojo;
+import pacman.FantasmaRosa;
 import pacman.Pacman;
 import pacman.Bloque;
 import pacman.Pared;
@@ -231,6 +234,32 @@ public class PacmanScene extends GameScene {
 	public void agregarALaGrilla(int x, int y, GameComponent elemento) {
 		this.getGrilla().setPosicion(x, y,new Posicion(x,y, elemento));
 	}
+
+	public void buildFantasmaRojo(int x, int y) {
+		int ynew = this.generarPosicion(y);
+		int xnew = this.generarPosicion(x);
+		Fantasma fantasma= new FantasmaRojo(xnew,ynew,0, 800  ,0, 600);
+		this.agregarALaGrilla(x,y,fantasma);	
+		this.agregarFantasmas(fantasma);
+		
+	}
+
+	public void buildFantasmaRosa(int x, int y) {
+		int ynew = this.generarPosicion(y);
+		int xnew = this.generarPosicion(x);
+		Fantasma fantasma= new FantasmaRosa(xnew,ynew,0, 800  ,0, 600);
+		this.agregarALaGrilla(x,y,fantasma);	
+		this.agregarFantasmas(fantasma);
+	}
+
+	public void buildFantasmaCeleste(int x, int y) {
+		int ynew = this.generarPosicion(y);
+		int xnew = this.generarPosicion(x);
+		Fantasma fantasma= new FantasmaCeleste(xnew,ynew,0, 800  ,0, 600);
+		this.agregarALaGrilla(x,y,fantasma);	
+		this.agregarFantasmas(fantasma);
+	}
+
 
 }
 

@@ -1,5 +1,6 @@
 package pacman;
 
+
 import com.uqbar.vainilla.GameComponent;
 
 public class Posicion {
@@ -31,6 +32,12 @@ public class Posicion {
 	}
 	public void setElemento(GameComponent elemento) {
 		this.elemento = elemento;
+	}
+
+	public boolean puedePasar() {
+		if(this.getElemento() == null || this.getElemento().getClass() == TerrenoVacio.class)
+			return true;
+		else {return false;}
 	}
 	
 
