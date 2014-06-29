@@ -1,18 +1,11 @@
 package pacman;
 
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
-
 import scenes.PacmanScene;
-import utils.Vector2D;
 import colisiones.ColisionPersonajeComidaRule;
-import colisiones.ColisionTanqueBloqueRule;
-
 import com.uqbar.vainilla.DeltaState;
 import com.uqbar.vainilla.GameComponent;
-import com.uqbar.vainilla.GameScene;
-import com.uqbar.vainilla.appearances.Label;
 import com.uqbar.vainilla.appearances.Sprite;
 import com.uqbar.vainilla.events.constants.Key;
 import com.uqbar.vainilla.sound.Sound;
@@ -59,26 +52,26 @@ public class Personaje extends GameComponent<PacmanScene> {
 		double delta = deltaState.getDelta();
 		Posicion actual = this.posicionActual();
 		// if(this.noHayObstaculos(actual)){
-		if (deltaState.isKeyPressed(Key.UP) || this.direccion == "UP") {
+			if (deltaState.isKeyPressed(Key.UP) || this.direccion == "UP" && this.noHayObstaculos(this,actual, Direccion.ARRIBA)) {
 			this.direccion = "UP";
 			this.setY(this.analizarPosicionY(this.getY() - getVelocidad() * delta));
 			this.intercambiarApariencia("personajeCerradoArriba.png",
 					"personajeAbiertoArriba.png", deltaState);
 		}
-		if (deltaState.isKeyPressed(Key.DOWN) || this.direccion == "DOWN") {
+		if (deltaState.isKeyPressed(Key.DOWN) || this.direccion == "DOWN"&& this.noHayObstaculos(this,actual, Direccion.ABAJO)) {
 			this.direccion = "DOWN";
 			this.setY(this.analizarPosicionY(this.getY() + getVelocidad() * delta));
 			this.intercambiarApariencia("personajeCerradoAbajo.png",
 					"personajeAbiertoAbajo.png", deltaState);
 		}
-		if (deltaState.isKeyPressed(Key.RIGHT) || this.direccion == "RIGHT") {
+		if (deltaState.isKeyPressed(Key.RIGHT) || this.direccion == "RIGHT" && this.noHayObstaculos(this,actual, Direccion.DERECHA)) {
 			this.direccion = "RIGHT";
 			this.setX(this.analizarPosicionX(this.getX() + getVelocidad()
 					* delta));
 			this.intercambiarApariencia("personajeCerradoDerecha.png",
 					"personajeAbiertoDerecha.png", deltaState);
 		}
-		if (deltaState.isKeyPressed(Key.LEFT) || this.direccion == "LEFT") {
+		if (deltaState.isKeyPressed(Key.LEFT) || this.direccion == "LEFT" && this.noHayObstaculos(this,actual, Direccion.IZQUIERDA)) {
 			this.direccion = "LEFT";
 			this.setX(this.analizarPosicionX(this.getX() - getVelocidad()
 					* delta));
@@ -86,6 +79,10 @@ public class Personaje extends GameComponent<PacmanScene> {
 					"personajeAbiertoIzquierda.png", deltaState);
 		}
 
+	}
+	private boolean noHayObstaculos(Personaje personaje,
+			pacman.Posicion actual, pacman.Direccion arriba) {
+		return this.getScene().getGrilla().noHayBloque(personaje,actual, direccion);
 	}
 
 	private double analizarPosicionX(double x) {
@@ -139,8 +136,7 @@ public class Personaje extends GameComponent<PacmanScene> {
 	}
 
 	public Posicion posicionActual() {
-		return this.getScene().getGrilla().getMapa()[(int) this.getY() / 50][(int) this
-				.getX() / 50];
+		return this.getScene().getGrilla().getPosicion(this.getX(), this.getY());
 	}
 
 	@Override

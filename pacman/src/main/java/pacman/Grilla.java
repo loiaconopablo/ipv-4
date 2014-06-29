@@ -1,5 +1,4 @@
 package pacman;
-
 import com.uqbar.vainilla.GameComponent;
 
 public class Grilla {
@@ -66,4 +65,39 @@ public class Grilla {
 		return (this.mapa[actual.getY()][actual.getX()].getElemento() == null);
 		
 	}
-}
+
+	public boolean noHayBloque(Personaje personaje, Posicion actual,
+			String direccion) {
+		if(direccion.equals(Direccion.ABAJO)){
+				if((personaje.getX()>= actual.getX()*50) && personaje.getX() <=((actual.getX()*50) +5)){
+					return (this.mapa[actual.getY()+1][actual.getX()].puedePasar());				
+				}else{
+					return ((this.mapa[actual.getY()+1][actual.getX()].puedePasar()) &&
+							(this.mapa[actual.getY()+1][actual.getX()+1].puedePasar()));
+				}
+			}
+			if(direccion.equals(Direccion.ARRIBA)){
+				if((personaje.getX()>= actual.getX()*50) && personaje.getX() <=((actual.getX()*50) +5)){
+					return (this.mapa[actual.getY()][actual.getX()].puedePasar());	
+				}else{
+					return ((this.mapa[actual.getY()][actual.getX()].puedePasar()) && 
+							this.mapa[actual.getY()][actual.getX()+1].puedePasar());
+				}
+			}
+			if(direccion.equals(Direccion.IZQUIERDA)){
+				if(personaje.getY()>= actual.getY()*50 && personaje.getY() <=((actual.getY()*50) +5)){
+					return (this.mapa[actual.getY()][actual.getX()].puedePasar());
+				}else {
+					return (this.mapa[actual.getY()][actual.getX()].puedePasar()) &&
+							(this.mapa[actual.getY()+1][actual.getX()].puedePasar());
+				}
+			}
+			if((personaje.getY()>= (actual.getY())) && personaje.getY() <=((actual.getY()*50) +5)){
+				return (this.mapa[actual.getY()][actual.getX()+1].puedePasar());			
+			}
+			return ((this.mapa[actual.getY()][actual.getX()+1].puedePasar()) &&
+					(this.mapa[actual.getY()+1][actual.getX()+1].puedePasar()));
+					
+		}
+	}
+
