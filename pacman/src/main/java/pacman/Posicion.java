@@ -9,6 +9,7 @@ public class Posicion {
 	private int y;
 	private GameComponent elemento;
 	
+	
 	public Posicion(int x, int y, GameComponent elemento){
 		this.setX(x);
 		this.setY(y);
@@ -35,10 +36,11 @@ public class Posicion {
 	}
 
 	public boolean puedePasar() {
-		if(this.getElemento() == null || this.getElemento().getClass() == TerrenoVacio.class)
+		if(this.getElemento() == null || this.getElemento().getClass() == TerrenoVacio.class  )
 			return true;
 		else {return false;}
 	}
+
 	
 
 	

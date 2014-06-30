@@ -2,8 +2,13 @@ package pacman;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import scenes.PacmanScene;
+import colisiones.ColisionEntrePersonajeYFantasmas;
 import colisiones.ColisionPersonajeComidaRule;
+import colisiones.ColisionEntreFantamaFantasmaOFantasmaPersonajeRule;
+import colisiones.ColisionRule;
+
 import com.uqbar.vainilla.DeltaState;
 import com.uqbar.vainilla.GameComponent;
 import com.uqbar.vainilla.appearances.Sprite;
@@ -19,17 +24,17 @@ public class Personaje extends GameComponent<PacmanScene> {
 	private double xMax;
 	private double yMin;
 	private double yMax;
-	private List<ColisionPersonajeComidaRule> rules = new ArrayList<ColisionPersonajeComidaRule>();
+	private List<ColisionRule> rules = new ArrayList<ColisionRule>();
 	private static Sprite image = Sprite
 			.fromImage("personajeAbiertoIzquierda.png");
 	private double velocidad;
-	private double velocidadInicial = 0;
 	private double tiempo = 1;
 	private double comparador = 1;
 	private double contadorFantasmas = 0;
 	private boolean bocaAbierta = true;
 	private boolean enMoviento = false;
-	private Sound music;
+	private Sound sonidoComiendo;
+	private Sound sonidoMuerte;
 	private String direccion;
 
 	public Personaje(double posx, double posy, double xMin, double xMax,
@@ -42,7 +47,7 @@ public class Personaje extends GameComponent<PacmanScene> {
 		this.setyMin(yMin);
 		this.setyMax(yMax);
 		this.setVelocidad(Double.parseDouble("100"));
-		this.initSound();
+		this.initSounds();
 		this.setZ(2);
 
 	}
@@ -116,9 +121,12 @@ public class Personaje extends GameComponent<PacmanScene> {
 
 	}
 
-	private void initSound() {
-		this.setMusic(new SoundBuilder().buildSound(this.getClass()
+	private void initSounds() {
+		this.setSonidoComiendo(new SoundBuilder().buildSound(this.getClass()
 				.getClassLoader().getResourceAsStream("faster.wav")));
+		
+		this.setSonidoMuerte(new SoundBuilder().buildSound(this.getClass()
+				.getClassLoader().getResourceAsStream("muerteVidaPacman.wav")));
 	}
 
 	private void cambiarApariencia(String string, String string2) {
@@ -143,12 +151,13 @@ public class Personaje extends GameComponent<PacmanScene> {
 	public void update(DeltaState deltaState) {
 		super.update(deltaState);
 
-		for (ColisionPersonajeComidaRule rule : this.getRules()) {
+		for (ColisionRule rule : this.getRules()) {
 			if (rule.mustApply(this, this.getScene())) {
 				rule.apply(this, this.getScene());
 				break;
 			}
 		}
+		
 		this.actualizarSpriteYDireccion(deltaState);
 
 		// this.contadorFantasmas += deltaState.getDelta();
@@ -162,7 +171,7 @@ public class Personaje extends GameComponent<PacmanScene> {
 	}
 
 	public void resetCentrar() {
-		this.setVelocidad(velocidadInicial);
+		this.direccion = null;
 		this.setX(xInicial);
 		this.setY(yInicial);
 	}
@@ -173,20 +182,24 @@ public class Personaje extends GameComponent<PacmanScene> {
 		return this.getAppearance().getWidth();
 
 	}
-
+	
 	private void initRules() {
-		for (Comida comida : this.getScene().getComidas()) {
-			this.rules.add(new ColisionPersonajeComidaRule(comida));
+	for (Comida comida : this.getScene().getComidas()) {
+		this.rules.add(new ColisionPersonajeComidaRule(comida));
+		
+	for (Fantasma fantasma : this.getScene().getFantasmas()) {
+			this.rules.add(new ColisionEntrePersonajeYFantasmas(fantasma));
 		}
-
+	
 	}
 
-	public void removeRule(ColisionPersonajeComidaRule colisionPersonaComida) {
+}
+	public void removeRule(ColisionRule colisionPersonaComida) {
 		this.getRules().remove(colisionPersonaComida);
 
 	}
 
-	public List<ColisionPersonajeComidaRule> getRules() {
+	public List<ColisionRule> getRules() {
 		if (this.rules.isEmpty()) {
 			this.initRules();
 		}
@@ -265,13 +278,7 @@ public class Personaje extends GameComponent<PacmanScene> {
 		this.comparador = comparador;
 	}
 
-	public double getVelocidadInicial() {
-		return velocidadInicial;
-	}
 
-	public void setVelocidadInicial(double velocidadInicial) {
-		this.velocidadInicial = velocidadInicial;
-	}
 
 	public double getVelocidad() {
 		return velocidad;
@@ -289,12 +296,21 @@ public class Personaje extends GameComponent<PacmanScene> {
 		this.enMoviento = enMoviento;
 	}
 
-	public Sound getMusic() {
-		return music;
+	public Sound getSonidoComiendo() {
+		return sonidoComiendo;
 	}
 
-	public void setMusic(Sound music) {
-		this.music = music;
+	public void setSonidoComiendo(Sound music) {
+		this.sonidoComiendo = music;
 	}
+	public Sound getSonidoMuerte() {
+		return sonidoMuerte;
+	}
+
+	public void setSonidoMuerte(Sound sonidoMuerte) {
+		this.sonidoMuerte = sonidoMuerte;
+	}
+
+
 
 }

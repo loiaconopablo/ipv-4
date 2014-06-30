@@ -59,7 +59,6 @@ public class PacmanScene extends GameScene {
 		//this.agregarFantasmas(new Fantasma(300,100,0, game.getDisplayWidth(),0, game.getDisplayHeight()));
 		//this.agregarFantasmas(new Fantasma(600,100,0, game.getDisplayWidth(),0, game.getDisplayHeight()));
 		//Hay que crear una interfaz para los enemigos,,sino cuando apretas las teclas se mueven, como si fuera el tuyo
-		
 		this.buildBackgroundOne(game.getDisplayWidth(),game.getDisplayHeight());		
 		this.buildBackgroundTwo(game.getDisplayWidth(),game.getDisplayHeight());
 	}
@@ -82,9 +81,34 @@ public class PacmanScene extends GameScene {
 		int ynew = this.generarPosicion(y);
 		int xnew = this.generarPosicion(x);
 		Personaje pac = new Personaje(xnew,ynew,0, 800  ,0, 600);
-		this.agregarALaGrilla(x,y,pac);	
-		this.setFantasma(pac);		
+		//this.agregarALaGrilla(x,y,pac);	
+		this.setPersonaje(pac);		
 		
+	}
+	
+	public void buildFantasmaRojo(int x, int y) {
+		int ynew = this.generarPosicion(y);
+		int xnew = this.generarPosicion(x);
+		Fantasma fantasma= new FantasmaRojo(xnew,ynew,0, 800  ,0, 600);
+		//this.agregarALaGrilla(x,y,fantasma);	
+		this.agregarFantasmas(fantasma);
+		
+	}
+
+	public void buildFantasmaRosa(int x, int y) {
+		int ynew = this.generarPosicion(y);
+		int xnew = this.generarPosicion(x);
+		Fantasma fantasma= new FantasmaRosa(xnew,ynew,0, 800  ,0, 600);
+		//this.agregarALaGrilla(x,y,fantasma);	
+		this.agregarFantasmas(fantasma);
+	}
+
+	public void buildFantasmaCeleste(int x, int y) {
+		int ynew = this.generarPosicion(y);
+		int xnew = this.generarPosicion(x);
+		Fantasma fantasma= new FantasmaCeleste(xnew,ynew,0, 800  ,0, 600);
+		//this.agregarALaGrilla(x,y,fantasma);	
+		this.agregarFantasmas(fantasma);
 	}
 	
 	public void crearComidaEnTerreno(int x, int y) {
@@ -120,7 +144,7 @@ public class PacmanScene extends GameScene {
 		return personaje;
 	}
 
-	public void setFantasma(Personaje fantasma) {
+	public void setPersonaje(Personaje fantasma) {
 		this.addComponent(fantasma);
 		this.personaje = fantasma;
 	}
@@ -235,30 +259,7 @@ public class PacmanScene extends GameScene {
 		this.getGrilla().setPosicion(x, y,new Posicion(x,y, elemento));
 	}
 
-	public void buildFantasmaRojo(int x, int y) {
-		int ynew = this.generarPosicion(y);
-		int xnew = this.generarPosicion(x);
-		Fantasma fantasma= new FantasmaRojo(xnew,ynew,0, 800  ,0, 600);
-		this.agregarALaGrilla(x,y,fantasma);	
-		this.agregarFantasmas(fantasma);
-		
-	}
-
-	public void buildFantasmaRosa(int x, int y) {
-		int ynew = this.generarPosicion(y);
-		int xnew = this.generarPosicion(x);
-		Fantasma fantasma= new FantasmaRosa(xnew,ynew,0, 800  ,0, 600);
-		this.agregarALaGrilla(x,y,fantasma);	
-		this.agregarFantasmas(fantasma);
-	}
-
-	public void buildFantasmaCeleste(int x, int y) {
-		int ynew = this.generarPosicion(y);
-		int xnew = this.generarPosicion(x);
-		Fantasma fantasma= new FantasmaCeleste(xnew,ynew,0, 800  ,0, 600);
-		this.agregarALaGrilla(x,y,fantasma);	
-		this.agregarFantasmas(fantasma);
-	}
+	
 
 
 }

@@ -17,7 +17,7 @@ public class ColisionPersonajeComidaRule extends ColisionComidaBloqueRule{
 	public void apply(GameComponent<PacmanScene> objeto, PacmanScene scene) {
 		scene.getComidas().remove(this.getObjetoArebotar());
 		((Personaje)objeto).removeRule(this);
-		((Personaje)objeto).getMusic().play();
+		((Personaje)objeto).getSonidoComiendo().play();
 		scene.getMarcadorPuntos().subirMarcador();
 		this.getObjetoArebotar().destroy();
 		scene.revisarFinDelJuego();

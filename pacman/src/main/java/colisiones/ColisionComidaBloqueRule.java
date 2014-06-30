@@ -5,7 +5,7 @@ import com.uqbar.vainilla.colissions.CollisionDetector;
 
 import scenes.PacmanScene;
 
-public abstract class ColisionComidaBloqueRule {
+public abstract class ColisionComidaBloqueRule implements ColisionRule{
 	
 	private GameComponent<PacmanScene> objetoArebotar;
 
@@ -22,7 +22,7 @@ public abstract class ColisionComidaBloqueRule {
 		return this.colisiona(objetoArebotar, objetoQuePega) ;
 	}
 	
-	private boolean colisiona(GameComponent<PacmanScene> objetoArebotar,
+	public boolean colisiona(GameComponent<PacmanScene> objetoArebotar,
 			GameComponent<PacmanScene> objetoQuePega) {
 		return CollisionDetector.INSTANCE.collidesCircleAgainstRect(
 				objetoArebotar.getX(),
