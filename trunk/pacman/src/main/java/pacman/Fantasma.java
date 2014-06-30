@@ -1,6 +1,7 @@
 package pacman;
 
 import utils.Vector2D;
+
 import com.uqbar.vainilla.DeltaState;
 import com.uqbar.vainilla.appearances.Sprite;
 
@@ -22,11 +23,9 @@ public abstract class Fantasma extends Personaje {
 	@Override
 	public void update(DeltaState deltaState) {
 				Posicion actual = this.posicionActual();
-		if(this.sePuedeMover(actual, Direccion.IZQUIERDA)){
-			if(this.noHayObstaculos(actual)){
-				this.moverAIzquierda(deltaState);			
-			}
-		}
+				
+		if(this.sePuedeMover(actual, Direccion.ABAJO) & this.noHayObstaculos(this,actual, Direccion.ABAJO) )
+				{this.moverAbajo(deltaState);	}
 		this.intercambiarApariencia(this.getFantasmaEnemigoA(),
 				this.getFantasmaEnemigoB(), deltaState);	
 		

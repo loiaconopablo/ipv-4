@@ -55,7 +55,8 @@ public class Personaje extends GameComponent<PacmanScene> {
 	private void actualizarSpriteYDireccion(DeltaState deltaState) {
 
 		double delta = deltaState.getDelta();
-		Posicion actual = this.posicionActual();
+		//Posicion actual = this.posicionActual();
+		Posicion actual = this.crearPosicion(delta);
 		// if(this.noHayObstaculos(actual)){
 			if (deltaState.isKeyPressed(Key.UP) || this.direccion == "UP" && this.noHayObstaculos(this,actual, Direccion.ARRIBA)) {
 			this.direccion = "UP";
@@ -85,12 +86,18 @@ public class Personaje extends GameComponent<PacmanScene> {
 		}
 
 	}
-	private boolean noHayObstaculos(Personaje personaje,
-			pacman.Posicion actual, pacman.Direccion arriba) {
-		return this.getScene().getGrilla().noHayBloque(personaje,actual, direccion);
+	
+	private Posicion crearPosicion(double delta) {
+		return this.getScene().getGrilla().getPosicion(this.analizarPosicionX(this.getX() - getVelocidad()
+				* delta)
+				, this.analizarPosicionY(this.getY() + getVelocidad() * delta));
 	}
 
-	private double analizarPosicionX(double x) {
+	protected boolean noHayObstaculos(Personaje personaje,Posicion actual, Direccion arriba) {
+		 return this.getScene().getGrilla().noHayBloque(personaje,actual, arriba);
+	}
+
+	public double analizarPosicionX(double x) {
 		if (x + this.getAppearance().getWidth() <= 0) {
 			x = ((Pacman) this.getGame()).getDimensionCuadro().getWidth()
 					- this.getAppearance().getWidth();
@@ -100,7 +107,7 @@ public class Personaje extends GameComponent<PacmanScene> {
 		return x;
 	}
 
-	private double analizarPosicionY(double y) {
+	public double analizarPosicionY(double y) {
 		if (y + this.getAppearance().getHeight() <= 0) {
 			y = ((Pacman) this.getGame()).getDimensionCuadro().getHeight()
 					- this.getAppearance().getHeight();

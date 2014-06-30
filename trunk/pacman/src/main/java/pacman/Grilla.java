@@ -1,5 +1,4 @@
 package pacman;
-import com.uqbar.vainilla.GameComponent;
 
 public class Grilla {
 	
@@ -67,7 +66,7 @@ public class Grilla {
 	}
 
 	public boolean noHayBloque(Personaje personaje, Posicion actual,
-			String direccion) {
+			Direccion direccion) {
 		if(direccion.equals(Direccion.ABAJO)){
 				if((personaje.getX()>= actual.getX()*50) && personaje.getX() <=((actual.getX()*50) +5)){
 					return (this.mapa[actual.getY()+1][actual.getX()].puedePasar());				
