@@ -2,8 +2,6 @@ package pacman;
 
 
 import java.awt.Color;
-import colisiones.ColisionComidaBloqueRule;
-import colisiones.ColisionBalaPastoRule;
 import com.uqbar.vainilla.appearances.Rectangle;
 
 public class TerrenoVacio extends Bloque{

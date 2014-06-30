@@ -1,9 +1,6 @@
 package pacman;
 
-import java.awt.Color;
-
 import utils.Vector2D;
-
 import com.uqbar.vainilla.DeltaState;
 import com.uqbar.vainilla.appearances.Sprite;
 
@@ -31,7 +28,8 @@ public abstract class Fantasma extends Personaje {
 			}
 		}
 		this.intercambiarApariencia(this.getFantasmaEnemigoA(),
-				this.getFantasmaEnemigoB(), deltaState);
+				this.getFantasmaEnemigoB(), deltaState);	
+		
 	}
 
 	private void intercambiarApariencia(Sprite fantasmaEnemigoA2,
