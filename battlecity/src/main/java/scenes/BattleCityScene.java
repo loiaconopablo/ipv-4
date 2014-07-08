@@ -5,12 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import map.MapManager;
+import aestrella.Grilla;
+import aestrella.Posicion;
 import battlecity.BattleCity;
 import battlecity.Bala;
 import battlecity.Bloque;
-import battlecity.Grilla;
 import battlecity.HalconVida;
-import battlecity.Posicion;
 import battlecity.Tanque;
 import battlecity.TanqueEnemigo;
 import colisiones.ColisionTanqueBloqueRule;
@@ -54,11 +54,9 @@ public class BattleCityScene extends GameScene {
 		this.manager.build(this,game);
 		
 //		this.agregarTanquesEnemigos(new TanqueEnemigo(600,100,0, game.getDisplayWidth(),0, game.getDisplayHeight()));
-//		this.agregarTanquesEnemigos(new TanqueEnemigo(300,100,0, game.getDisplayWidth(),0, game.getDisplayHeight()));
-		//Hay que crear una interfaz para los enemigos,,sino cuando apretas las teclas se mueven, como si fuera el tuyo
+		this.agregarTanquesEnemigos(new TanqueEnemigo(700,100,0, game.getDisplayWidth(),0, game.getDisplayHeight()));
 		this.buildBackgroundOne(game.getDisplayWidth(),game.getDisplayHeight());		
 		this.buildBackgroundTwo(game.getDisplayWidth(),game.getDisplayHeight());
-		
 	}
 	
 	public void buildComponent(int x, int y, GameComponent elemento){
@@ -80,7 +78,7 @@ public class BattleCityScene extends GameScene {
 	public void buildVidaPrincipal(int x, int y) {
 		int ynew = this.generarPosicion(y);
 		int xnew = this.generarPosicion(x);
-		this.vida= new HalconVida(Sprite.fromImage("/halcon.png"), xnew, ynew);
+		this.vida= new HalconVida(Sprite.fromImage("halcon.png"), xnew, ynew);
 		this.addComponent(vida);
 	}
 

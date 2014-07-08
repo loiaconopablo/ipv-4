@@ -1,7 +1,7 @@
 package colisiones;
 
+import aestrella.Posicion;
 import battlecity.Bala;
-import battlecity.Posicion;
 
 import com.uqbar.vainilla.GameComponent;
 import com.uqbar.vainilla.colissions.CollisionDetector;

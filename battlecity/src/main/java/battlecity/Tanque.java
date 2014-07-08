@@ -5,6 +5,7 @@ import java.util.List;
 
 import scenes.BattleCityScene;
 import utils.Vector2D;
+import aestrella.Posicion;
 import colisiones.ColisionBalaBloqueRule;
 import colisiones.ColisionTanqueBloqueRule;
 
@@ -25,7 +26,7 @@ public class Tanque extends GameComponent<BattleCityScene> {
 	private List<ColisionTanqueBloqueRule> rules = new ArrayList<ColisionTanqueBloqueRule>();
 	private Vector2D velocidadPolar = new Vector2D(0, -Math.PI / 2);
 	private double rapidezDisparo = 300;
-	private static Sprite image = Sprite.fromImage("/tanqueArriba.png");
+	private static Sprite image = Sprite.fromImage("tanqueArriba.png");
 	private double velocidad;
 	private boolean tieneBala;
 	private double contadorTanqueEnemigo = 0;
@@ -59,26 +60,26 @@ public class Tanque extends GameComponent<BattleCityScene> {
 		
 		if (deltaState.isKeyBeingHold(Key.UP) && this.sePuedeMover(actual, Direccion.ARRIBA) && this.noHayObstaculos(this,actual, Direccion.ARRIBA)) {
 			this.setY(Math.max(this.getY() - getVelocidad() * delta, getyMin()));
-			this.setAppearance(Sprite.fromImage("/tanqueArriba.png"));
+			this.setAppearance(Sprite.fromImage("tanqueArriba.png"));
 			anguloDisparo = -Math.PI / 2;
 			ro += deltaSpeed * deltaState.getDelta();
 
 		} else if (deltaState.isKeyBeingHold(Key.DOWN) && this.sePuedeMover(actual, Direccion.ABAJO) && this.noHayObstaculos(this,actual, Direccion.ABAJO)) {
 			this.setY(Math.min(getyMax() - this.getAppearance().getHeight(),
 					this.getY() + getVelocidad() * delta));
-			this.setAppearance(Sprite.fromImage("/tanqueAbajo.png"));
+			this.setAppearance(Sprite.fromImage("tanqueAbajo.png"));
 			anguloDisparo = Math.PI / 2;
 			ro = Math.max(0, ro - (deltaSpeed * deltaState.getDelta()));
 
 		} else if (deltaState.isKeyBeingHold(Key.RIGHT) && this.sePuedeMover(actual, Direccion.DERECHA) && this.noHayObstaculos(this,actual, Direccion.DERECHA)) {
 			this.setX(Math.min(getxMax() - this.getAppearance().getWidth(),
 					this.getX() + getVelocidad() * delta));
-			this.setAppearance(Sprite.fromImage("/tanqueDerecha.png"));
+			this.setAppearance(Sprite.fromImage("tanqueDerecha.png"));
 			anguloDisparo = 2 * Math.PI;
 
 		} else if (deltaState.isKeyBeingHold(Key.LEFT)&& this.sePuedeMover(actual, Direccion.IZQUIERDA) && this.noHayObstaculos(this,actual, Direccion.IZQUIERDA)) {
 			this.setX(Math.max(this.getX() - getVelocidad() * delta, getxMin()));
-			this.setAppearance(Sprite.fromImage("/tanqueIzquierda.png"));
+			this.setAppearance(Sprite.fromImage("tanqueIzquierda.png"));
 			anguloDisparo = Math.PI;
 		}
 		if (deltaState.isKeyPressed(Key.ENTER)) {
@@ -124,11 +125,11 @@ public class Tanque extends GameComponent<BattleCityScene> {
 	public void update(DeltaState deltaState) {
 		super.update(deltaState);
 		this.actualizarSpriteYDireccion(deltaState);
-		this.contadorTanqueEnemigo += deltaState.getDelta();
-		if(this.contadorTanqueEnemigo >= 5.0){
-			this.contadorTanqueEnemigo = 0.0;
-			this.getScene().agregarTanquesEnemigos(new TanqueEnemigo(700,100,0, this.getScene().getGame().getDisplayWidth(),0, this.getScene().getGame().getDisplayHeight()));
-		}
+//		this.contadorTanqueEnemigo += deltaState.getDelta();
+//		if(this.contadorTanqueEnemigo >= 5.0){
+//			this.contadorTanqueEnemigo = 0.0;
+//			this.getScene().agregarTanquesEnemigos(new TanqueEnemigo(700,100,0, this.getScene().getGame().getDisplayWidth(),0, this.getScene().getGame().getDisplayHeight()));
+//		}
 		
 		for(ColisionTanqueBloqueRule rule : this.getRules()) {
 			if(rule.mustApply(this, this.getScene())) {

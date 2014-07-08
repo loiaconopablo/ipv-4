@@ -16,7 +16,7 @@ public class StartScene extends GameScene {
 	private Sprite logo;
 	public StartScene( double x, double y, GameScene battleScene) {
 		super(new StartComponent(x, y, battleScene));
-		this.setLogo(Sprite.fromImage("/inicio.png"));
+		this.setLogo(Sprite.fromImage("inicio.png"));
 		GameComponent logoInicio = new GameComponent(logo,100,100);
 		this.addComponent(logoInicio);
 		

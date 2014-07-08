@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import utils.Vector2D;
+import aestrella.Astar;
+import aestrella.Posicion;
 
 import com.uqbar.vainilla.DeltaState;
 import com.uqbar.vainilla.appearances.Sprite;
@@ -12,6 +14,7 @@ public class TanqueEnemigo extends Tanque {
 
 	private double tiempoDeDisparo = 0;
 	private double comparadorDeDisparo = 1;
+	private double comparadorDeBusqueda = 5;
 	
 	private Vector2D velocidadPolar = new Vector2D(0, Math.PI / 2);
 	private double rapidezDisparo = 300;
@@ -21,7 +24,7 @@ public class TanqueEnemigo extends Tanque {
 	public TanqueEnemigo(double posx, double posy, double xMin, double xMax,
 			double yMin, double yMax) {
 		super(posx, posy, xMin, xMax, yMin, yMax);
-		this.setAppearance(Sprite.fromImage("/tanqueEnemigoAbajo.png"));
+		this.setAppearance(Sprite.fromImage("tanqueEnemigoAbajo.png"));
 	}
 
 	@Override
@@ -37,19 +40,34 @@ public class TanqueEnemigo extends Tanque {
 		Posicion EII = this.posicionExtremoInferiorIzquierdo();
 		Posicion EID = this.posicionExtremoInferiorDerecho();
 		
-		if(this.sePuedeMover(actual, Direccion.ABAJO) & this.noHayObstaculos(this,actual, Direccion.ABAJO) )
-			{this.moverAbajo(deltaState);	}
+		
+		this.tiempoDeDisparo += deltaState.getDelta();
+		if( this.tiempoDeDisparo >= this.comparadorDeBusqueda){
+			this.buscarTanque();
+			this.comparadorDeBusqueda += 10.0;
+		}
+			
+//		if(this.sePuedeMover(actual, Direccion.ABAJO) & this.noHayObstaculos(this,actual, Direccion.ABAJO) )
+//			{this.moverAbajo(deltaState);	}
 //		if(this.sePuedeMover(actual, Direccion.IZQUIERDA) & this.noHayObstaculos(actual, Direccion.IZQUIERDA) )
 //		{this.moverAIzquierda(deltaState);	}
 //		this.buscarTanque();
 	}
 	
 	protected void buscarTanque() {
+		System.out.println("NUEVO CAMINO");
+		ArrayList<Posicion> resultadosCaminos = new ArrayList<Posicion>();
 		Tanque tanque = this.getScene().getTanque();
+		Posicion miPosicionInicial = this.getScene().getGrilla().getPosicion(this.getX(), this.getY());
 		Posicion posicionTanque = this.getScene().getGrilla().getPosicion(tanque.getX(), tanque.getY());
 		//System.out.println(posicionTanque.getX()+"/"+posicionTanque.getY());
-		
-		List<List<Posicion>> caminos = this.generarCaminos(tanque);
+		Astar camino = new Astar(this.getScene().getGrilla().getMapa(), miPosicionInicial, posicionTanque);
+		resultadosCaminos = camino.calcularCamino();
+		if(!(resultadosCaminos == null) && (!(resultadosCaminos.size() == 0))){
+			for(Posicion posi : resultadosCaminos){
+				System.out.println(posi.toString());
+			}
+		}
 	}
 
 	private List<List<Posicion>> generarCaminos(Tanque tanque) {
@@ -109,7 +127,7 @@ public class TanqueEnemigo extends Tanque {
 		double ro = velocidadPolar.getX();
 
 		this.setX(Math.max(this.getX() - getVelocidad() * delta, getxMin()));
-		this.setAppearance(Sprite.fromImage("/tanqueIzquierda.png"));
+		this.setAppearance(Sprite.fromImage("tanqueIzquierda.png"));
 		anguloDisparo = Math.PI;
 	}
 	
@@ -119,7 +137,7 @@ public class TanqueEnemigo extends Tanque {
 				
 		this.setX(Math.min(getxMax() - this.getAppearance().getWidth(),
 				this.getX() + getVelocidad() * delta));
-		this.setAppearance(Sprite.fromImage("/tanqueDerecha.png"));
+		this.setAppearance(Sprite.fromImage("tanqueDerecha.png"));
 		anguloDisparo = 2 * Math.PI;
 		
 	}
@@ -130,7 +148,7 @@ public class TanqueEnemigo extends Tanque {
 		
 		this.setY(Math.min(getyMax() - this.getAppearance().getHeight(),
 				this.getY() + getVelocidad() * delta));
-		this.setAppearance(Sprite.fromImage("/tanqueAbajo.png"));
+		this.setAppearance(Sprite.fromImage("tanqueAbajo.png"));
 		anguloDisparo = Math.PI / 2;
 		ro = Math.max(0, ro - (deltaSpeed * deltaState.getDelta()));		
 	}
@@ -140,7 +158,7 @@ public class TanqueEnemigo extends Tanque {
 		double ro = velocidadPolar.getX();
 
 		this.setY(Math.max(this.getY() - getVelocidad() * delta, getyMin()));
-		this.setAppearance(Sprite.fromImage("/tanqueArriba.png"));
+		this.setAppearance(Sprite.fromImage("tanqueArriba.png"));
 		anguloDisparo = -Math.PI / 2;
 		ro += deltaSpeed * deltaState.getDelta();
 

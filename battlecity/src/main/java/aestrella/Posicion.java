@@ -1,8 +1,10 @@
-package battlecity;
+package aestrella;
+
+import battlecity.Pasto;
 
 import com.uqbar.vainilla.GameComponent;
 
-public class Posicion {
+public class Posicion implements Comparable{
 	
 	private int x;
 	private int y;
@@ -92,7 +94,7 @@ public class Posicion {
     @Override
     public String toString()
     {
-            return "(" + y + ", " + x + ")";
+            return "(" + x + ", " + y + ")";
     }
     
 	public void setNodoPadre(Posicion nodoPadre) {
@@ -100,6 +102,11 @@ public class Posicion {
 		this.recalcularG();
 	}
 
+	 public boolean getTransitable()
+     {
+             return this.puedePasar();
+     }
+	 
 	public Posicion getNodoFinal() {
 		return nodoFinal;
 	}
