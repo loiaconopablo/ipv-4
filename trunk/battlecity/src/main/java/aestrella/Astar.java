@@ -136,6 +136,7 @@ public class Astar
 //                                        nodosAdyacentes.add(matriz[nodoActual.getY()+1][nodoActual.getX()-1]);
 
                         // Para cada nodo encontrado, comprobamos si hemos llegado al punto de destino.
+                        
                         while (!nodosAdyacentes.isEmpty() && !caminoEncontrado)
                         {
                                 Posicion nodoAdyacente = (Posicion) nodosAdyacentes.remove(0);
@@ -167,17 +168,20 @@ public class Astar
                                         }
                                 }
                         }
+
                 }
 
 
                 // Si hemos llegado al nodo final, volvemos hacia atrás desde ese nodo extrayendo el camino hasta el nodo inicial.
                 if (caminoEncontrado)
                 {
-                        ArrayList camino = new ArrayList<Posicion>();
+                	ArrayList camino = new ArrayList<Posicion>();
                         Posicion nodoAuxiliar = nodoFinal;
-                        while (nodoAuxiliar != null)
+                        Posicion nodoAnterior = null;
+                        while (nodoAuxiliar != null && !(nodoAuxiliar == nodoAnterior))
                         {
                                 camino.add(0, nodoAuxiliar);
+                                nodoAnterior = nodoAuxiliar.getNodoPadre();
                                 nodoAuxiliar = nodoAuxiliar.getNodoPadre();
                         }
                         return camino;
