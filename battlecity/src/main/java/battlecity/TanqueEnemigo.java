@@ -40,10 +40,10 @@ public class TanqueEnemigo extends Tanque {
                         this.comparadorDeDisparo += 1.0;
                 }
                 Posicion actual = this.posicionActual();
-                Posicion ESI = this.posicionExtremoSuperiorIzquierdo();
-                Posicion ESD = this.posicionExtremoSuperiorDerecho();
-                Posicion EII = this.posicionExtremoInferiorIzquierdo();
-                Posicion EID = this.posicionExtremoInferiorDerecho();
+//                Posicion ESI = this.posicionExtremoSuperiorIzquierdo();
+//                Posicion ESD = this.posicionExtremoSuperiorDerecho();
+//                Posicion EII = this.posicionExtremoInferiorIzquierdo();
+//                Posicion EID = this.posicionExtremoInferiorDerecho();
                 if(index ==3){
                 	this.buscarTanque();
                 }
@@ -52,6 +52,7 @@ public class TanqueEnemigo extends Tanque {
                 
                 if(!(this.caminoARecorrer == null)){
                 	if(this.llegoALaPosicionActual()){
+                		System.out.println("entro aca "+this.index);
                 		this.index +=1;
                 		this.posicionProxima= this.caminoARecorrer.get(this.index);
                 		this.direccionAMover = this.vieneDe(this.posicionProxima);
@@ -59,10 +60,9 @@ public class TanqueEnemigo extends Tanque {
                 	}
                 	else{
                 		this.direccionAMover = this.vieneDe(this.posicionProxima);
-                		this.mover(deltaState);
+                		this.mover(deltaState);                		
                 	}
-                	System.out.println(this.direccionAMover);
-                	
+              	
                 }
         }
         
@@ -89,16 +89,16 @@ public class TanqueEnemigo extends Tanque {
         	if(this.direccionAMover == Direccion.DERECHA || this.direccionAMover == Direccion.IZQUIERDA){
 				return ((this.getX()>= this.posicionProxima.getX()*50+1) && (this.getX() <= this.posicionProxima.getX()*50+2));
 			}
-			return((this.getY() >= this.posicionProxima.getY()*50+1) && (this.getY()<= this.posicionProxima.getY()) );
+			return((this.getY() >= this.posicionProxima.getY()*50+1) && (this.getY()<= this.posicionProxima.getY()*50+2) );
 		}
         
         private Direccion vieneDe(Posicion posicion) {
     		Posicion actual = this.posicionActual();
     		if(posicion.getX()>actual.getX()){
-    			return Direccion.IZQUIERDA;
+    			return Direccion.DERECHA;
     		}
     		if(posicion.getX()<actual.getX()){
-    			return Direccion.DERECHA;
+    			return Direccion.IZQUIERDA;
     		}
     		if(posicion.getY()>=actual.getY()){
     			return Direccion.ABAJO;
@@ -180,9 +180,9 @@ public class TanqueEnemigo extends Tanque {
         }
 
         protected void moverAIzquierda(DeltaState deltaState) {
-                double delta = deltaState.getDelta();
+        		double delta = deltaState.getDelta();
                 double ro = velocidadPolar.getX();
-                double movimiento = Math.max(this.getX() - getVelocidad() * delta, getxMin());
+                double movimiento = this.getX() - getVelocidad() * delta;
                 if(movimiento < (this.posicionProxima.getX()*50 +1)){
                 	this.setX(this.posicionProxima.getX()*50+1);
                 }else{
@@ -194,9 +194,8 @@ public class TanqueEnemigo extends Tanque {
         
         protected void moverADerecha(DeltaState deltaState) {
                 double delta = deltaState.getDelta();
-                double ro = velocidadPolar.getX();
-                double movimiento = Math.min(getxMax() - this.getAppearance().getWidth(),
-                        this.getX() + getVelocidad() * delta);              
+                double ro = velocidadPolar.getX();   
+                double movimiento = this.getX() + getVelocidad() * delta;
                 if(movimiento > (this.posicionProxima.getX()*50+1)){
                 	this.setX(this.posicionProxima.getX()*50+1);
                 }else{
@@ -211,8 +210,7 @@ public class TanqueEnemigo extends Tanque {
         protected void moverAbajo(DeltaState deltaState) {
                 double delta = deltaState.getDelta();
                 double ro = velocidadPolar.getX();
-                double movimiento = Math.min(getyMax() - this.getAppearance().getHeight(),
-                        this.getY() + getVelocidad() * delta);
+                double movimiento = this.getY() + getVelocidad() * delta;
                 if(movimiento > this.posicionProxima.getY()*50+1){
                 	this.setY(this.posicionProxima.getY()*50+1);
                 }else{
@@ -226,7 +224,7 @@ public class TanqueEnemigo extends Tanque {
         protected void moverArriba(DeltaState deltaState) {
                 double delta = deltaState.getDelta();
                 double ro = velocidadPolar.getX();
-                double movimiento = Math.max(this.getY() - getVelocidad() * delta, getyMin());
+                double movimiento = this.getY() - getVelocidad() * delta;
                 if(movimiento < this.posicionProxima.getY()*50+1){
                 	this.setY(this.posicionProxima.getY()*50+1);
                 }else{
