@@ -29,7 +29,7 @@ public class TanqueEnemigo extends Tanque {
         public TanqueEnemigo(double posx, double posy, double xMin, double xMax,
                         double yMin, double yMax) {
                 super(posx, posy, xMin, xMax, yMin, yMax);
-                this.setAppearance(Sprite.fromImage("tanqueEnemigoAbajo.png"));
+                this.setAppearance(Sprite.fromImage("/tanqueEnemigoAbajo.png"));
         }
 
         @Override
@@ -51,8 +51,7 @@ public class TanqueEnemigo extends Tanque {
 //                this.tiempoDeDisparo += deltaState.getDelta();
                 if( this.tiempoDeDisparo >= this.comparadorDeBusqueda){
         			this.buscarTanque();
-        			this.irAbuscarTanque(deltaState);
-        			this.comparadorDeBusqueda += 5.0;// ESTE ES EL VALOR QUE TE DIGO,, el que demora que no pregunte
+        			this.comparadorDeBusqueda += 20.0;// ESTE ES EL VALOR QUE TE DIGO,, el que demora que no pregunte
         		}            
         
                 irAbuscarTanque(deltaState);
@@ -197,8 +196,9 @@ public class TanqueEnemigo extends Tanque {
                 }else{
                 	this.setX(movimiento);
                 }
-                this.setAppearance(Sprite.fromImage("tanqueEnemigoIzquierda.png"));
+                this.setAppearance(Sprite.fromImage("/tanqueEnemigoIzquierda.png"));
                 anguloDisparo = Math.PI;
+                this.velocidadPolar = new Vector2D(ro, anguloDisparo);
         }
         
         protected void moverADerecha(DeltaState deltaState) {
@@ -210,9 +210,9 @@ public class TanqueEnemigo extends Tanque {
                 }else{
                 	this.setX(movimiento);
                 }
-                this.setAppearance(Sprite.fromImage("tanqueEnemigoDerecha.png"));
+                this.setAppearance(Sprite.fromImage("/tanqueEnemigoDerecha.png"));
                 anguloDisparo = 2 * Math.PI;
-                	
+                this.velocidadPolar = new Vector2D(ro, anguloDisparo);	
                 
         }
         
@@ -225,9 +225,10 @@ public class TanqueEnemigo extends Tanque {
                 }else{
                 	this.setY(movimiento);
                 }
-                this.setAppearance(Sprite.fromImage("tanqueEnemigoAbajo.png"));
+                this.setAppearance(Sprite.fromImage("/tanqueEnemigoAbajo.png"));
                 anguloDisparo = Math.PI / 2;
-                ro = Math.max(0, ro - (deltaSpeed * deltaState.getDelta()));            
+                ro = Math.max(0, ro - (deltaSpeed * deltaState.getDelta()));
+                this.velocidadPolar = new Vector2D(ro, anguloDisparo);
         }
         
         protected void moverArriba(DeltaState deltaState) {
@@ -239,10 +240,10 @@ public class TanqueEnemigo extends Tanque {
                 }else{
                 	this.setY(movimiento);
                 }                	
-                this.setAppearance(Sprite.fromImage("tanqueEnemigoArriba.png"));
+                this.setAppearance(Sprite.fromImage("/tanqueEnemigoArriba.png"));
                 anguloDisparo = -Math.PI / 2;
                 ro += deltaSpeed * deltaState.getDelta();
-
+                this.velocidadPolar = new Vector2D(ro, anguloDisparo);
         }
 
 
