@@ -15,7 +15,8 @@ public class TanqueEnemigo extends Tanque {
         private double tiempoDeDisparo = 0;
         private double comparadorDeDisparo = 1;
         private double comparadorDeBusqueda = 2;
-        
+        private double comparadorDeBusqueda2 = 1;
+           
         private Vector2D velocidadPolar = new Vector2D(0, Math.PI / 2);
         private double rapidezDisparo = 300;
         double deltaSpeed = 20;
@@ -43,10 +44,18 @@ public class TanqueEnemigo extends Tanque {
         
                 if( this.tiempoDeDisparo >= this.comparadorDeDisparo){
                 	this.disparar();
-                	this.irAbuscarTanque(deltaState);
+//                	this.irAbuscarTanque(deltaState);
                 	this.comparadorDeDisparo += 1.0;
                 }
+                if (this.tiempoDeDisparo>=comparadorDeBusqueda2)
+                {
+                	this.irAbuscarTanque(deltaState);
+                	this.comparadorDeBusqueda2 +=0.5;
+                	
+                }
+                
                 Posicion actual = this.posicionActual();
+//                this.irAbuscarTanque(deltaState);
                 if(!(posicionProxima==null)){
                 	this.mover(deltaState);                	
                 }

@@ -178,11 +178,17 @@ public class Astar
                 	ArrayList camino = new ArrayList<Posicion>();
                         Posicion nodoAuxiliar = nodoFinal;
                         Posicion nodoAnterior = null;
-                        while (nodoAuxiliar != null && !(nodoAuxiliar == nodoAnterior))
-                        {
-                                camino.add(0, nodoAuxiliar);
+//                        while (nodoAuxiliar != null && !(nodoAuxiliar == nodoAnterior))
+//                        while (nodoAuxiliar != null)
+                        while (nodoAuxiliar != null && !(camino.contains(nodoAuxiliar)))
+                        {	
+                        		camino.add(0, nodoAuxiliar);
                                 nodoAnterior = nodoAuxiliar.getNodoPadre();
                                 nodoAuxiliar = nodoAuxiliar.getNodoPadre();
+//                                if(!(nodoAuxiliar==null)){
+//                                	System.out.println(nodoAuxiliar);
+//                                	System.out.println(nodoAuxiliar.getNodoPadre());
+//                                }
                         }
                         return camino;
                 }
