@@ -125,11 +125,11 @@ public class Tanque extends GameComponent<BattleCityScene> {
 	public void update(DeltaState deltaState) {
 		super.update(deltaState);
 		this.actualizarSpriteYDireccion(deltaState);
-//		this.contadorTanqueEnemigo += deltaState.getDelta();
-//		if(this.contadorTanqueEnemigo >= 5.0){
-//			this.contadorTanqueEnemigo = 0.0;
-//			this.getScene().agregarTanquesEnemigos(new TanqueEnemigo(700,100,0, this.getScene().getGame().getDisplayWidth(),0, this.getScene().getGame().getDisplayHeight()));
-//		}
+		this.contadorTanqueEnemigo += deltaState.getDelta();
+		if(this.contadorTanqueEnemigo >= 20.0){
+			this.contadorTanqueEnemigo = 0.0;
+			this.getScene().agregarTanquesEnemigos(new TanqueEnemigo(700,100,0, this.getScene().getGame().getDisplayWidth(),0, this.getScene().getGame().getDisplayHeight()));
+		}
 		
 		for(ColisionTanqueBloqueRule rule : this.getRules()) {
 			if(rule.mustApply(this, this.getScene())) {
