@@ -101,6 +101,11 @@ public class Posicion implements Comparable{
 		this.nodoPadre = nodoPadre;
 		this.recalcularG();
 	}
+	
+	public void setPadreNull(){
+		this.nodoPadre=null;
+		this.nodoFinal=null;
+	}
 
 	 public boolean getTransitable()
      {
