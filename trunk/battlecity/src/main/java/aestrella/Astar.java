@@ -193,7 +193,8 @@ public class Astar
                         return camino;
                 }
                 else
-                {		System.out.println("no se puede calcular camino");
+                {		
+//                	System.out.println("no se puede calcular camino");
                         return null;
                 	
                 }

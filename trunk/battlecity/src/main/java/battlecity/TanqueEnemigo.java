@@ -39,7 +39,7 @@ public class TanqueEnemigo extends Tanque {
 
                 if( this.tiempoDeDisparo >= this.comparadorDeBusqueda){
         			this.buscarTanque();
-        			this.comparadorDeBusqueda += 5.0;// ESTE ES EL VALOR QUE TE DIGO,, el que demora que no pregunte
+        			this.comparadorDeBusqueda += 7.0;// ESTE ES EL VALOR QUE TE DIGO,, el que demora que no pregunte
         		}            
         
                 if( this.tiempoDeDisparo >= this.comparadorDeDisparo){
@@ -64,7 +64,7 @@ public class TanqueEnemigo extends Tanque {
 		private void irAbuscarTanque(DeltaState deltaState) {
 			if(!(this.caminoARecorrer == null)&& (!(this.caminoARecorrer.size() == 0))){
 				if(this.llegoALaPosicionActual()&& (this.index <=(caminoARecorrer.size()-2))){
-					System.out.println("entro aca "+this.index);
+//					System.out.println("entro aca "+this.index);
 					this.index +=1;
 					this.posicionProxima= this.caminoARecorrer.get(this.index);
 					this.direccionAMover = this.vieneDe(this.posicionProxima);
@@ -121,12 +121,13 @@ public class TanqueEnemigo extends Tanque {
     	}
 
 		protected void buscarTanque() {
-                System.out.println("NUEVO CAMINO");
+//                System.out.println("NUEVO CAMINO");
                 ArrayList<Posicion> resultadosCaminos = new ArrayList<Posicion>();
                 Tanque tanque = this.getScene().getTanque();
                 Posicion miPosicionInicial = this.getScene().getGrilla().getPosicion(this.getX(), this.getY());
                 Posicion posicionTanque = this.getScene().getGrilla().getPosicion(tanque.getX(), tanque.getY());
-                System.out.println(miPosicionInicial.getX()+"/"+miPosicionInicial.getY());
+//                System.out.println(miPosicionInicial.getX()+"/"+miPosicionInicial.getY());
+//                this.getScene().getManager().borrarPadree(getScene(),(BattleCity) getGame());
                 Astar camino = new Astar(this.getScene().getGrilla().getMapa(), miPosicionInicial, posicionTanque);
                 resultadosCaminos = camino.calcularCamino();
                 this.caminoARecorrer = resultadosCaminos;
@@ -134,7 +135,7 @@ public class TanqueEnemigo extends Tanque {
                 if(!(resultadosCaminos == null) && (!(resultadosCaminos.size() == 0))){
                 	this.posicionProxima = resultadosCaminos.get(0);
                         for(Posicion posi : resultadosCaminos){
-                                System.out.println(posi.toString());
+//                                System.out.println(posi.toString());
                         }
                 }
         }

@@ -16,7 +16,16 @@ public class MapManager {
 				this.build(battleCityScene, x, y,game);
 			}
 		}
-//		System.out.println(this.mapa.getMapa()[1][0]);
+	}
+	public void borrarPadree(BattleCityScene battleCityScene, BattleCity game) {
+			for(int y = 0; y < this.mapa.getMapa().length; y++){
+				for(int x = 0; x < this.mapa.getMapa()[0].length; x++){
+					battleCityScene.getGrilla().getPosicion(x, y).setPadreNull();;					
+				}
+			}
+
+		
+		//		System.out.println(this.mapa.getMapa()[1][0]);
 //		System.out.println(this.mapa.getMapa().length);
 		
 	}
